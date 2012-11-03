@@ -1,3 +1,6 @@
+// Copyright (C) 2012, Ágoston Sasvári
+// All rights reserved.
+// This code is published under the GNU Lesser General Public License.
 #ifndef COMMON_HPP_
 #define COMMON_HPP_
 

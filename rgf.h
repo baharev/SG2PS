@@ -1,3 +1,6 @@
+// Copyright (C) 2012, Ágoston Sasvári
+// All rights reserved.
+// This code is published under the GNU Lesser General Public License.
 #ifndef RGF_HPP_
 #define RGF_HPP_
 
