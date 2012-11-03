@@ -12,7 +12,7 @@ using namespace std;
 
 string capslock (string input) {
 
-	for(unsigned int i = 0; i < input.length(); i++)	input[i] = toupper(input[i]);
+	for(unsigned int i = 0; i < input.length(); i++)	input.at(i) = toupper(input.at(i));
 	return input;
 }
 
@@ -39,46 +39,46 @@ double SIGNUM (double in) {
 
 double SIN (double in) {
 
-	in = (in * 3.14159265358979323846) / 180.0;
+	in = (in * 3.1415926535) / 180.0;
 
 	return sin(in);
 }
 
 double COS (double in) {
 
-	in = (in * 3.14159265358979323846) / 180.0;
+	in = (in * 3.1415926535) / 180.0;
 
 	return cos(in);
 }
 
 double ASIN (double in) {
 
-	if (in >= 1.0) 	in = 0.99999999;
-	if (in <= -1.0) in = -0.99999999;
+	if (in >= 1.0) 	in =   (1.0 - 10e-8);
+	if (in <= -1.0) in = - (1.0 - 10e-8);
 
 	in = asin(in);
 
-	return (in * 180.0) / 3.14159265358979323846;
+	return (in * 180.0) / 3.1415926535;
 }
 
 double ACOS (double in) {
 
-	if (in >= 1.0)  in = 0.99999999;
-	if (in <= -1.0) in = -0.99999999;
+	if (in >= 1.0)  in =   (1.0 - 10e-8);
+	if (in <= -1.0) in = - (1.0 - 10e-8);
 
 	in = acos(in);
 
-	return (in * 180.0) / 3.14159265358979323846;
+	return (in * 180.0) / 3.1415926535;
 }
 
 double ATAN (double in) {
 
 	in = atan(in);
 
-	return (in * 180.0) / 3.14159265358979323846;
+	return (in * 180.0) / 3.1415926535;
 }
 
-int rounding (double in) {
+double rounding (double in) {
 
 	double fract_part, int_part;
 
@@ -98,7 +98,7 @@ int rounding (double in) {
 	}
 }
 
-int mm_to_point (int i) {
+double mm_to_point (int i) {
 
 	return i * 0.03937 * 72.0;
 }
@@ -130,12 +130,12 @@ double det_3 (vector <vector <double> > in) {
 
 	return
 
-			(in[0][0] * in[1][1] * in[2][2]) +
-			(in[0][1] * in[1][2] * in[2][0]) +
-			(in[0][2] * in[1][0] * in[2][1]) -
-			(in[0][2] * in[1][1] * in[2][0]) -
-			(in[0][1] * in[1][0] * in[2][2]) -
-			(in[0][0] * in[1][2] * in[2][1]);
+			(in.at(0).at(0) * in.at(1).at(1) * in.at(2).at(2)) +
+			(in.at(0).at(1) * in.at(1).at(2) * in.at(2).at(0)) +
+			(in.at(0).at(2) * in.at(1).at(0) * in.at(2).at(1)) -
+			(in.at(0).at(2) * in.at(1).at(1) * in.at(2).at(0)) -
+			(in.at(0).at(1) * in.at(1).at(0) * in.at(2).at(2)) -
+			(in.at(0).at(0) * in.at(1).at(2) * in.at(2).at(1));
 }
 
 vector <vector <double> >  declare_3x3_matrix (double a, double b, double c, double d, double e, double f, double g, double h, double i) {
@@ -166,13 +166,13 @@ vector <vector <double> >  declare_3x3_matrix (double a, double b, double c, dou
 	return o;
 }
 
-vector <vector <double> > init_matrix (const int dimension) {
+vector <vector <double> > init_matrix (const size_t dimension) {
 
 	vector <vector <double> > o;
 	vector <double> buffer;
 
-	int m = 0;
-	int n = 0;
+	size_t m = 0;
+	size_t n = 0;
 
 	do {
 		do {
@@ -193,13 +193,13 @@ vector <vector <double> > init_matrix (const int dimension) {
 	return o;
 }
 
-vector <vector <double> > init_matrix (const int i, const int j) {
+vector <vector <double> > init_matrix (const size_t i, const size_t j) {
 
 	vector <vector <double> > o;
 	vector <double> buffer;
 
-	int m = 0;
-	int n = 0;
+	size_t m = 0;
+	size_t n = 0;
 
 	do {
 		do {
@@ -228,12 +228,12 @@ vector <vector <double> > identity_matrix (vector <vector <double> > in) {
 	do {
 		do {
 
-			if (m == n) in[m][n] = 1.0;
-			else 		in[m][n] = 0.0;
+			if (m == n) in.at(m).at(n) = 1.0;
+			else 		in.at(m).at(n) = 0.0;
 
 			m++;
 
-		} while (m < in[0].size());
+		} while (m < in.at(0).size());
 
 		m = 0;
 		n++;
@@ -258,7 +258,7 @@ vector <double> init_vector (int dimension) {
 	return buffer;
 }
 
-int m_from_max_element (int max_element, size_t m, size_t n) {
+size_t m_from_max_element (size_t max_element, size_t n) {
 
 	int j = 0;
 
@@ -273,63 +273,63 @@ int m_from_max_element (int max_element, size_t m, size_t n) {
 	return j;
 }
 
-int search_max_off_diagonal_element_in_mtrx (vector <vector <double> > in) {
+size_t search_max_off_diagonal_element_in_mtrx (vector <vector <double> > in) {
 
 	size_t m = 0;
 	size_t n = 0;
-	int  out = 0;
+	size_t  out = 0;
 	double max_element_size = 0.0;
 
 	do {
 		do {
-			if ((fabs(in[m][n]) > max_element_size) && (m != n)) {
+			if ((fabs(in.at(m).at(n)) > max_element_size) && (m != n)) {
 
-				max_element_size = fabs(in[m][n]);
-				out = (in[0].size() * m) + (n + 1);
+				max_element_size = fabs(in.at(m).at(n));
+				out = (in.at(0).size() * m) + (n + 1);
 			}
 
 			n++;
 
-		} while (n < in[0].size());
+		} while (n < in.at(0).size());
 
 		n = 0;
 		m++;
 
 	} while (m < in.size());
 
-	if (max_element_size < 0.000001) out = 9999;
+	if (max_element_size < 10e-8) out = 9999;
 
 	return out;
 }
 
-double teta (vector <vector <double> > in, int m, int n) {
+double teta (vector <vector <double> > in, size_t m, size_t n) {
 
-	double teta = 2.0 * in[m][n] / (in[n][n] - in[m][m]);
+	double teta = 2.0 * in.at(m).at(n) / (in.at(n).at(n) - in.at(m).at(m));
 
 	return atan(teta) / 2.0;
 }
 
-vector <vector <double> > init_rotation_mtrx (double teta, int m, int n, int dimension) {
+vector <vector <double> > init_rotation_mtrx (double teta, size_t m, size_t n, size_t dimension) {
 
 	vector <vector <double> > o = init_matrix (dimension);
 
-	int i = 0;
-	int j = 0;
+	size_t i = 0;
+	size_t j = 0;
 
 	do {
 		do {
 
-			if ((i == m) && (j == n)) 		o[i][j] = - sin (teta);
+			if ((i == m) && (j == n)) 		o.at(i).at(j) = - sin (teta);
 
-			else if ((i == n) && (j == m)) 	o[i][j] = sin (teta);
+			else if ((i == n) && (j == m)) 	o.at(i).at(j) =   sin (teta);
 
-			else if ((i == m) && (j == m)) 	o[i][j] =  cos (teta);
+			else if ((i == m) && (j == m)) 	o.at(i).at(j) =   cos (teta);
 
-			else if ((i == n) && (j == n)) 	o[i][j] =  cos (teta);
+			else if ((i == n) && (j == n)) 	o.at(i).at(j) =   cos (teta);
 
-			else if (i == j) 				o[i][j] =  1.0;
+			else if (i == j) 				o.at(i).at(j) =   1.0;
 
-			else 							o[i][j] =  0.0;
+			else 							o.at(i).at(j) =   0.0;
 
 			i++;
 
@@ -352,7 +352,7 @@ vector <vector <double> > outer_product (vector <double> in) {
 	do {
 		do {
 
-			o[m][n] = in[m] * in[n];
+			o.at(m).at(n) = in.at(m) * in.at(n);
 			n++;
 
 		} while (n < in.size());
@@ -373,14 +373,14 @@ vector <vector <double> > transpose (vector <vector <double> > in) {
 	size_t n = 0;
 
 	const size_t j = in.size();
-	const size_t i = in[0].size();
+	const size_t i = in.at(0).size();
 
 	o = init_matrix (i, j);
 
 	do {
 		do {
 
-			o[m][n] = in[n][m];
+			o.at(m).at(n) = in.at(n).at(m);
 			n++;
 
 		} while (n < j);
@@ -396,11 +396,11 @@ vector <vector <double> > transpose (vector <vector <double> > in) {
 vector <vector <double> > mult_mtrx (vector <vector <double> > in1, vector <vector <double> > in2) {
 
 	size_t m = in1.size();
-	size_t n = in1[0].size();
+	size_t n = in1.at(0).size();
 	size_t M = 0;
 	size_t N = 0;
 
-	size_t l = in2[0].size();
+	size_t l = in2.at(0).size();
 	size_t L = 0;
 
 	vector <vector <double> > out = init_matrix (m, l);
@@ -409,7 +409,7 @@ vector <vector <double> > mult_mtrx (vector <vector <double> > in1, vector <vect
 		do {
 			do {
 
-				out[M][L] = out[M][L] + in1[M][N] * in2 [N][L];
+				out.at(M).at(L) = out.at(M).at(L) + in1.at(M).at(N) * in2 .at(N).at(L);
 
 				N++;
 
@@ -430,17 +430,17 @@ vector <vector <double> > mult_mtrx (vector <vector <double> > in1, vector <vect
 
 vector <vector <double> > add_mtrx (vector <vector <double> > in1, vector <vector <double> > in2) {
 
-	vector <vector <double> > out = init_matrix (in1.size(), in1[0].size());
+	vector <vector <double> > out = init_matrix (in1.size(), in1.at(0).size());
 	size_t m = 0;
 	size_t n = 0;
 
 	do {
 		do {
 
-			out[m][n] = in1[m][n] + in2[m][n];
+			out.at(m).at(n) = in1.at(m).at(n) + in2.at(m).at(n);
 			n++;
 
-		} while (n < in1[0].size());
+		} while (n < in1.at(0).size());
 
 		n = 0;
 		m++;
@@ -451,7 +451,7 @@ vector <vector <double> > add_mtrx (vector <vector <double> > in1, vector <vecto
 }
 
 
-size_t return_second_eigenvalue (vector <vector< double > > in) {
+int return_second_eigenvalue (vector <vector< double > > in) {
 
 	vector <sort_jacobi> buffer;
 	sort_jacobi buf;
@@ -461,7 +461,7 @@ size_t return_second_eigenvalue (vector <vector< double > > in) {
 	do {
 
 		buf.ID = j;
-		buf.eigenvalue = in[j][j];
+		buf.eigenvalue = in.at(j).at(j);
 		buffer.push_back(buf);
 
 		j++;
@@ -473,7 +473,7 @@ size_t return_second_eigenvalue (vector <vector< double > > in) {
 	return buffer.at(1).ID;
 }
 
-size_t return_first_eigenvalue (vector <vector< double > > in) {
+int return_first_eigenvalue (vector <vector< double > > in) {
 
 	sort_jacobi buf;
 	vector <sort_jacobi> buffer;
@@ -483,7 +483,7 @@ size_t return_first_eigenvalue (vector <vector< double > > in) {
 	do {
 
 		buf.ID = j;
-		buf.eigenvalue = in[j][j];
+		buf.eigenvalue = in.at(j).at(j);
 		buffer.push_back(buf);
 
 		j++;
@@ -504,12 +504,12 @@ vector <vector <double> > jacobi (vector <vector <double> > in) {
 	vector <vector <double> > R2 = init_matrix (in.size());
 	vector <vector <double> > D  = init_matrix (in.size());
 
-	int max_element_in_mtrx = 10;
+	size_t max_element_in_mtrx = 10;
 
 	double teta_angle = 0.0;
 
-	int m = 0;
-	int n = 0;
+	size_t m = 0;
+	size_t n = 0;
 	size_t i = 0;
 
 	do {
@@ -518,9 +518,9 @@ vector <vector <double> > jacobi (vector <vector <double> > in) {
 
 		if (max_element_in_mtrx > 9000) break;
 
-		m = m_from_max_element (max_element_in_mtrx, A.size(), A[0].size());
+		m = m_from_max_element (max_element_in_mtrx, A.at(0).size());
 
-		n = max_element_in_mtrx - (m * A[0].size()) - 1;
+		n = max_element_in_mtrx - (m * A.at(0).size()) - 1;
 
 		teta_angle = teta (A, m, n);
 
@@ -542,7 +542,7 @@ vector <vector <double> > jacobi (vector <vector <double> > in) {
 
 	do {
 
-		out.push_back(A[i]);
+		out.push_back(A.at(i));
 		i++;
 
 	} 	while (i < A.size());
@@ -553,7 +553,7 @@ vector <vector <double> > jacobi (vector <vector <double> > in) {
 
 	do {
 
-		out.push_back(D[i]);
+		out.push_back(D.at(i));
 		i++;
 
 	} 	while (i < D.size());
@@ -573,15 +573,15 @@ vector <vector <double> > gaussian_elimination (vector <vector <double> > in) {
 
 	do {
 
-		o  = row_division_diagonal (o,  n, in[n][n]);
+		o  = row_division_diagonal (o,  n, in.at(n).at(n));
 
-		in = row_division_diagonal (in, n, in[n][n]);
+		in = row_division_diagonal (in, n, in.at(n).at(n));
 
 		do {
 
 			if (n != m) {
 
-				value = in[m][n];
+				value = in.at(m).at(n);
 
 				o  = row_addition (o,  m, n, value);
 				in = row_addition (in, m, n, value);
@@ -594,7 +594,7 @@ vector <vector <double> > gaussian_elimination (vector <vector <double> > in) {
 		m = 0;
 		n++;
 
-	} while (n < in[0].size());
+	} while (n < in.at(0).size());
 
 	return o;
 }
@@ -615,11 +615,11 @@ vector <vector <double> > LU_decomposition (vector <vector <double> > in) {
 
 		do {
 
-			value = U[m][n] / U[n][n];
+			value = U.at(m).at(n) / U.at(n).at(n);
 
 			U  = row_addition_LU (U,  m, n, value);
 
-			L[m][n] = value;
+			L.at(m).at(n) = value;
 
 			m++;
 
@@ -628,13 +628,13 @@ vector <vector <double> > LU_decomposition (vector <vector <double> > in) {
 		n++;
 		m = n + 1;
 
-	} while ((n < in[0].size()) && (m < in.size()));
+	} while ((n < in.at(0).size()) && (m < in.size()));
 
 	n = 0;
 
 	do {
 
-		U.push_back(L[n]);
+		U.push_back(L.at(n));
 
 		n++;
 
@@ -652,11 +652,11 @@ vector <vector <double> > compute_Z (vector <vector <double> > L, vector <vector
 
 	do {
 
-		out[i][0] = c[i][0];
+		out.at(i).at(0) = c.at(i).at(0);
 
 		do {
 
-			if (!(i == j)) out[i][0] = out[i][0] - (L[i][j] * out[j][0]);
+			if (!(i == j)) out.at(i).at(0) = out.at(i).at(0) - (L.at(i).at(j) * out.at(j).at(0));
 
 			j++;
 
@@ -679,12 +679,12 @@ vector <vector <double> > compute_X (vector <vector <double> > U, vector <vector
 
 	do {
 
-		out[i-1][0] = Z[i-1][0];
+		out.at(i-1).at(0) = Z.at(i-1).at(0);
 
 		do {
 
-			if ((i == j)) 	out[i-1][0] = out[i-1][0] /  U[i-1][j-1];
-			else 			out[i-1][0] = out[i-1][0] - (U[i-1][j-1] * out[j-1][0]);
+			if (i == j) 	out.at(i-1).at(0) = out.at(i-1).at(0) /  U.at(i-1).at(j-1);
+			else 			out.at(i-1).at(0) = out.at(i-1).at(0) - (U.at(i-1).at(j-1) * out.at(j-1).at(0));
 
 			j--;
 
@@ -698,28 +698,28 @@ vector <vector <double> > compute_X (vector <vector <double> > U, vector <vector
 	return out;
 }
 
-vector <vector <double> > row_division_diagonal (vector <vector <double> > in,  double rownumber, double value) {
+vector <vector <double> > row_division_diagonal (vector <vector <double> > in,  size_t rownumber, double value) {
 
 	size_t i = 0;
 
 	do {
 
-		in[rownumber][i] = in[rownumber][i] / value;
+		in.at(rownumber).at(i) = in.at(rownumber).at(i) / value;
 
 		i++;
 
-	} while (i < in[0].size());
+	} while (i < in.at(0).size());
 
 	return in;
 }
 
-vector <vector <double> > row_addition (vector <vector <double> > in,  double actual_row_number, double zero_row_number, double value) {
+vector <vector <double> > row_addition (vector <vector <double> > in, size_t actual_row_number, size_t zero_row_number, double value) {
 
 	size_t i = 0;
 
 	do {
 
-		in[actual_row_number][i] = in[actual_row_number][i] - (value * in[zero_row_number][i]);
+		in.at(actual_row_number).at(i) = in.at(actual_row_number).at(i) - (value * in.at(zero_row_number).at(i));
 
 		i++;
 
@@ -729,13 +729,13 @@ vector <vector <double> > row_addition (vector <vector <double> > in,  double ac
 }
 
 
-vector <vector <double> > row_addition_LU (vector <vector <double> > in,  double actual_row_number, double zero_row_number, double value) {
+vector <vector <double> > row_addition_LU (vector <vector <double> > in, size_t actual_row_number, size_t zero_row_number, double value) {
 
 	size_t i = 0;
 
 	do {
 
-		in[actual_row_number][i] = in[actual_row_number][i] - (value * in[zero_row_number][i]);
+		in.at(actual_row_number).at(i) = in.at(actual_row_number).at(i) - (value * in.at(zero_row_number).at(i));
 
 		i++;
 
@@ -746,12 +746,12 @@ vector <vector <double> > row_addition_LU (vector <vector <double> > in,  double
 
 vector < vector < double > > generate_A (vector < vector < double > > EVEV) {
 
-	vector < vector < double > > A = init_matrix (EVEV[0].size());
+	vector < vector < double > > A = init_matrix (EVEV.at(0).size());
 	size_t i = 0;
 
 	do {
 
-		A[i] = EVEV[i];
+		A.at(i) = EVEV.at(i);
 		i++;
 
 	} 	while (i < (EVEV.size() / 2));
@@ -761,12 +761,12 @@ vector < vector < double > > generate_A (vector < vector < double > > EVEV) {
 
 vector < vector < double > > generate_D (vector < vector < double > > EVEV) {
 
-	vector < vector < double > > D = init_matrix (EVEV[0].size());
+	vector < vector < double > > D = init_matrix (EVEV.at(0).size());
 	size_t i = 0;
 
 	do {
 
-		D[i] = EVEV[i + (EVEV.size() / 2)];
+		D.at(i) = EVEV.at(i + (EVEV.size() / 2));
 		i++;
 
 	} 	while (i < (EVEV.size() / 2));
@@ -783,7 +783,7 @@ bool check_fry_matrix (size_t first_eigenvalue, vector <vector <double> > in_eig
 	do {
 
 		buf.ID = j;
-		buf.eigenvalue = in_eigenvector[first_eigenvalue][j];
+		buf.eigenvalue = in_eigenvector.at(first_eigenvalue).at(j);
 		buffer.push_back(buf);
 
 		j++;
@@ -792,14 +792,14 @@ bool check_fry_matrix (size_t first_eigenvalue, vector <vector <double> > in_eig
 
 	sort(buffer.begin(), buffer.end(), byeigenvalue);
 
-	if (	((buffer[0].eigenvalue < 0.005) && (buffer[0].eigenvalue > -0.005)) &&
-			((buffer[1].eigenvalue < 0.005) && (buffer[1].eigenvalue > -0.005)) &&
-			((buffer[2].eigenvalue < 0.005) && (buffer[2].eigenvalue > -0.005))
+	if (	((buffer.at(0).eigenvalue < 0.005) && (buffer.at(0).eigenvalue > -0.005)) &&
+			((buffer.at(1).eigenvalue < 0.005) && (buffer.at(1).eigenvalue > -0.005)) &&
+			((buffer.at(2).eigenvalue < 0.005) && (buffer.at(2).eigenvalue > -0.005))
 
 		&&
-			((buffer[3].eigenvalue > 0.57) && (buffer[3].eigenvalue < 0.58)) &&
-			((buffer[4].eigenvalue > 0.57) && (buffer[4].eigenvalue < 0.58)) &&
-			((buffer[5].eigenvalue > 0.57) && (buffer[5].eigenvalue < 0.58))	) return true;
+			((buffer.at(3).eigenvalue > 0.57) && (buffer.at(3).eigenvalue < 0.58)) &&
+			((buffer.at(4).eigenvalue > 0.57) && (buffer.at(4).eigenvalue < 0.58)) &&
+			((buffer.at(5).eigenvalue > 0.57) && (buffer.at(5).eigenvalue < 0.58))	) return true;
 
 	else return false;
 }
@@ -883,7 +883,7 @@ VCTR unitvector (VCTR in) {
 
 	double vectorlength = sqrt(in.X * in.X + in.Y * in.Y + in.Z * in.Z);
 
-	if (vectorlength > 0.0000000000001) {
+	if (vectorlength > 10e-8) {
 
 		in.X = (in.X / vectorlength);
 		in.Y = (in.Y / vectorlength);
@@ -900,7 +900,7 @@ vector < double > unitvector (vector < double > in) {
 
 	do {
 
-		vectorlength = vectorlength + (in[j] * in[j]);
+		vectorlength = vectorlength + (in.at(j) * in.at(j));
 		j++;
 
 	} while (j < in.size());
@@ -908,13 +908,13 @@ vector < double > unitvector (vector < double > in) {
 	vectorlength = sqrt (vectorlength);
 	j = 0;
 
-	if (vectorlength < 0.0000000000001) return in;
+	if (vectorlength < 10e-8) return in;
 
 	else {
 
 		do {
 
-			in[j] = in[j] / vectorlength;
+			in.at(j) = in.at(j) / vectorlength;
 			j++;
 
 		} while (j < in.size());
@@ -1001,7 +1001,7 @@ VCTR flip_ptn_vector (VCTR in) {
 	return in;
 }
 
-VCTR compute_d_for_SC (GDB_ i) {
+VCTR compute_d_for_SC (GDB i) {
 
 	VCTR temp1;
 	VCTR temp2;
@@ -1158,7 +1158,7 @@ VCTR ROTATE (VCTR ax, VCTR torotate, double angle) {
 	return unitvector (result);
 }
 
-bool existence (string expression, vector<GDB_> inGDB) {
+bool existence (string expression, vector<GDB> inGDB) {
 
 	bool presence = false;
 
@@ -1188,7 +1188,7 @@ bool existence_of_group (int expression, vector <int> whichgroup) {
 	return presence;
 }
 
-bool existence_of_group_GDB (string expression, vector <GDB_> inGDB) {
+bool existence_of_group_GDB (string expression, vector <GDB> inGDB) {
 
 	bool presence = false;
 
@@ -1203,7 +1203,7 @@ bool existence_of_group_GDB (string expression, vector <GDB_> inGDB) {
 	return presence;
 }
 
-bool existence_of_groupcodes (vector <GDB_> inGDB) {
+bool existence_of_groupcodes (vector <GDB> inGDB) {
 
 	bool presence = false;
 
@@ -1211,7 +1211,7 @@ bool existence_of_groupcodes (vector <GDB_> inGDB) {
 
 	do {
 
-		if (!(inGDB[i].GC == "X")) return true;
+		if (!(inGDB.at(i).GC == "X")) return true;
 
 		i++;
 	}
@@ -1332,12 +1332,13 @@ vector <double>  quartic_solution (double A, double B, double C, double D, doubl
 
 
 
-	if (fabs((X[3]) > 0.0) && (fabs(X[4]) > 0.0)) {
 
-		double R = sqrt (X[2] * X[2] + X[4] * X[4]);
-		double Y = sqrt ((R - X[2]) / 2.0);
+	if ((fabs(X.at(3) > 0.0)) && (fabs(X.at(4) > 0.0))) {
 
-		double Z = X[4] / (2.0 * Y);
+		double R = sqrt (X.at(2) * X.at(2) + X.at(4) * X.at(4));
+		double Y = sqrt ((R - X.at(2)) / 2.0);
+
+		double Z = X.at(4) / (2.0 * Y);
 
 		p = - Z;	p_c =   Y;
 		q = - Z;	q_c = - Y;
@@ -1345,27 +1346,27 @@ vector <double>  quartic_solution (double A, double B, double C, double D, doubl
 
 	else {
 
-		if ((fabs(X[0]) > 1E-8) &&  (fabs(X[1]) > 1E-8)) {
+		if 		((fabs(X.at(0) > 1E-8)) &&  (fabs(X.at(1) > 1E-8))) {
 
-			p = sqrt (X[0]);
-			q = sqrt (X[1]);
+			p = sqrt (X.at(0));
+			q = sqrt (X.at(1));
 		}
 
-		else if ((fabs(X[0]) > 1E-8) &&  (fabs(X[2]) > 1E-8)) {
+		else if ((fabs(X.at(0) > 1E-8)) &&  (fabs(X.at(2) > 1E-8))) {
 
-			p = sqrt (X[0]);
-			q = sqrt (X[2]);
+			p = sqrt (X.at(0));
+			q = sqrt (X.at(2));
 		}
 
-		else if ((fabs(X[1]) > 1E-8) &&  (fabs(X[2] > 1E-8))) {
+		else if ((fabs(X.at(1) > 1E-8)) &&  (fabs(X.at(2) > 1E-8))) {
 
-			p = sqrt (X[1]);
-			q = sqrt (X[2]);
+			p = sqrt (X.at(1));
+			q = sqrt (X.at(2));
 		}
-		else if ((fabs(X[0]) > 1E-8) &&  (fabs(X[1]) > 1E-8) &&  (fabs(X[2]) > 1E-8)) {
+		else if ((fabs(X.at(0) > 1E-8)) &&  (fabs(X.at(1) > 1E-8)) &&  (fabs(X.at(2) > 1E-8))) {
 
-			p = sqrt (X[0]);
-			q = sqrt (X[1]);
+			p = sqrt (X.at(0));
+			q = sqrt (X.at(1));
 		}
 
 		else {
@@ -1413,46 +1414,46 @@ STRESSFIELD eigenvalue_eigenvector (STRESSTENSOR st) {
 
 	X = cubic_solution (A, B, C, D);
 
-	if ((X[0] >= X[1]) && (X[1] >= X[2])) {
+	if ((X.at(0) >= X.at(1)) && (X.at(1) >= X.at(2))) {
 
-		sf.EIGENVALUE.X = X[0];
-		sf.EIGENVALUE.Y = X[1];
-		sf.EIGENVALUE.Z = X[2];
+		sf.EIGENVALUE.X = X.at(0);
+		sf.EIGENVALUE.Y = X.at(1);
+		sf.EIGENVALUE.Z = X.at(2);
 	}
 
-	else if ((X[0] >= X[2]) && (X[2] >= X[1])) {
+	else if ((X.at(0) >= X.at(2)) && (X.at(2) >= X.at(1))) {
 
-		sf.EIGENVALUE.X = X[0];
-		sf.EIGENVALUE.Y = X[2];
-		sf.EIGENVALUE.Z = X[1];
+		sf.EIGENVALUE.X = X.at(0);
+		sf.EIGENVALUE.Y = X.at(2);
+		sf.EIGENVALUE.Z = X.at(1);
 	}
 
-	else if ((X[1] >= X[0]) && (X[0] >= X[2])) {
+	else if ((X.at(1) >= X.at(0)) && (X.at(0) >= X.at(2))) {
 
-		sf.EIGENVALUE.X = X[1];
-		sf.EIGENVALUE.Y = X[0];
-		sf.EIGENVALUE.Z = X[2];
+		sf.EIGENVALUE.X = X.at(1);
+		sf.EIGENVALUE.Y = X.at(0);
+		sf.EIGENVALUE.Z = X.at(2);
 	}
 
-	else if ((X[1] >= X[2]) && (X[2] >= X[0])) {
+	else if ((X.at(1) >= X.at(2)) && (X.at(2) >= X.at(0))) {
 
-		sf.EIGENVALUE.X = X[1];
-		sf.EIGENVALUE.Y = X[2];
-		sf.EIGENVALUE.Z = X[0];
+		sf.EIGENVALUE.X = X.at(1);
+		sf.EIGENVALUE.Y = X.at(2);
+		sf.EIGENVALUE.Z = X.at(0);
 	}
 
-	else if ((X[2] >= X[0]) && (X[0] >= X[1])) {
+	else if ((X.at(2) >= X.at(0)) && (X.at(0) >= X.at(1))) {
 
-		sf.EIGENVALUE.X = X[2];
-		sf.EIGENVALUE.Y = X[0];
-		sf.EIGENVALUE.Z = X[1];
+		sf.EIGENVALUE.X = X.at(2);
+		sf.EIGENVALUE.Y = X.at(0);
+		sf.EIGENVALUE.Z = X.at(1);
 	}
 
 	else  {
 
-		sf.EIGENVALUE.X = X[2];
-		sf.EIGENVALUE.Y = X[1];
-		sf.EIGENVALUE.Z = X[0];
+		sf.EIGENVALUE.X = X.at(2);
+		sf.EIGENVALUE.Y = X.at(1);
+		sf.EIGENVALUE.Z = X.at(0);
 	}
 
 	a1 = st._11 - sf.EIGENVALUE.X;
@@ -1495,30 +1496,30 @@ STRESSTENSOR stresstensor_from_eigenvalue_eigenvector (STRESSFIELD sf) {
 
 	STRESSTENSOR out;
 
-	D[0][0] = sf.EIGENVECTOR1.X;
-	D[0][1] = sf.EIGENVECTOR1.Y;
-	D[0][2] = sf.EIGENVECTOR1.Z;
+	D.at(0).at(0) = sf.EIGENVECTOR1.X;
+	D.at(0).at(1) = sf.EIGENVECTOR1.Y;
+	D.at(0).at(2) = sf.EIGENVECTOR1.Z;
 
-	D[1][0] = sf.EIGENVECTOR2.X;
-	D[1][1] = sf.EIGENVECTOR2.Y;
-	D[1][2] = sf.EIGENVECTOR2.Z;
+	D.at(1).at(0) = sf.EIGENVECTOR2.X;
+	D.at(1).at(1) = sf.EIGENVECTOR2.Y;
+	D.at(1).at(2) = sf.EIGENVECTOR2.Z;
 
-	D[2][0] = sf.EIGENVECTOR3.X;
-	D[2][1] = sf.EIGENVECTOR3.Y;
-	D[2][2] = sf.EIGENVECTOR3.Z;
+	D.at(2).at(0) = sf.EIGENVECTOR3.X;
+	D.at(2).at(1) = sf.EIGENVECTOR3.Y;
+	D.at(2).at(2) = sf.EIGENVECTOR3.Z;
 
 
-	T[0][0] = sf.EIGENVALUE.X;
-	T[0][1] = 0.0;
-	T[0][2] = 0.0;
+	T.at(0).at(0) = sf.EIGENVALUE.X;
+	T.at(0).at(1) = 0.0;
+	T.at(0).at(2) = 0.0;
 
-	T[1][0] = 0.0;
-	T[1][1] = sf.EIGENVALUE.Y;
-	T[1][2] = 0.0;
+	T.at(1).at(0) = 0.0;
+	T.at(1).at(1) = sf.EIGENVALUE.Y;
+	T.at(1).at(2) = 0.0;
 
-	T[2][0] = 0.0;
-	T[2][1] = 0.0;
-	T[2][2] = sf.EIGENVALUE.Z;
+	T.at(2).at(0) = 0.0;
+	T.at(2).at(1) = 0.0;
+	T.at(2).at(2) = sf.EIGENVALUE.Z;
 
 
 	T = mult_mtrx (transpose(D), T);
@@ -1526,12 +1527,12 @@ STRESSTENSOR stresstensor_from_eigenvalue_eigenvector (STRESSFIELD sf) {
 	T = mult_mtrx (T, D);
 
 
-	out._11 = T[0][0];
-	out._12 = T[0][1];
-	out._13 = T[0][2];
-	out._22 = T[1][1];
-	out._23 = T[1][2];
-	out._33 = T[2][2];
+	out._11 = T.at(0).at(0);
+	out._12 = T.at(0).at(1);
+	out._13 = T.at(0).at(2);
+	out._22 = T.at(1).at(1);
+	out._23 = T.at(1).at(2);
+	out._33 = T.at(2).at(2);
 
 	return out;
 }
@@ -1582,7 +1583,7 @@ STRESSTENSOR invert_stress_tensor (STRESSTENSOR st) {
 	return out;
 }
 
-VCTR return_stressvector (STRESSTENSOR st, GDB_ inGDB, bool compression_positive) {
+VCTR return_stressvector (STRESSTENSOR st, GDB inGDB, bool compression_positive) {
 
 	VCTR N = inGDB.N;
 
@@ -1598,7 +1599,7 @@ VCTR return_stressvector (STRESSTENSOR st, GDB_ inGDB, bool compression_positive
 	return out;
 }
 
-VCTR return_normalstress (STRESSTENSOR st, GDB_ inGDB, bool compression_positive) {
+VCTR return_normalstress (STRESSTENSOR st, GDB inGDB, bool compression_positive) {
 
 	VCTR N = inGDB.N;
 	VCTR stressvector = return_stressvector (st, inGDB, compression_positive);
@@ -1610,7 +1611,7 @@ VCTR return_normalstress (STRESSTENSOR st, GDB_ inGDB, bool compression_positive
 	return out;
 }
 
-VCTR return_shearstress (STRESSTENSOR st, GDB_ inGDB, bool compression_positive) {
+VCTR return_shearstress (STRESSTENSOR st, GDB inGDB, bool compression_positive) {
 
 	VCTR stressvector = return_stressvector (st, inGDB, compression_positive);
 	VCTR normalstress = return_normalstress (st, inGDB, compression_positive);
@@ -1623,7 +1624,7 @@ VCTR return_shearstress (STRESSTENSOR st, GDB_ inGDB, bool compression_positive)
 	return out;
 }
 
-VCTR return_upsilon (STRESSTENSOR st, GDB_ inGDB, string method, bool compression_positive) {
+VCTR return_upsilon (STRESSTENSOR st, GDB inGDB, string method, bool compression_positive) {
 
 	VCTR shearstress = return_shearstress (st, inGDB, compression_positive);
 	VCTR out;
@@ -1645,15 +1646,15 @@ VCTR return_upsilon (STRESSTENSOR st, GDB_ inGDB, string method, bool compressio
 	return out;
 }
 
-double return_ANG (STRESSTENSOR st, GDB_ inGDB, bool compression_positive) {
+double return_ANG (STRESSTENSOR st, GDB inGDB, bool compression_positive) {
 
-	VCTR slipvector = inGDB.SV; //OK
+	VCTR slipvector = inGDB.SV;
 	VCTR shearstress = return_shearstress (st, inGDB, compression_positive);
 
 	return ACOS (dotproduct (slipvector, shearstress, true));
 }
 
-double return_RUP (STRESSTENSOR st, GDB_ inGDB, string method, bool compression_positive) {
+double return_RUP (STRESSTENSOR st, GDB inGDB, bool compression_positive) {
 
 	VCTR shearstress  = return_shearstress (st, inGDB, compression_positive);
 	VCTR stressvector = return_stressvector (st, inGDB, compression_positive);
@@ -1671,7 +1672,7 @@ double return_RUP (STRESSTENSOR st, GDB_ inGDB, string method, bool compression_
 	return ((sqrt(out * out)) / inGDB.lambda) * 100.0;
 }
 
-double return_average_misfit (STRESSTENSOR st, vector <GDB_> inGDB, bool compression_positive) {
+double return_average_misfit (STRESSTENSOR st, vector <GDB> inGDB, bool compression_positive) {
 
 	double misfit = 0.0;
 	double ang = 0.0;
@@ -1679,7 +1680,7 @@ double return_average_misfit (STRESSTENSOR st, vector <GDB_> inGDB, bool compres
 
 	do {
 
-		ang = return_ANG (st, inGDB[i], compression_positive);
+		ang = return_ANG (st, inGDB.at(i), compression_positive);
 		misfit = misfit + ang;
 
 		i++;
@@ -1733,7 +1734,7 @@ STRESSFIELD stress_regime (STRESSFIELD in) {
 	return out;
 }
 
-vector <double> hyperplane_from_GDB (GDB_ inGDB)  {
+vector <double> hyperplane_from_GDB (GDB inGDB)  {
 
 	vector <double>  out = init_vector (6);
 	CENTR_VECT o;
@@ -1765,7 +1766,7 @@ vector <double> hyperplane_from_GDB (GDB_ inGDB)  {
 	return out;
 }
 
-vector < vector <double> > shan_matrix_from_GDB (GDB_ inGDB)  {
+vector < vector <double> > shan_matrix_from_GDB (GDB inGDB)  {
 
 	vector <double>  o = init_vector (5);
 	vector < vector <double> > out = init_matrix (5);
@@ -1776,11 +1777,11 @@ vector < vector <double> > shan_matrix_from_GDB (GDB_ inGDB)  {
 	s = crossproduct (s, n);
 	s = unitvector (s);
 
-	o[0] = n.X * s.X - n.Z * s.Z;
-	o[1] = n.Y * s.Y - n.Z * s.Z;
-	o[2] = n.X * s.Y + n.Y * s.X;
-	o[3] = n.X * s.Z + n.Z * s.X;
-	o[4] = n.Y * s.Z + n.Z * s.Y;
+	o.at(0) = n.X * s.X - n.Z * s.Z;
+	o.at(1) = n.Y * s.Y - n.Z * s.Z;
+	o.at(2) = n.X * s.Y + n.Y * s.X;
+	o.at(3) = n.X * s.Z + n.Z * s.X;
+	o.at(4) = n.Y * s.Z + n.Z * s.Y;
 
 	out = outer_product (o);
 

@@ -6,6 +6,8 @@
 #include <string>
 #include <cstdio>
 #include <cstdlib>
+#include <stdexcept>
+
 #include "structs.h"
 #include "common.h"
 
@@ -15,12 +17,14 @@ using namespace std;
 
 void header ();
 bool settingfilecorrect (string settingfilename);
-INPSET_ loadsettingsfromsettingfile (string settingfilename);
-void printsettingsonscreen (INPSET_ settings);
-INPSET_ inputsettings_manually (string projectname);
-bool outputsettingfile (INPSET_ _outputsettingfile, string projectname);
-INPSET_ input_hardcoded ();
-INPSET_ manage_settings (bool batch, string projectname);
+INPSET loadsettingsfromsettingfile (string settingfilename);
+void printsettingsonscreen (INPSET settings);
+INPSET inputsettings_manually (string projectname);
+bool outputsettingfile (INPSET _outputsettingfile, string projectname);
+INPSET input_hardcoded ();
+INPSET decide_setting_status (string projectname);
+INPSET manage_settings_batch   (string projectname);
+INPSET manage_settings_nobatch (string projectname);
 string input_setting_decision ();
 
 #endif

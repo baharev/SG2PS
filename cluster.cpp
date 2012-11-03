@@ -11,11 +11,11 @@
 #include "cluster.h"
 #include "ps.h"
 
-vector <CENTR_VECT>  init_centriod (int cluster_number, vector <GDB_> inGDB) {
+vector <CENTR_VECT>  init_centriod (size_t cluster_number, vector <GDB> inGDB) {
 
 	CENTR_VECT CV;
 	vector <CENTR_VECT> CENTR;
-	int j = 0;
+	size_t j = 0;
 
 	if ((inGDB.at(0).DATAGROUP == "STRIAE") || (inGDB.at(0).DATAGROUP == "SC")) {
 
@@ -65,9 +65,9 @@ vector <CENTR_VECT>  init_centriod (int cluster_number, vector <GDB_> inGDB) {
 	return CENTR;
 }
 
-vector <vector <double> > init_distance_matrix (int cluster_number, vector <GDB_> inGDB) {
+vector <vector <double> > init_distance_matrix (size_t cluster_number, vector <GDB> inGDB) {
 
-	int j = 0;
+	size_t j = 0;
 	size_t k = 0;
 	vector <double> distance_from_centroid;
 	vector <vector <double> > distance_matrix;
@@ -91,12 +91,11 @@ vector <vector <double> > init_distance_matrix (int cluster_number, vector <GDB_
 	return distance_matrix;
 }
 
- vector <int> init_whichgroup (int cluster_number, vector <GDB_> inGDB) {
+ vector <int> init_whichgroup (size_t cluster_number, vector <GDB> inGDB) {
 
 	vector <int> which_group;
 	size_t k = 0;
-
-	int j = 0;
+	size_t j = 0;
 
 	do {
 
@@ -112,12 +111,12 @@ vector <vector <double> > init_distance_matrix (int cluster_number, vector <GDB_
 	return which_group;
 }
 
- vector <int> init_whichgroup_II (int cluster_number, vector <GDB_> inGDB) {
+ vector <int> init_whichgroup_II (size_t cluster_number, vector <GDB> inGDB) {
 
  	vector <int> which_group;
  	size_t k = 0;
  	double rnd = 0;
- 	int l = 0;
+ 	size_t l = 0;
 
  	srand (1);
  	rnd = rand();
@@ -144,7 +143,7 @@ vector <vector <double> > init_distance_matrix (int cluster_number, vector <GDB_
  	return which_group;
  }
 
-double compute_distance (CENTR_VECT centroid, GDB_ inGDB) {
+double compute_distance (CENTR_VECT centroid, GDB inGDB) {
 
 	double distance;
 
@@ -168,7 +167,7 @@ double compute_distance (CENTR_VECT centroid, GDB_ inGDB) {
 
 }
 
-vector <vector <double> > compute_distance_matrix_from_centroid (vector <vector <double> > distance_matrix, vector <GDB_> inGDB, vector <CENTR_VECT> centroid) {
+vector <vector <double> > compute_distance_matrix_from_centroid (vector <vector <double> > distance_matrix, vector <GDB> inGDB, vector <CENTR_VECT> centroid) {
 
 	size_t j = 0;
 	size_t k = 0;
@@ -192,16 +191,16 @@ vector <vector <double> > compute_distance_matrix_from_centroid (vector <vector 
 	return distance_matrix;
 }
 
-vector <int> compute_whichgroup_from_distances (vector <vector <double> > distance_matrix, vector <GDB_> inGDB) {
+vector <int> compute_whichgroup_from_distances (vector <vector <double> > distance_matrix) {
 
-	int j = 0;
+	size_t j = 0;
+	size_t k = 0;
 	int mingroup_j = 0;
-	int k = 0;
 
 	double min_distance = 6.0;
 
-	int cluster_number = distance_matrix.at(0).size() - 1;
-	int record_number = distance_matrix.size();
+	size_t cluster_number = distance_matrix.at(0).size() - 1;
+	size_t record_number = distance_matrix.size();
 
 	vector <CENTR_VECT> new_centroid;
 	vector <int> which_group;
@@ -243,12 +242,12 @@ vector <int> compute_whichgroup_from_distances (vector <vector <double> > distan
 	return which_group;
 }
 
-vector <CENTR_VECT> compute_centroid_from_which_group (int cluster_number, vector <int> which_group, vector <GDB_> inGDB) {
+vector <CENTR_VECT> compute_centroid_from_which_group (size_t cluster_number, vector <int> which_group, vector <GDB> inGDB) {
 
-	int j = 0;
-	int k = 0;
+	size_t j = 0;
+	size_t k = 0;
 
-	int record_number = inGDB.size();
+	size_t record_number = inGDB.size();
 	vector <CENTR_VECT> new_centroid;
 	CENTR_VECT CV;
 
@@ -300,9 +299,9 @@ vector <CENTR_VECT> compute_centroid_from_which_group (int cluster_number, vecto
 	return new_centroid;
 }
 
-vector <GDB_> attach_group_codes (vector <int> which_group, vector <GDB_> inGDB) {
+vector <GDB> attach_group_codes (vector <int> which_group, vector <GDB> inGDB) {
 
-	vector <GDB_> outGDB = inGDB;
+	vector <GDB> outGDB = inGDB;
 	size_t i = 0;
 
 	do {
@@ -344,7 +343,7 @@ double cumulative_distance (vector <vector <double> > distance_matrix, vector <i
 	return cml_dst;
 }
 
-vector <vector <double> > clustering_cycle (int cluster_number, vector <GDB_> inGDB, INPSET_ i) {
+vector <vector <double> > clustering_cycle (size_t cluster_number, vector <GDB> inGDB, INPSET i) {
 
 	vector <CENTR_VECT> centroid;
 	vector <vector <double> > distance_matrix;
@@ -364,7 +363,7 @@ vector <vector <double> > clustering_cycle (int cluster_number, vector <GDB_> in
 
 		centroid = compute_centroid_from_which_group (cluster_number, whichgroup, inGDB);
 		distance_matrix = compute_distance_matrix_from_centroid (distance_matrix, inGDB, centroid);
-		whichgroup = compute_whichgroup_from_distances (distance_matrix, inGDB);
+		whichgroup = compute_whichgroup_from_distances (distance_matrix);
 
 		j++;
 
@@ -381,7 +380,7 @@ vector <vector <double> > clustering_cycle (int cluster_number, vector <GDB_> in
 
 		centroid = compute_centroid_from_which_group (cluster_number, whichgroup, inGDB);
 		distance_matrix = compute_distance_matrix_from_centroid (distance_matrix, inGDB, centroid);
-		whichgroup = compute_whichgroup_from_distances (distance_matrix, inGDB);
+		whichgroup = compute_whichgroup_from_distances (distance_matrix);
 
 		j++;
 
@@ -400,7 +399,7 @@ vector <vector <double> > clustering_cycle (int cluster_number, vector <GDB_> in
 
 		centroid = compute_centroid_from_which_group (cluster_number, whichgroup, inGDB);
 		distance_matrix = compute_distance_matrix_from_centroid (distance_matrix, inGDB, centroid);
-		whichgroup = compute_whichgroup_from_distances (distance_matrix, inGDB);
+		whichgroup = compute_whichgroup_from_distances (distance_matrix);
 
 		j++;
 
@@ -433,16 +432,16 @@ vector <vector <double> > clustering_cycle (int cluster_number, vector <GDB_> in
 	return distance_matrix;
 }
 
-vector <GDB_> k_means_clustering (int cluster_number, vector <GDB_> inGDB, INPSET_ i) {
+vector <GDB> k_means_clustering (size_t cluster_number, vector <GDB> inGDB, INPSET i) {
 
 	vector <vector <double> > distance_matrix;
 	vector <int> whichgroup;
-	vector <GDB_> outGDB;
+	vector <GDB> outGDB;
 
 	if (cluster_number > 1) {
 
 		distance_matrix = clustering_cycle (cluster_number, inGDB, i);
-		whichgroup = compute_whichgroup_from_distances (distance_matrix, inGDB);
+		whichgroup = compute_whichgroup_from_distances (distance_matrix);
 		outGDB = attach_group_codes (whichgroup, inGDB);
 		return outGDB;
 
@@ -459,11 +458,21 @@ vector <GDB_> k_means_clustering (int cluster_number, vector <GDB_> inGDB, INPSE
 	}
 }
 
-vector <GDB_> k_means (INPSET_ i, vector <GDB_> inGDB) {
+vector <GDB> k_means (INPSET i, vector <GDB> inGDB) {
 
-	int clusternumber = atof((i.clusternumber).c_str());
+	size_t clusternumber = 0;
 
-	vector <GDB_> outGDB = inGDB;
+	if (i.clusternumber == "1") clusternumber = 1;
+	if (i.clusternumber == "2") clusternumber = 2;
+	if (i.clusternumber == "3") clusternumber = 3;
+	if (i.clusternumber == "4") clusternumber = 4;
+	if (i.clusternumber == "5") clusternumber = 5;
+	if (i.clusternumber == "6") clusternumber = 6;
+	if (i.clusternumber == "7") clusternumber = 7;
+	if (i.clusternumber == "8") clusternumber = 8;
+	if (i.clusternumber == "9") clusternumber = 9;
+
+	vector <GDB> outGDB = inGDB;
 
 	if (i.clusternumber == "A") outGDB = k_means_clustering (9, inGDB, i);
 	else 						outGDB = k_means_clustering (clusternumber, inGDB, i);

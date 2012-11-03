@@ -2,6 +2,7 @@
 #define CHECKRGFFILECONTENT_HPP_
 
 #include <string>
+#include <stdexcept>
 
 #include "structs.h"
 #include "common.h"

@@ -9,7 +9,7 @@
 using namespace std;
 
 
-vector <vector < double> > michael_parameters (vector <GDB_> inGDB) {
+vector <vector < double> > michael_parameters (vector <GDB> inGDB) {
 
 	vector <vector < double> > out = init_matrix (3 * inGDB.size(), 5);
 
@@ -17,25 +17,25 @@ vector <vector < double> > michael_parameters (vector <GDB_> inGDB) {
 
 	do {
 
-		VCTR N = inGDB[i].N;
+		VCTR N = inGDB.at(i).N;
 
-		out[ (i * 3) + 0 ][0] =     N.X - (N.X * N.X * N.X) + (N.X * N.Z * N.Z);
-		out[ (i * 3) + 0 ][1] =     N.Y -               (2.0 * N.Y * N.X * N.X);
-		out[ (i * 3) + 0 ][2] =     N.Z -               (2.0 * N.Z * N.X * N.X);
-		out[ (i * 3) + 0 ][3] =         - (N.X * N.Y * N.Y) + (N.X * N.Z * N.Z);
-		out[ (i * 3) + 0 ][4] =         -               (2.0 * N.X * N.Y * N.Z);
+		out.at( (i * 3) + 0 ).at(0) =     N.X - (N.X * N.X * N.X) + (N.X * N.Z * N.Z);
+		out.at( (i * 3) + 0 ).at(1) =     N.Y -               (2.0 * N.Y * N.X * N.X);
+		out.at( (i * 3) + 0 ).at(2) =     N.Z -               (2.0 * N.Z * N.X * N.X);
+		out.at( (i * 3) + 0 ).at(3) =         - (N.X * N.Y * N.Y) + (N.X * N.Z * N.Z);
+		out.at( (i * 3) + 0 ).at(4) =         -               (2.0 * N.X * N.Y * N.Z);
 
-		out[ (i * 3) + 1 ][0] =         - (N.Y * N.X * N.X) + (N.Y * N.Z * N.Z);
-		out[ (i * 3) + 1 ][1] =     N.X -               (2.0 * N.X * N.Y * N.Y);
-		out[ (i * 3) + 1 ][2] =         -               (2.0 * N.X * N.Y * N.Z);
-		out[ (i * 3) + 1 ][3] =     N.Y - (N.Y * N.Y * N.Y) + (N.Y * N.Z * N.Z);
-		out[ (i * 3) + 1 ][4] =     N.Z -               (2.0 * N.Z * N.Y * N.Y);
+		out.at( (i * 3) + 1 ).at(0) =         - (N.Y * N.X * N.X) + (N.Y * N.Z * N.Z);
+		out.at( (i * 3) + 1 ).at(1) =     N.X -               (2.0 * N.X * N.Y * N.Y);
+		out.at( (i * 3) + 1 ).at(2) =         -               (2.0 * N.X * N.Y * N.Z);
+		out.at( (i * 3) + 1 ).at(3) =     N.Y - (N.Y * N.Y * N.Y) + (N.Y * N.Z * N.Z);
+		out.at( (i * 3) + 1 ).at(4) =     N.Z -               (2.0 * N.Z * N.Y * N.Y);
 
-		out[ (i * 3) + 2 ][0] =   - N.Z - (N.Z * N.X * N.X) + (N.Z * N.Z * N.Z);
-		out[ (i * 3) + 2 ][1] =         -	            (2.0 * N.X * N.Y * N.Z);
-		out[ (i * 3) + 2 ][2] =     N.X -               (2.0 * N.X * N.Z * N.Z);
-		out[ (i * 3) + 2 ][3] =   - N.Z - (N.Y * N.Y * N.Z) + (N.Z * N.Z * N.Z);
-		out[ (i * 3) + 2 ][4] =     N.Y -               (2.0 * N.Y * N.Z * N.Z);
+		out.at( (i * 3) + 2 ).at(0) =   - N.Z - (N.Z * N.X * N.X) + (N.Z * N.Z * N.Z);
+		out.at( (i * 3) + 2 ).at(1) =         -	            (2.0 * N.X * N.Y * N.Z);
+		out.at( (i * 3) + 2 ).at(2) =     N.X -               (2.0 * N.X * N.Z * N.Z);
+		out.at( (i * 3) + 2 ).at(3) =   - N.Z - (N.Y * N.Y * N.Z) + (N.Z * N.Z * N.Z);
+		out.at( (i * 3) + 2 ).at(4) =     N.Y -               (2.0 * N.Y * N.Z * N.Z);
 
 		i++;
 	}
@@ -45,18 +45,18 @@ vector <vector < double> > michael_parameters (vector <GDB_> inGDB) {
 	return out;
 }
 
-vector <vector < double> > stressvector_parameters (vector <GDB_> inGDB) {
+vector <vector < double> > stressvector_parameters (vector <GDB> inGDB) {
 
 	vector <vector < double> > o = init_matrix (3 * inGDB.size(), 1);
 	size_t i = 0;
 
 	do {
 
-		cout << inGDB[i].SV.X << endl;
+		cout << inGDB.at(i).SV.X << endl;
 
-		o[ (i * 3) + 0 ][0] =  inGDB[i].SV.X;
-		o[ (i * 3) + 1 ][0] =  inGDB[i].SV.Y;
-		o[ (i * 3) + 2 ][0] =  inGDB[i].SV.Z;
+		o.at( (i * 3) + 0 ).at(0) =  inGDB.at(i).SV.X;
+		o.at( (i * 3) + 1 ).at(0) =  inGDB.at(i).SV.Y;
+		o.at( (i * 3) + 2 ).at(0) =  inGDB.at(i).SV.Z;
 
 		i++;
 
@@ -66,7 +66,7 @@ vector <vector < double> > stressvector_parameters (vector <GDB_> inGDB) {
 }
 
 
-ANG_PRM angelier_parameters (vector <GDB_> inGDB) {
+ANG_PRM angelier_parameters (vector <GDB> inGDB) {
 
 	size_t i = 0;
 	ANG_PRM rs;
@@ -81,11 +81,11 @@ ANG_PRM angelier_parameters (vector <GDB_> inGDB) {
 
 	do {
 
-		N = inGDB[i].N;
-		S = inGDB[i].SV;
-		lambda = inGDB[i].lambda;
+		N = inGDB.at(i).N;
+		S = inGDB.at(i).SV;
+		lambda = inGDB.at(i).lambda;
 
-		S = declare_vector (- inGDB[i].SV.X, - inGDB[i].SV.Y, - inGDB[i].SV.Z);
+		S = declare_vector (- inGDB.at(i).SV.X, - inGDB.at(i).SV.Y, - inGDB.at(i).SV.Z);
 
 		rs.a = rs.a + (N.X * N.X) + (N.Y * N.Y) - 4.0 * (N.X * N.X) * (N.Y * N.Y);
 		rs.b = rs.b + (N.X * N.X) + (N.Z * N.Z) - 4.0 * (N.X * N.X) * (N.Z * N.Z);
@@ -123,7 +123,7 @@ ANG_PRM angelier_parameters (vector <GDB_> inGDB) {
 
 	return rs;
 }
-STRESSTENSOR compute_angelier_stresstensor (ANG_PRM p, vector <GDB_> inGDB) {
+STRESSTENSOR compute_angelier_stresstensor (ANG_PRM p, vector <GDB> inGDB) {
 
 	vector < vector < double > > temp;
 	vector < double > quartic_result;
@@ -136,7 +136,7 @@ STRESSTENSOR compute_angelier_stresstensor (ANG_PRM p, vector <GDB_> inGDB) {
 	size_t i = 0;
 	double A, B, C, D, E;
 	double Y1, Y2, Y3, Y4;
-	const double pi = 3.14159265358979323846;
+	const double pi = 3.1415926535;
 
 	temp = declare_3x3_matrix (p.a, p.d, p.e, p.d, p.b, p.f, p.e, p.f, p.c);
 	double d_0 = det_3 (temp);
@@ -196,7 +196,7 @@ STRESSTENSOR compute_angelier_stresstensor (ANG_PRM p, vector <GDB_> inGDB) {
 
 	quartic_result = quartic_solution (A, B, C, D, E);
 
-	if (quartic_result[0] == 999.99) {
+	if (quartic_result.at(0) > 999.0) {
 
 		min_st._11 = 999.99;
 		min_st._12 = 999.99;
@@ -208,23 +208,23 @@ STRESSTENSOR compute_angelier_stresstensor (ANG_PRM p, vector <GDB_> inGDB) {
 		return min_st;
 	}
 
-	else if ((quartic_result[4] != 0.0) && (quartic_result[5] != 0.0)) {
+	else if ((quartic_result.at(4) != 0.0) && (quartic_result.at(5) != 0.0)) {
 
-		quartic_roots_for_psi.push_back (quartic_result[0]);
-		quartic_roots_for_psi.push_back (quartic_result[3]);
+		quartic_roots_for_psi.push_back (quartic_result.at(0));
+		quartic_roots_for_psi.push_back (quartic_result.at(3));
 	}
 
 	else {
 
-		quartic_roots_for_psi.push_back (quartic_result[0]);
-		quartic_roots_for_psi.push_back (quartic_result[1]);
-		quartic_roots_for_psi.push_back (quartic_result[2]);
-		quartic_roots_for_psi.push_back (quartic_result[3]);
+		quartic_roots_for_psi.push_back (quartic_result.at(0));
+		quartic_roots_for_psi.push_back (quartic_result.at(1));
+		quartic_roots_for_psi.push_back (quartic_result.at(2));
+		quartic_roots_for_psi.push_back (quartic_result.at(3));
 	}
 
 	do {
 
-		psi = 2.0 * atan (quartic_roots_for_psi[i]);
+		psi = 2.0 * atan (quartic_roots_for_psi.at(i));
 
 		alpha = (d_1 * cos (psi) + d_i_1 * sin (psi) + d_ii_1) / d_0;
 		gamma = (d_2 * cos (psi) + d_i_2 * sin (psi) + d_ii_2) / d_0;
@@ -252,7 +252,7 @@ STRESSTENSOR compute_angelier_stresstensor (ANG_PRM p, vector <GDB_> inGDB) {
 	return min_st;
 }
 
-STRESSTENSOR ptn_P (vector <GDB_> inGDB) {
+STRESSTENSOR ptn_P (vector <GDB> inGDB) {
 
 	size_t i = 0;
 	STRESSTENSOR st;
@@ -278,7 +278,7 @@ STRESSTENSOR ptn_P (vector <GDB_> inGDB) {
 		st._13 = st._13 + (dotproduct (P, E, false) * dotproduct (P, U, false));
 		st._22 = st._22 + (dotproduct (P, N, false) * dotproduct (P, N, false));
 		st._23 = st._23 + (dotproduct (P, N, false) * dotproduct (P, U, false));
-		st._33 = st._33 + (dotproduct (P, U, false) * dotproduct (P, U, false)); //ok
+		st._33 = st._33 + (dotproduct (P, U, false) * dotproduct (P, U, false));
 
 		i++;
 
@@ -287,7 +287,7 @@ STRESSTENSOR ptn_P (vector <GDB_> inGDB) {
 	return st;
 }
 
-STRESSTENSOR ptn_T (vector <GDB_> inGDB) {
+STRESSTENSOR ptn_T (vector <GDB> inGDB) {
 
 	size_t i = 0;
 	STRESSTENSOR st;
@@ -313,7 +313,7 @@ STRESSTENSOR ptn_T (vector <GDB_> inGDB) {
 		st._13 = st._13 + (dotproduct (T, E, false) * dotproduct (T, U, false));
 		st._22 = st._22 + (dotproduct (T, N, false) * dotproduct (T, N, false));
 		st._23 = st._23 + (dotproduct (T, N, false) * dotproduct (T, U, false));
-		st._33 = st._33 + (dotproduct (T, U, false) * dotproduct (T, U, false)); //ok
+		st._33 = st._33 + (dotproduct (T, U, false) * dotproduct (T, U, false));
 
 		i++;
 
@@ -322,7 +322,7 @@ STRESSTENSOR ptn_T (vector <GDB_> inGDB) {
 	return st;
 }
 
-STRESSTENSOR ptn_N (vector <GDB_> inGDB) {
+STRESSTENSOR ptn_N (vector <GDB> inGDB) {
 
 	size_t i = 0;
 	STRESSTENSOR st;
@@ -357,7 +357,7 @@ STRESSTENSOR ptn_N (vector <GDB_> inGDB) {
 	return st;
 }
 
-vector <vector <double> > FRY (vector <GDB_> inGDB, INPSET_ inset) {
+vector <vector <double> > FRY (vector <GDB> inGDB, INPSET inset) {
 
 	size_t i = 0;
 
@@ -369,7 +369,7 @@ vector <vector <double> > FRY (vector <GDB_> inGDB, INPSET_ inset) {
 
 	do {
 
-		hyperplane = hyperplane_from_GDB (inGDB[i]);
+		hyperplane = hyperplane_from_GDB (inGDB.at(i));
 
 		temp = outer_product (hyperplane);
 
@@ -382,7 +382,7 @@ vector <vector <double> > FRY (vector <GDB_> inGDB, INPSET_ inset) {
 	return jacobi (TNSR6);
 }
 
-vector <vector <double> > SHAN (vector <GDB_> inGDB, INPSET_ inset) {
+vector <vector <double> > SHAN (vector <GDB> inGDB, INPSET inset) {
 
 	size_t i = 0;
 
@@ -393,7 +393,7 @@ vector <vector <double> > SHAN (vector <GDB_> inGDB, INPSET_ inset) {
 
 	do {
 
-		temp = shan_matrix_from_GDB (inGDB [i]);
+		temp = shan_matrix_from_GDB (inGDB .at(i));
 		shan_matrix = add_mtrx (shan_matrix, temp);
 
 		i++;
@@ -403,7 +403,7 @@ vector <vector <double> > SHAN (vector <GDB_> inGDB, INPSET_ inset) {
 	return jacobi (shan_matrix);
 }
 
-STRESSTENSOR ANGELIER (vector <GDB_> inGDB, INPSET_ inset) {
+STRESSTENSOR ANGELIER (vector <GDB> inGDB, INPSET inset) {
 
 	if (inset.virt_striae == "Y" ) inGDB = generate_virtual_striae (inGDB);
 
@@ -414,7 +414,7 @@ STRESSTENSOR ANGELIER (vector <GDB_> inGDB, INPSET_ inset) {
 	return st;
 }
 
-STRESSTENSOR MICHAEL (vector <GDB_> inGDB, INPSET_ inset) {
+STRESSTENSOR MICHAEL (vector <GDB> inGDB, INPSET inset) {
 
 
 	STRESSTENSOR st;
@@ -424,7 +424,7 @@ STRESSTENSOR MICHAEL (vector <GDB_> inGDB, INPSET_ inset) {
 	vector < vector <double> > M = michael_parameters (inGDB);
 	vector < vector <double> > M_t = transpose (M);
 
-	vector < vector <double> > B = stressvector_parameters (inGDB);  //ok
+	vector < vector <double> > B = stressvector_parameters (inGDB);
 
 	vector < vector <double> > LU = init_matrix (10, 5);
 	vector < vector <double> > U = init_matrix (5);
@@ -447,11 +447,11 @@ STRESSTENSOR MICHAEL (vector <GDB_> inGDB, INPSET_ inset) {
 
 	X = compute_X (U, Z);
 
-	st._11 =  X[0][0];
-	st._12 =  X[1][0];
-	st._13 =  X[2][0];
-	st._22 =  X[3][0];
-	st._23 =  X[4][0];
+	st._11 =  X.at(0).at(0);
+	st._12 =  X.at(1).at(0);
+	st._13 =  X.at(2).at(0);
+	st._22 =  X.at(3).at(0);
+	st._23 =  X.at(4).at(0);
 	st._33 = - (st._11 + st._22);
 
 	st =  invert_stress_tensor (st);
@@ -459,7 +459,7 @@ STRESSTENSOR MICHAEL (vector <GDB_> inGDB, INPSET_ inset) {
 	return st;
 }
 
-STRESSFIELD  MICHAEL_PROCESS (vector <GDB_> inGDB, INPSET_ inset) {
+STRESSFIELD  MICHAEL_PROCESS (vector <GDB> inGDB, INPSET inset) {
 
 	STRESSTENSOR st = MICHAEL (inGDB, inset);
 
@@ -470,7 +470,7 @@ STRESSFIELD  MICHAEL_PROCESS (vector <GDB_> inGDB, INPSET_ inset) {
 	return stress_regime (sf);
 }
 
-STRESSTENSOR NDA (vector <GDB_> inGDB, INPSET_ inset) {
+STRESSTENSOR NDA (vector <GDB> inGDB, INPSET inset) {
 
 	double r = inset.angle / 90.0;
 	double q = 1.0 - r;
@@ -548,7 +548,7 @@ STRESSTENSOR NDA (vector <GDB_> inGDB, INPSET_ inset) {
 	return st;
 }
 
-STRESSFIELD NDA_PROCESS (vector <GDB_> inGDB, INPSET_ inset) {
+STRESSFIELD NDA_PROCESS (vector <GDB> inGDB, INPSET inset) {
 
 	STRESSTENSOR st = NDA (inGDB, inset);
 
@@ -559,7 +559,7 @@ STRESSFIELD NDA_PROCESS (vector <GDB_> inGDB, INPSET_ inset) {
 	return stress_regime (sf);
 }
 
-STRESSTENSOR BINGHAM (vector <GDB_> inGDB) {
+STRESSTENSOR BINGHAM (vector <GDB> inGDB) {
 
 	size_t i = 0;
 	STRESSTENSOR st;
@@ -594,27 +594,27 @@ STRESSTENSOR BINGHAM (vector <GDB_> inGDB) {
 	return st;
 }
 
-vector <GDB_> return_stressvector_estimators (STRESSTENSOR st, vector <GDB_> inGDB, string method, bool compression_positive) {
+vector <GDB> return_stressvector_estimators (STRESSTENSOR st, vector <GDB> inGDB, string method, bool compression_positive) {
 
-	vector <GDB_> outGDB = inGDB;
+	vector <GDB> outGDB = inGDB;
 
 	size_t i = 0.0;
 
 	do {
 
-		outGDB[i].SHEAR_S  = return_shearstress  (st, inGDB[i], compression_positive);
-		outGDB[i].NORMAL_S = return_normalstress (st, inGDB[i], compression_positive);
-		outGDB[i].UPSILON  = return_upsilon (st, inGDB[i], method, compression_positive);
+		outGDB.at(i).SHEAR_S  = return_shearstress  (st, inGDB.at(i), compression_positive);
+		outGDB.at(i).NORMAL_S = return_normalstress (st, inGDB.at(i), compression_positive);
+		outGDB.at(i).UPSILON  = return_upsilon (st, inGDB.at(i), method, compression_positive);
 
-		outGDB[i].ANG  = return_ANG (st, inGDB[i], compression_positive);
-		outGDB[i].RUP  = return_RUP (st, inGDB[i], method, compression_positive);
+		outGDB.at(i).ANG  = return_ANG (st, inGDB.at(i), compression_positive);
+		outGDB.at(i).RUP  = return_RUP (st, inGDB.at(i), compression_positive);
 
 		if (method == "MOSTAFA")
 
-		outGDB[i].lambda =  sqrt(
-				outGDB[i].SHEAR_S.X * outGDB[i].SHEAR_S.X +
-				outGDB[i].SHEAR_S.Y * outGDB[i].SHEAR_S.Y +
-				outGDB[i].SHEAR_S.Z * outGDB[i].SHEAR_S.Z);
+		outGDB.at(i).lambda =  sqrt(
+				outGDB.at(i).SHEAR_S.X * outGDB.at(i).SHEAR_S.X +
+				outGDB.at(i).SHEAR_S.Y * outGDB.at(i).SHEAR_S.Y +
+				outGDB.at(i).SHEAR_S.Z * outGDB.at(i).SHEAR_S.Z);
 
 		i++;
 
@@ -623,17 +623,17 @@ vector <GDB_> return_stressvector_estimators (STRESSTENSOR st, vector <GDB_> inG
 	return outGDB;
 }
 
-vector <GDB_> generate_virtual_striae (vector <GDB_> inGDB) {
+vector <GDB> generate_virtual_striae (vector <GDB> inGDB) {
 
-	vector <GDB_> outGDB = inGDB;
-	GDB_ buffer;
+	vector <GDB> outGDB = inGDB;
+	GDB buffer;
 
 	size_t original_set_size = inGDB.size();
 	size_t i = 0;
 
 	do {
 
-		buffer = inGDB[i];
+		buffer = inGDB.at(i);
 
 		buffer.N.X = - buffer.N.X;
 		buffer.N.Y = - buffer.N.Y;
@@ -670,7 +670,7 @@ vector <GDB_> generate_virtual_striae (vector <GDB_> inGDB) {
 }
 
 
-STRESSFIELD BINGHAM_PROCESS (vector <GDB_> inGDB) {
+STRESSFIELD BINGHAM_PROCESS (vector <GDB> inGDB) {
 
 	STRESSTENSOR st = BINGHAM (inGDB);
 
@@ -690,19 +690,20 @@ STRESSFIELD BINGHAM_PROCESS (vector <GDB_> inGDB) {
 }
 
 
-vector <GDB_> inversion (string method, vector <GDB_> inGDB, ofstream& o, INPSET_ inset, CENTER center, CENTER mohr_center, PAPER P) {
+vector <GDB> inversion (string method, vector <GDB> inGDB, ofstream& o, INPSET inset, CENTER center, CENTER mohr_center, PAPER P) {
 
 	STRESSFIELD sf, sf_ptn;
 	STRESSTENSOR st;
 
 	bool successfull = false;
 
-	vector <GDB_> tempGDB;
+	vector <GDB> tempGDB;
 
 	size_t second_eigenvalue = 0;
 	size_t first_eigenvalue = 0;
 
 	int i = 0;
+	int iteration_number = 100;
 
 	vector <vector <double> > EVEV;
 	vector <vector <double> > A;
@@ -757,9 +758,17 @@ vector <GDB_> inversion (string method, vector <GDB_> inGDB, ofstream& o, INPSET
 			if (i == 0) inGDB = return_stressvector_estimators (st, inGDB, "ANGELIER", false);
 			else 		inGDB = return_stressvector_estimators (st, inGDB, "MOSTAFA", false);
 
+			sf = eigenvalue_eigenvector (st);
+			sf = computestressfield_DXDYDZ (sf);
+			sf = stress_regime (sf);
+			PS_lineation (inGDB.at(0), o, inset, center, sf, false, "S1_ITER");
+			PS_lineation (inGDB.at(0), o, inset, center, sf, false, "S2_ITER");
+			PS_lineation (inGDB.at(0), o, inset, center, sf, false, "S3_ITER");
+			PS_idealmovement (inGDB, o, inset, center);
+
 			i++;
 
-		} while (i < 20);
+		} while (i < iteration_number);
 
 		sf = eigenvalue_eigenvector (st);
 
@@ -768,7 +777,10 @@ vector <GDB_> inversion (string method, vector <GDB_> inGDB, ofstream& o, INPSET
 		sf = stress_regime (sf);
 
 		successfull = check_correct_stressfield (sf);
+
+		inGDB = return_stressvector_estimators (st, inGDB, "MOSTAFA", false);
 	}
+
 
 	else if (method == "MICHAEL") {
 
@@ -781,8 +793,8 @@ vector <GDB_> inversion (string method, vector <GDB_> inGDB, ofstream& o, INPSET
 
 	else if (method == "FRY") {
 
-		vector <vector <double> > A = init_matrix (6);
-		vector <vector <double> > D = init_matrix (6);
+		A = init_matrix (6);
+		D = init_matrix (6);
 
 		EVEV = FRY (inGDB, inset);
 
@@ -795,12 +807,12 @@ vector <GDB_> inversion (string method, vector <GDB_> inGDB, ofstream& o, INPSET
 
 		if (check_fry_matrix (first_eigenvalue, D)) {
 
-			st._11 = D[second_eigenvalue][0];
-			st._22 = D[second_eigenvalue][1];
-			st._33 = D[second_eigenvalue][2];
-			st._12 = D[second_eigenvalue][3];
-			st._23 = D[second_eigenvalue][4];
-			st._13 = D[second_eigenvalue][5];
+			st._11 = D.at(second_eigenvalue).at(0);
+			st._22 = D.at(second_eigenvalue).at(1);
+			st._33 = D.at(second_eigenvalue).at(2);
+			st._12 = D.at(second_eigenvalue).at(3);
+			st._23 = D.at(second_eigenvalue).at(4);
+			st._13 = D.at(second_eigenvalue).at(5);
 
 			misfit1 = return_average_misfit (st, inGDB, false);
 			st = invert_stress_tensor (st);
@@ -820,8 +832,8 @@ vector <GDB_> inversion (string method, vector <GDB_> inGDB, ofstream& o, INPSET
 
 	else if (method == "SHAN") {
 
-		vector <vector <double> > A = init_matrix (5);
-		vector <vector <double> > D = init_matrix (5);
+		A = init_matrix (5);
+		D = init_matrix (5);
 
 		EVEV = SHAN (inGDB, inset);
 
@@ -830,11 +842,11 @@ vector <GDB_> inversion (string method, vector <GDB_> inGDB, ofstream& o, INPSET
 
 		first_eigenvalue = return_first_eigenvalue (A);
 
-		st._11 = D[first_eigenvalue][0];
-		st._22 = D[first_eigenvalue][1];
-		st._12 = D[first_eigenvalue][2];
-		st._13 = D[first_eigenvalue][3];
-		st._23 = D[first_eigenvalue][4];
+		st._11 = D.at(first_eigenvalue).at(0);
+		st._22 = D.at(first_eigenvalue).at(1);
+		st._12 = D.at(first_eigenvalue).at(2);
+		st._13 = D.at(first_eigenvalue).at(3);
+		st._23 = D.at(first_eigenvalue).at(4);
 		st._33 = 0.0 - st._11 - st._22;
 
 		misfit1 = return_average_misfit (st, inGDB, false);
@@ -869,14 +881,14 @@ vector <GDB_> inversion (string method, vector <GDB_> inGDB, ofstream& o, INPSET
 		st = ptn_T (tempGDB);
 		sf_ptn = eigenvalue_eigenvector (st);
 		sf_ptn = computestressfield_DXDYDZ (sf_ptn);
-		sf.EIGENVALUE.Z = sf_ptn.EIGENVALUE.Z; // z volt
+		sf.EIGENVALUE.Z = sf_ptn.EIGENVALUE.Z;
 		sf.EIGENVECTOR3 = sf_ptn.EIGENVECTOR1;
 		sf.S_3 = sf_ptn.S_1;
 
 		st = ptn_N (tempGDB);
 		sf_ptn = eigenvalue_eigenvector (st);
 		sf_ptn = computestressfield_DXDYDZ (sf_ptn);
-		sf.EIGENVALUE.Y = sf_ptn.EIGENVALUE.Y; // y volt
+		sf.EIGENVALUE.Y = sf_ptn.EIGENVALUE.Y;
 		sf.EIGENVECTOR2 = sf_ptn.EIGENVECTOR1;
 		sf.S_2 = sf_ptn.S_1;
 
@@ -897,7 +909,7 @@ vector <GDB_> inversion (string method, vector <GDB_> inGDB, ofstream& o, INPSET
 
 		if (method == "ANGELIER") {
 
-			PS_stressdata (inGDB, inset, o, center, P, sf, method);
+			PS_stressdata (o, center, P, sf, method);
 			PS_stressarrows (o, center, P,  sf);
 			PS_mohr_circle (inGDB, o, mohr_center, P, sf, st, false);
 			PS_RUP_distribution (inGDB, o, center, P);
@@ -909,7 +921,7 @@ vector <GDB_> inversion (string method, vector <GDB_> inGDB, ofstream& o, INPSET
 
 		else if (method == "MOSTAFA") {
 
-			PS_stressdata (inGDB, inset, o, center, P, sf, method);
+			PS_stressdata (o, center, P, sf, method);
 			PS_stressarrows (o, center, P,  sf);
 			PS_mohr_circle (inGDB, o, mohr_center, P, sf, st, false);
 			PS_RUP_distribution (inGDB, o, center, P);
@@ -921,13 +933,13 @@ vector <GDB_> inversion (string method, vector <GDB_> inGDB, ofstream& o, INPSET
 
 		else if (method == "BINGHAM") {
 
-			PS_stressdata (inGDB, inset, o, center, P, sf, method);
+			PS_stressdata (o, center, P, sf, method);
 		}
 
 
 		else if (method == "NDA") {
 
-			PS_stressdata (inGDB, inset, o, center, P, sf, method);
+			PS_stressdata (o, center, P, sf, method);
 			PS_stressarrows (o, center, P,  sf);
 			PS_mohr_circle (inGDB, o, mohr_center, P, sf, st, false);
 			PS_ANG_distribution (inGDB, o, center, P);
@@ -938,7 +950,7 @@ vector <GDB_> inversion (string method, vector <GDB_> inGDB, ofstream& o, INPSET
 
 		else if (method == "SHAN") {
 
-			PS_stressdata (inGDB, inset, o, center, P, sf, method);
+			PS_stressdata (o, center, P, sf, method);
 			PS_stressarrows (o, center, P,  sf);
 			PS_mohr_circle (inGDB, o, mohr_center, P, sf, st, false);
 			PS_RUP_distribution (inGDB, o, center, P);
@@ -950,7 +962,7 @@ vector <GDB_> inversion (string method, vector <GDB_> inGDB, ofstream& o, INPSET
 
 		else if (method == "MICHAEL") {
 
-			PS_stressdata (inGDB, inset, o, center, P, sf, method);
+			PS_stressdata (o, center, P, sf, method);
 			PS_stressarrows (o, center, P,  sf);
 			PS_mohr_circle (inGDB, o, mohr_center, P, sf, st, false);
 			PS_ANG_distribution (inGDB, o, center, P);
@@ -961,7 +973,7 @@ vector <GDB_> inversion (string method, vector <GDB_> inGDB, ofstream& o, INPSET
 
 		else if (method == "FRY") {
 
-			PS_stressdata (inGDB, inset, o, center, P, sf, method);
+			PS_stressdata (o, center, P, sf, method);
 			PS_stressarrows (o, center, P,  sf);
 			PS_mohr_circle (inGDB, o, mohr_center, P, sf, st, false);
 			PS_RUP_distribution (inGDB, o, center, P);
@@ -973,7 +985,7 @@ vector <GDB_> inversion (string method, vector <GDB_> inGDB, ofstream& o, INPSET
 
 		else if (method == "PTN") {
 
-			PS_stressdata (inGDB, inset, o, center, P, sf, method);
+			PS_stressdata (o, center, P, sf, method);
 			PS_stressarrows (o, center, P,  sf);
 			PS_mohr_circle (inGDB, o, mohr_center, P, sf, st, true);
 			PS_ANG_distribution (inGDB, o, center, P);
@@ -1014,7 +1026,7 @@ vector <GDB_> inversion (string method, vector <GDB_> inGDB, ofstream& o, INPSET
 			<< ", av. misfit: " << setfill (' ') << setw (4)  << fixed << setprecision (1) << average_misfit
 			<< " deg." << endl;
 
-			PS_idealmovement (inGDB, o, inset, center, st);
+			PS_idealmovement (inGDB, o, inset, center);
 		}
 
 		PS_lineation (inGDB.at(0), o, inset, center, sf, false, "S1");

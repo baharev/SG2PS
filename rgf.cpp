@@ -17,14 +17,14 @@ string GC_from_tempGC (string GCtemp) {
 	else return capslock (GCtemp);
 }
 
-double DIPDIR_from_DIPDIRtemp (string DIPDIRtemp, INPSET_ inset, string DATAGROUP) {
+double DIPDIR_from_DIPDIRtemp (string DIPDIRtemp, INPSET inset, string DATAGROUP) {
 
 	double DIPDIR = 999.99;
 
 	if (DATAGROUP != "NULL") DIPDIR = atof(DIPDIRtemp.c_str());
 
-	if ((DIPDIR == 0.0) || (DIPDIR == 90.0) || (DIPDIR == 180.0) || (DIPDIR == 270.0)) DIPDIR = DIPDIR + 0.00000001;
-	if ((DIPDIR == 360.0)) DIPDIR = DIPDIR - 0.00000001;
+	if ((DIPDIR == 0.0) || (DIPDIR == 90.0) || (DIPDIR == 180.0) || (DIPDIR == 270.0)) DIPDIR = DIPDIR + 10e-8;
+	else if (DIPDIR == 360.0) DIPDIR = DIPDIR - 10e-8;
 
 	if (inset.datarule == "R") DIPDIR = right_hand_rule_to_german (DIPDIR);
 
@@ -37,8 +37,8 @@ double DIP_from_DIPtemp (string DIPtemp, string DATAGROUP) {
 
 	if (DATAGROUP != "NULL") DIP = atof(DIPtemp.c_str());
 
-	if (DIP ==  0.0) DIP = DIP + 0.00000001;
-	if (DIP == 90.0) DIP = DIP - 0.00000001;
+	if (DIP ==  0.0) DIP = DIP + 10e-8;
+	if (DIP == 90.0) DIP = DIP - 10e-8;
 
 	return DIP;
 }
@@ -49,8 +49,8 @@ double LDIR_from_LDIRtemp (string LDIRtemp, string DATAGROUP) {
 
 	if (DATAGROUP != "NULL") LDIR = atof(LDIRtemp.c_str());
 
-	if ((LDIR == 0.0) || (LDIR == 90.0) || (LDIR == 180.0) || (LDIR == 270.0)) LDIR = LDIR + 0.00000001;
-	if ((LDIR == 360.0)) LDIR = LDIR - 0.00000001;
+	if ((LDIR == 0.0) || (LDIR == 90.0) || (LDIR == 180.0) || (LDIR == 270.0)) LDIR = LDIR + 10e-8;
+	else if (LDIR == 360.0) LDIR = LDIR - 10e-8;
 
 	return LDIR;
 }
@@ -102,23 +102,23 @@ string produce_OFFSET (string SENSEtemp) {
 	else return "NONE";
 }
 
-vector <GDB_> compete_colorcode (vector <GDB_> inGDB) {
+vector <GDB> compete_colorcode (vector <GDB> inGDB) {
 
-	vector <GDB_> outGDB = inGDB;
+	vector <GDB> outGDB = inGDB;
 	size_t j = 0;
 
 	do {
 
-		if ((inGDB[j].COLOR == "A") || (inGDB[j].COLOR == "")  || (inGDB[j].COLOR == "0")) {inGDB[j].PSCOLOR="0"; outGDB.at(j).PSCOLOR = "0.00 0.00 0.00";}
-		if ((inGDB[j].COLOR == "B") || (inGDB[j].COLOR == "1")){inGDB[j].PSCOLOR="1"; outGDB.at(j).PSCOLOR = "0.00 0.00 1.00";}
-		if ((inGDB[j].COLOR == "C") || (inGDB[j].COLOR == "2")){inGDB[j].PSCOLOR="2"; outGDB.at(j).PSCOLOR = "1.00 0.00 0.67";}
-		if ((inGDB[j].COLOR == "D") || (inGDB[j].COLOR == "3")){inGDB[j].PSCOLOR="3"; outGDB.at(j).PSCOLOR = "1.00 0.00 0.00";}
-		if ((inGDB[j].COLOR == "E") || (inGDB[j].COLOR == "4")){inGDB[j].PSCOLOR="4"; outGDB.at(j).PSCOLOR = "1.00 0.50 0.00";}
-		if ((inGDB[j].COLOR == "F") || (inGDB[j].COLOR == "5")){inGDB[j].PSCOLOR="5"; outGDB.at(j).PSCOLOR = "1.00 1.00 0.00";}
-		if ((inGDB[j].COLOR == "G") || (inGDB[j].COLOR == "6")){inGDB[j].PSCOLOR="6"; outGDB.at(j).PSCOLOR = "0.00 1.00 0.00";}
-		if ((inGDB[j].COLOR == "H") || (inGDB[j].COLOR == "7")){inGDB[j].PSCOLOR="7"; outGDB.at(j).PSCOLOR = "0.67 0.00 0.67";}
-		if ((inGDB[j].COLOR == "I") || (inGDB[j].COLOR == "8")){inGDB[j].PSCOLOR="8"; outGDB.at(j).PSCOLOR = "0.50 1.00 1.00";}
-		if ((inGDB[j].COLOR == "J") || (inGDB[j].COLOR == "9")){inGDB[j].PSCOLOR="9"; outGDB.at(j).PSCOLOR = "0.50 0.50 0.50";}
+		if ((inGDB.at(j).COLOR == "A") || (inGDB.at(j).COLOR == "")  || (inGDB.at(j).COLOR == "0")) {inGDB.at(j).PSCOLOR="0"; outGDB.at(j).PSCOLOR = "0.00 0.00 0.00";}
+		if ((inGDB.at(j).COLOR == "B") || (inGDB.at(j).COLOR == "1")){inGDB.at(j).PSCOLOR="1"; outGDB.at(j).PSCOLOR = "0.00 0.00 1.00";}
+		if ((inGDB.at(j).COLOR == "C") || (inGDB.at(j).COLOR == "2")){inGDB.at(j).PSCOLOR="2"; outGDB.at(j).PSCOLOR = "1.00 0.00 0.67";}
+		if ((inGDB.at(j).COLOR == "D") || (inGDB.at(j).COLOR == "3")){inGDB.at(j).PSCOLOR="3"; outGDB.at(j).PSCOLOR = "1.00 0.00 0.00";}
+		if ((inGDB.at(j).COLOR == "E") || (inGDB.at(j).COLOR == "4")){inGDB.at(j).PSCOLOR="4"; outGDB.at(j).PSCOLOR = "1.00 0.50 0.00";}
+		if ((inGDB.at(j).COLOR == "F") || (inGDB.at(j).COLOR == "5")){inGDB.at(j).PSCOLOR="5"; outGDB.at(j).PSCOLOR = "1.00 1.00 0.00";}
+		if ((inGDB.at(j).COLOR == "G") || (inGDB.at(j).COLOR == "6")){inGDB.at(j).PSCOLOR="6"; outGDB.at(j).PSCOLOR = "0.00 1.00 0.00";}
+		if ((inGDB.at(j).COLOR == "H") || (inGDB.at(j).COLOR == "7")){inGDB.at(j).PSCOLOR="7"; outGDB.at(j).PSCOLOR = "0.67 0.00 0.67";}
+		if ((inGDB.at(j).COLOR == "I") || (inGDB.at(j).COLOR == "8")){inGDB.at(j).PSCOLOR="8"; outGDB.at(j).PSCOLOR = "0.50 1.00 1.00";}
+		if ((inGDB.at(j).COLOR == "J") || (inGDB.at(j).COLOR == "9")){inGDB.at(j).PSCOLOR="9"; outGDB.at(j).PSCOLOR = "0.50 0.50 0.50";}
 
 		j++;
 
@@ -127,9 +127,9 @@ vector <GDB_> compete_colorcode (vector <GDB_> inGDB) {
 	return outGDB;
 }
 
-vector <GDB_> colorcode_grom_groupcode (vector <GDB_> inGDB) {
+vector <GDB> colorcode_grom_groupcode (vector <GDB> inGDB) {
 
-	vector <GDB_> outGDB = inGDB;
+	vector <GDB> outGDB = inGDB;
 	size_t j = 0;
 
 	do {
@@ -152,9 +152,9 @@ vector <GDB_> colorcode_grom_groupcode (vector <GDB_> inGDB) {
 	return outGDB;
 }
 
-vector <GDB_> black_colorcode (vector <GDB_> inGDB) {
+vector <GDB> black_colorcode (vector <GDB> inGDB) {
 
-	vector <GDB_> outGDB = inGDB;
+	vector <GDB> outGDB = inGDB;
 	size_t j = 0;
 
 	do {
@@ -167,10 +167,10 @@ vector <GDB_> black_colorcode (vector <GDB_> inGDB) {
 	return outGDB;
 }
 
-vector <GDB_> competeRGFcontect (string projectname, string inputxyfilename, INPSET_ inSET) {
+vector <GDB> competeRGFcontect (string projectname, string inputxyfilename, INPSET inSET) {
 
-	GDB_ buffer;
-	vector <GDB_> GDB;
+	GDB buffer;
+	vector <GDB> GDB;
 
 	ifstream rgffile;	
 	string filename = projectname + ".rgf";
@@ -204,8 +204,6 @@ vector <GDB_> competeRGFcontect (string projectname, string inputxyfilename, INP
 
 		getline (rgffile, LOCXtemp, '\t');
 		getline (rgffile, LOCYtemp, '\t');
-
-		cout << capslock(inputxyfilename) << endl;
 
 		if (capslock(inputxyfilename) == "") {
 
@@ -283,7 +281,7 @@ vector <GDB_> competeRGFcontect (string projectname, string inputxyfilename, INP
 		getline (rgffile, COMMENTtemp, '\n');
 		buffer.COMMENT = COMMENTtemp;
 
-		pLOCtemp = buffer.LOC;
+		pLOCtemp  = buffer.LOC;
 		pLOCXtemp = buffer.LOCX;
 		pLOCYtemp = buffer.LOCY;
 		pFORMATIONtemp = buffer.FORMATION;
@@ -353,9 +351,9 @@ string cGc_datagroup (string DATATYPE) {
 }
 
 
-vector <GDB_> cGc_NDS (vector <GDB_> inGDB) {
+vector <GDB> cGc_NDS (vector <GDB> inGDB) {
 
-	vector <GDB_> outGDB;
+	vector <GDB> outGDB;
 
 	outGDB = inGDB;
 
@@ -369,11 +367,11 @@ vector <GDB_> cGc_NDS (vector <GDB_> inGDB) {
 
 		if (outGDB.at(i).DATAGROUP != "NULL") {
 
-			if (inGDB.at(i).corr.DIPDIR == 360.0) inGDB.at(i).corr.DIPDIR = 359.999999;
-			if (inGDB.at(i).corr.DIPDIR ==   0.0) inGDB.at(i).corr.DIPDIR =   0.000001;
+			if (inGDB.at(i).corr.DIPDIR == 360.0) inGDB.at(i).corr.DIPDIR = 360.0 - 10e-8;
+			if (inGDB.at(i).corr.DIPDIR ==   0.0) inGDB.at(i).corr.DIPDIR =         10e-8;
 
-			if (inGDB.at(i).corr.DIP == 90.0) inGDB.at(i).corr.DIP = 89.999999;
-			if (inGDB.at(i).corr.DIP ==  0.0) inGDB.at(i).corr.DIP =  0.000001;
+			if (inGDB.at(i).corr.DIP == 90.0) inGDB.at(i).corr.DIP = 90.0 - 10e-8;
+			if (inGDB.at(i).corr.DIP ==  0.0) inGDB.at(i).corr.DIP =        10e-8;
 
 			outGDB.at(i).N = NXNYNZ_from_dipdir_dip (inGDB.at(i).corr);
 			outGDB.at(i).D = DXDYDZ_from_dipdir_dip (inGDB.at(i).corr);
@@ -392,27 +390,27 @@ vector <GDB_> cGc_NDS (vector <GDB_> inGDB) {
 }
 
 
-GDB_ cGc_NCDCSC_LINEATION_SC (GDB_ inGDB) {
+GDB cGc_NCDCSC_LINEATION_SC (GDB inGDB) {
 
-	GDB_ outGDB = inGDB;
+	GDB outGDB = inGDB;
 
 	outGDB.NC = NXNYNZ_from_dipdir_dip (outGDB.corrL);
 
-	if ((outGDB.N.X == outGDB.NC.X) && (outGDB.N.Y == outGDB.NC.Y) && (outGDB.N.Z == outGDB.NC.Z)) outGDB.N.X = outGDB.N.X + 0.00000000000001;
+	if ((outGDB.N.X == outGDB.NC.X) && (outGDB.N.Y == outGDB.NC.Y) && (outGDB.N.Z == outGDB.NC.Z)) outGDB.N.X = outGDB.N.X + 10e-8;
 
 	outGDB.DC = DXDYDZ_from_dipdir_dip (outGDB.corrL);
 
-	if ((outGDB.D.X == outGDB.DC.X) && (outGDB.D.Y == outGDB.DC.Y) && (outGDB.D.Z == outGDB.DC.Z)) outGDB.D.X = outGDB.D.X + 0.00000000000001;
+	if ((outGDB.D.X == outGDB.DC.X) && (outGDB.D.Y == outGDB.DC.Y) && (outGDB.D.Z == outGDB.DC.Z)) outGDB.D.X = outGDB.D.X + 10e-8;
 
 	outGDB.SC = crossproduct (outGDB.NC, outGDB.DC);
 
 	return outGDB;
 }
 
-vector <GDB_> manipulate_N (vector <GDB_> inGDB) {
+vector <GDB> manipulate_N (vector <GDB> inGDB) {
 
 	size_t i = 0;
-	vector <GDB_> outGDB = inGDB;
+	vector <GDB> outGDB = inGDB;
 	double a = 0;
 	srand(i + 2);
 
@@ -423,20 +421,20 @@ vector <GDB_> manipulate_N (vector <GDB_> inGDB) {
 
 		if (a <= 0.33333) {
 
-			if (outGDB[i].N.X > 0.5) 	outGDB[i].N.X = outGDB[i].N.X - 0.00001;
-			else 						outGDB[i].N.X = outGDB[i].N.X + 0.00001;
+			if (outGDB.at(i).N.X > 0.5) outGDB.at(i).N.X = outGDB.at(i).N.X - 10e-8;
+			else 						outGDB.at(i).N.X = outGDB.at(i).N.X + 10e-8;
 		}
 
 		else if  (a >= 0.6666) {
 
-			if (outGDB[i].N.Z > 0.5) 	outGDB[i].N.Z = outGDB[i].N.Z - 0.00001;
-			else 						outGDB[i].N.Z = outGDB[i].N.Z + 0.00001;
+			if (outGDB.at(i).N.Z > 0.5) outGDB.at(i).N.Z = outGDB.at(i).N.Z - 10e-8;
+			else 						outGDB.at(i).N.Z = outGDB.at(i).N.Z + 10e-8;
 		}
 
 		else {
 
-			if (outGDB[i].N.Y > 0.5) 	outGDB[i].N.Y = outGDB[i].N.Y - 0.00001;
-			else 						outGDB[i].N.Y = outGDB[i].N.Y + 0.00001;
+			if (outGDB.at(i).N.Y > 0.5) outGDB.at(i).N.Y = outGDB.at(i).N.Y - 10e-8;
+			else 						outGDB.at(i).N.Y = outGDB.at(i).N.Y + 10e-8;
 		}
 
 		i++;
@@ -446,9 +444,9 @@ vector <GDB_> manipulate_N (vector <GDB_> inGDB) {
 	return outGDB;
 }
 
-GDB_ cGc_NCDCSC_PITCH (GDB_ inGDB) {
+GDB cGc_NCDCSC_PITCH (GDB inGDB) {
 
-	GDB_ outGDB = inGDB;
+	GDB outGDB = inGDB;
 	VCTR axis = outGDB.N;
 	VCTR torotate = outGDB.S;
 	VCTR geodetic, pitchvector, tempvctr;
@@ -515,9 +513,9 @@ GDB_ cGc_NCDCSC_PITCH (GDB_ inGDB) {
 	return outGDB;
 }
 
-vector <GDB_> cGc_NDS_DCNCSC (vector <GDB_> inGDB) {
+vector <GDB> cGc_NDS_DCNCSC (vector <GDB> inGDB) {
 
-	vector <GDB_> outGDB;
+	vector <GDB> outGDB;
 	outGDB = inGDB;	
 
 	size_t i = 0;
@@ -552,22 +550,22 @@ vector <GDB_> cGc_NDS_DCNCSC (vector <GDB_> inGDB) {
 	return outGDB;
 }
 
-vector <GDB_> cGc_PITCHANGLE (vector <GDB_> inGDB) {
+vector <GDB> cGc_PITCHANGLE (vector <GDB> inGDB) {
 
-	vector <GDB_> outGDB = inGDB;
+	vector <GDB> outGDB = inGDB;
 
 	size_t i = 0;
 
 	do {
 
-		if ((outGDB[i].DATATYPE == "STRIAE") || (outGDB[i].DATATYPE == "SC")) {
+		if ((outGDB.at(i).DATATYPE == "STRIAE") || (outGDB.at(i).DATATYPE == "SC")) {
 
-			outGDB[i].PITCHANGLE = ACOS (dotproduct(outGDB[i].S, outGDB[i].SV, false));
+			outGDB.at(i).PITCHANGLE = ACOS (dotproduct(outGDB.at(i).S, outGDB.at(i).SV, false));
 
-			if (outGDB[i].UP) outGDB[i].PITCHANGLE = - outGDB[i].PITCHANGLE;
+			if (outGDB.at(i).UP) outGDB.at(i).PITCHANGLE = - outGDB.at(i).PITCHANGLE;
 		}
 
-		else outGDB[i].PITCHANGLE = 999.99;
+		else outGDB.at(i).PITCHANGLE = 999.99;
 
 		i++;
 
@@ -576,9 +574,9 @@ vector <GDB_> cGc_PITCHANGLE (vector <GDB_> inGDB) {
 	return outGDB;
 }
 
-vector <GDB_> cGc_MISFIT (vector <GDB_> inGDB) {
+vector <GDB> cGc_MISFIT (vector <GDB> inGDB) {
 
-	vector <GDB_> outGDB;
+	vector <GDB> outGDB;
 
 	outGDB = inGDB;
 
@@ -631,14 +629,14 @@ vector <GDB_> cGc_MISFIT (vector <GDB_> inGDB) {
 	return outGDB;
 }
 
-CORRECTSTRIAE cGc_correct_striae_DIPcor (GDB_ inGDB) {
+CORRECTSTRIAE cGc_correct_striae_DIPcor (GDB inGDB) {
 
 	CORRECTSTRIAE corrSTR;
 	VCTR cSTR;
 	double misfit;
 
-	if ((inGDB.N.X == inGDB.NC.X) && (inGDB.N.Y == inGDB.NC.Y) && (inGDB.N.Z == inGDB.NC.Z)) inGDB.N.X = inGDB.N.X + 0.00000000000001;
-	if ((inGDB.S.X == inGDB.SC.X) && (inGDB.S.Y == inGDB.SC.Y) && (inGDB.S.Z == inGDB.SC.Z)) inGDB.S.X = inGDB.S.X + 0.00000000000001;
+	if ((inGDB.N.X == inGDB.NC.X) && (inGDB.N.Y == inGDB.NC.Y) && (inGDB.N.Z == inGDB.NC.Z)) inGDB.N.X = inGDB.N.X + 10e-8;
+	if ((inGDB.S.X == inGDB.SC.X) && (inGDB.S.Y == inGDB.SC.Y) && (inGDB.S.Z == inGDB.SC.Z)) inGDB.S.X = inGDB.S.X + 10e-8;
 
 	cSTR = crossproduct (inGDB.SC, inGDB.N);
 
@@ -660,13 +658,13 @@ CORRECTSTRIAE cGc_correct_striae_DIPcor (GDB_ inGDB) {
 	return corrSTR;
 }
 
-CORRECTSTRIAE cGc_correct_striae_DIPDIRcor (GDB_ inGDB) {
+CORRECTSTRIAE cGc_correct_striae_DIPDIRcor (GDB inGDB) {
 
 	CORRECTSTRIAE corrSTR;
 	VCTR cSTR;
 	double misfit;
 
-	if ((inGDB.N.X == inGDB.NC.X) && (inGDB.N.Y == inGDB.NC.Y) && (inGDB.N.Z == inGDB.NC.Z)) inGDB.N.X = inGDB.N.X + 0.00000000000001;
+	if ((inGDB.N.X == inGDB.NC.X) && (inGDB.N.Y == inGDB.NC.Y) && (inGDB.N.Z == inGDB.NC.Z)) inGDB.N.X = inGDB.N.X + 10e-8;
 
 	cSTR = crossproduct (inGDB.N, inGDB.NC);
 
@@ -688,10 +686,10 @@ CORRECTSTRIAE cGc_correct_striae_DIPDIRcor (GDB_ inGDB) {
 	return corrSTR;
 }
 
-vector <GDB_> cGc_striae_correction (vector <GDB_> inGDB) {
+vector <GDB> cGc_striae_correction (vector <GDB> inGDB) {
 
-	vector <GDB_> outGDB;
-	GDB_ tempGDB;
+	vector <GDB> outGDB;
+	GDB tempGDB;
 
 	VCTR temp;
 	DIPDIR_DIP ttemp;
@@ -764,9 +762,9 @@ vector <GDB_> cGc_striae_correction (vector <GDB_> inGDB) {
 	return outGDB;
 }
 
-vector <GDB_> cGc_UP (vector <GDB_> inGDB) {
+vector <GDB> cGc_UP (vector <GDB> inGDB) {
 
-	vector <GDB_> outGDB;
+	vector <GDB> outGDB;
 	outGDB = inGDB;
 
 	VCTR D, DC, R, d;
@@ -830,9 +828,9 @@ vector <GDB_> cGc_UP (vector <GDB_> inGDB) {
 	return outGDB;
 }
 
-vector <GDB_> cGc_tilted_UP (vector <GDB_> inGDB) {
+vector <GDB> cGc_tilted_UP (vector <GDB> inGDB) {
 
-	vector <GDB_> outGDB;
+	vector <GDB> outGDB;
 	outGDB = inGDB;
 
 	string o, to;
@@ -854,9 +852,9 @@ vector <GDB_> cGc_tilted_UP (vector <GDB_> inGDB) {
 	return outGDB;
 }
 
-vector <GDB_> cGc_OFFSET (vector <GDB_> inGDB) {
+vector <GDB> cGc_OFFSET (vector <GDB> inGDB) {
 
-	vector <GDB_> outGDB;
+	vector <GDB> outGDB;
 	outGDB = inGDB;
 
 	double dp, pa;
@@ -917,23 +915,23 @@ vector <GDB_> cGc_OFFSET (vector <GDB_> inGDB) {
 	return outGDB;
 }
 
-vector <GDB_> cGc_LAMBDA_STRESSVECTOR_ESTIMATORS (vector <GDB_> inGDB) {
+vector <GDB> cGc_LAMBDA_STRESSVECTOR_ESTIMATORS (vector <GDB> inGDB) {
 
-	vector <GDB_> outGDB = inGDB;
+	vector <GDB> outGDB = inGDB;
 
 	size_t i = 0;
 
 	do {
 
-		outGDB[i].lambda = 999.99;
-		outGDB[i].ANG    = 999.99;
-		outGDB[i].RUP    = 999.99;
+		outGDB.at(i).lambda = 999.99;
+		outGDB.at(i).ANG    = 999.99;
+		outGDB.at(i).RUP    = 999.99;
 
-		outGDB[i].SHEAR_S  = declare_vector (999.99, 999.99, 999.99);
-		outGDB[i].NORMAL_S = declare_vector (999.99, 999.99, 999.99);
-		outGDB[i].UPSILON  = declare_vector (999.99, 999.99, 999.99);
+		outGDB.at(i).SHEAR_S  = declare_vector (999.99, 999.99, 999.99);
+		outGDB.at(i).NORMAL_S = declare_vector (999.99, 999.99, 999.99);
+		outGDB.at(i).UPSILON  = declare_vector (999.99, 999.99, 999.99);
 
-		if (outGDB[i].DATATYPE == "STRIAE")	outGDB[i].lambda = 0.87;
+		if (outGDB.at(i).DATATYPE == "STRIAE")	outGDB.at(i).lambda = sqrt(3.0) / 2.0;
 
 		i++;
 
@@ -942,20 +940,20 @@ vector <GDB_> cGc_LAMBDA_STRESSVECTOR_ESTIMATORS (vector <GDB_> inGDB) {
 	return outGDB;
 }
 
-bool byLocType(const GDB_& x, const GDB_& y) {
+bool byLocType(const GDB& x, const GDB& y) {
 
 	if (x.LOC != y.LOC) return x.LOC < y.LOC;
 	return x.DATATYPE < y.DATATYPE;
 }
 
-bool byLocTypeGc(const GDB_& x, const GDB_& y) {
+bool byLocTypeGc(const GDB& x, const GDB& y) {
 
 	if (x.LOC != y.LOC) return x.LOC < y.LOC;
 	if (x.DATATYPE != y.DATATYPE) return x.DATATYPE < y.DATATYPE;
 	return x.GC < y.GC;
 }
 
-bool byiID(const GDB_& x, const GDB_& y) {
+bool byiID(const GDB& x, const GDB& y) {
 
 	return x.iID < y.iID;
 }
@@ -966,14 +964,14 @@ bool byeigenvalue(const sort_jacobi& x, const sort_jacobi& y) {
 	return x.eigenvalue < y.eigenvalue;
 }
 
-vector <GDB_> sort_by_iID (vector <GDB_> inGDB) {
+vector <GDB> sort_by_iID (vector <GDB> inGDB) {
 
-	vector <GDB_> outGDB = inGDB;
+	vector <GDB> outGDB = inGDB;
 	sort(outGDB.begin(), outGDB.end(), byiID);
 	return outGDB;
 }
 
-bool stopcriteria (string prevDATATYPE, string DATATYPE, string prevLOC, string LOC, string prevGC, string GC, INPSET_ inset) {
+bool stopcriteria (string prevDATATYPE, string DATATYPE, string prevLOC, string LOC, string prevGC, string GC, INPSET inset) {
 
 	if (inset.group == "Y") {
 
@@ -994,10 +992,10 @@ bool stopcriteria (string prevDATATYPE, string DATATYPE, string prevLOC, string 
 	else return false;
 }
 
-void fold_from_planes (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, CENTER center, PAPER P) {
+void fold_from_planes (vector <GDB> inGDB, ofstream& o, INPSET inset, CENTER center, PAPER P) {
 
-	vector <GDB_> buffer;
-	GDB_ tempGDB;
+	vector <GDB> buffer;
+	GDB tempGDB;
 
 	size_t i = 0;
 
@@ -1011,23 +1009,23 @@ void fold_from_planes (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, CENTER c
 
 		do {
 
-			buffer.push_back(inGDB[i]);
+			buffer.push_back(inGDB.at(i));
 
 			i++;
 
 			if (i == inGDB.size()) break;
 
-		} while ((inGDB[i - 1].DATATYPE == inGDB[i].DATATYPE) && (inGDB[i - 1].LOC == inGDB[i].LOC));
+		} while ((inGDB.at(i - 1).DATATYPE == inGDB.at(i).DATATYPE) && (inGDB.at(i - 1).LOC == inGDB.at(i).LOC));
 
 
 
-		if (buffer[0].DATATYPE == "FOLDSURFACE") {
+		if (buffer.at(0).DATATYPE == "FOLDSURFACE") {
 
 			sf = BINGHAM_PROCESS (buffer);
 
 			great_circle_normal = flip_D_vector (sf.EIGENVECTOR1);
 
-			tempGDB = buffer[0];
+			tempGDB = buffer.at(0);
 
 			tempGDB.avD = unitvector (DXDYDZ_from_NXNYNZ (great_circle_normal));
 			tempGDB.avd = dipdir_dip_from_DXDYDZ (tempGDB.avD);
@@ -1035,11 +1033,7 @@ void fold_from_planes (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, CENTER c
 			if (inset.plot == "H") 	PS_polepoint (tempGDB, o, inset, center, false, "FOLD");
 			else 					PS_plane     (tempGDB, o, inset, center, false, "FOLD");
 
-			cout << fixed << setprecision(0) << flush;
-
-			cout << tempGDB.avd.DIPDIR << "/" << tempGDB.avd.DIP << "." << endl;
-
-			PS_folddata (tempGDB, o, center, P);
+			PS_folddata (tempGDB, o, center);
 		}
 
 	} while (i < inGDB.size());
@@ -1047,9 +1041,9 @@ void fold_from_planes (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, CENTER c
 	return;
 }
 
-vector <GDB_> cGc_average (vector <GDB_> inGDB) {
+vector <GDB> cGc_average (vector <GDB> inGDB) {
 
-	vector <GDB_> outGDB = inGDB;
+	vector <GDB> outGDB = inGDB;
 
 	size_t intervalbegin = 0;
 	size_t independentrecordcounter = 0;
@@ -1064,7 +1058,7 @@ vector <GDB_> cGc_average (vector <GDB_> inGDB) {
 
 	if (outGDB.size() == 1) {
 
-		temp = outGDB[0].N;
+		temp = outGDB.at(0).N;
 		result = DXDYDZ_from_NXNYNZ (temp);
 		result = flip_D_vector (result);
 		result = unitvector(result);
@@ -1074,7 +1068,7 @@ vector <GDB_> cGc_average (vector <GDB_> inGDB) {
 		dtemp = dipdir_dip_from_DXDYDZ (temp);
 		outGDB.at(0).avd = dtemp;
 
-		if ((outGDB[0].DATATYPE == "BEDDING") && (outGDB[0].OFFSET == "OVERTURNED")) outGDB[0].avS0offset = "OVERTURNED";
+		if ((outGDB.at(0).DATATYPE == "BEDDING") && (outGDB.at(0).OFFSET == "OVERTURNED")) outGDB.at(0).avS0offset = "OVERTURNED";
 
 		cout << "  - Data set averages were computed for 1 independent data group in " << i << " records." <<  endl;
 
@@ -1085,7 +1079,7 @@ vector <GDB_> cGc_average (vector <GDB_> inGDB) {
 
 		do {
 
-			if (outGDB[i].OFFSET == "OVERTURNED")
+			if (outGDB.at(i).OFFSET == "OVERTURNED")
 
 				temp = declare_vector (
 						temp.X - outGDB.at(i).N.X,
@@ -1111,13 +1105,11 @@ vector <GDB_> cGc_average (vector <GDB_> inGDB) {
 
 		do {
 
-			outGDB.at(j).avD.X = 0.000000000000000000001;
-			outGDB.at(j).avD.Y = 0.999999999999999999999;
-			outGDB.at(j).avD.Z = 0.000000000000000000001;
+			outGDB.at(j).avD = declare_vector (10e-8, 1.0 - 10e-8, 10e-8);
 
 			if ((outGDB.at(j).DATATYPE != "STRIAE") && (outGDB.at(j).DATATYPE != "SC")) {
 
-				if ((outGDB[j].DATATYPE == "BEDDING") && (temp.Z < 0.0)) outGDB[j].avS0offset = "OVERTURNED";
+				if ((outGDB.at(j).DATATYPE == "BEDDING") && (temp.Z < 0.0)) outGDB.at(j).avS0offset = "OVERTURNED";
 
 				result = DXDYDZ_from_NXNYNZ (temp);
 				result = flip_D_vector (result);
@@ -1134,9 +1126,7 @@ vector <GDB_> cGc_average (vector <GDB_> inGDB) {
 
 		while (j < i);
 
-		temp.X  = 0.0;
-		temp.Y  = 0.0;
-		temp.Z  = 0.0;
+		temp = declare_vector (0.0, 0.0, 0.0);
 
 		intervalbegin = i;
 
@@ -1147,9 +1137,9 @@ vector <GDB_> cGc_average (vector <GDB_> inGDB) {
 	return outGDB;
 }
 
-vector <GDB_> cGc_s0_average (vector <GDB_> inGDB) {
+vector <GDB> cGc_s0_average (vector <GDB> inGDB) {
 
-	vector <GDB_> outGDB;
+	vector <GDB> outGDB;
 
 	outGDB = inGDB;
 
@@ -1163,16 +1153,11 @@ vector <GDB_> cGc_s0_average (vector <GDB_> inGDB) {
 
 	if (outGDB.size() == 1) {
 
-		outGDB.at(0).avS0D.X 		= 10E-6;
-		outGDB.at(0).avS0D.Y 		= 1.0 - 10E-6;
-		outGDB.at(0).avS0D.Z 		= 10E-6;
+		outGDB.at(0).avS0D = declare_vector (10e-8, 1.0 - 10e-8, 10e-8);
+		outGDB.at(0).avS0N = declare_vector (10e-8, 10e-8, 1.0 - 10e-8);
 
-		outGDB.at(0).avS0N.X 		= 10E-6;
-		outGDB.at(0).avS0N.Y 		= 10E-6;
-		outGDB.at(0).avS0N.Z 		= 1.0 - 10E-6;
-
-		outGDB.at(0).avS0d.DIPDIR 	= 10E-6;
-		outGDB.at(0).avS0d.DIP    	= 10E-6;
+		outGDB.at(0).avS0d.DIPDIR 	= 10e-8;
+		outGDB.at(0).avS0d.DIP    	= 10e-8;
 
 		if (outGDB.at(0).DATATYPE == "BEDDING") {
 
@@ -1199,9 +1184,7 @@ vector <GDB_> cGc_s0_average (vector <GDB_> inGDB) {
 
 	do {
 
-		temp.X = 0.000000000000000000001;
-		temp.Y = 0.999999999999999999999;
-		temp.Z = 0.000000000000000000001;
+		temp = declare_vector (10e-8, 1.0 - 10e-8, 10e-8);
 
 		do {
 
@@ -1246,9 +1229,9 @@ vector <GDB_> cGc_s0_average (vector <GDB_> inGDB) {
 	return outGDB;
 }
 
-GDB_ lineation_tilt (GDB_ inGDB, bool paleonorht) {
+GDB lineation_tilt (GDB inGDB, bool paleonorht) {
 
-	GDB_ outGDB;
+	GDB outGDB;
 	outGDB = inGDB;
 
 	DIPDIR_DIP dtemp;
@@ -1305,9 +1288,9 @@ GDB_ lineation_tilt (GDB_ inGDB, bool paleonorht) {
 	return outGDB;
 }
 
-GDB_ plane_tilt (GDB_ inGDB, bool paleonorht) {
+GDB plane_tilt (GDB inGDB, bool paleonorht) {
 
-	GDB_ outGDB;
+	GDB outGDB;
 	outGDB = inGDB;
 
 	DIPDIR_DIP dtemp;
@@ -1361,9 +1344,9 @@ GDB_ plane_tilt (GDB_ inGDB, bool paleonorht) {
 	return outGDB;
 }
 
-GDB_ SC_tilt (GDB_ inGDB, bool paleonorht) {
+GDB SC_tilt (GDB inGDB, bool paleonorht) {
 
-	GDB_ outGDB;
+	GDB outGDB;
 	outGDB = inGDB;
 	DIPDIR_DIP dtemp;
 	VCTR result, input, input2, axis;
@@ -1442,9 +1425,9 @@ GDB_ SC_tilt (GDB_ inGDB, bool paleonorht) {
 	return outGDB;
 }
 
-GDB_ striae_tilt (GDB_ inGDB, bool paleonorht) {
+GDB striae_tilt (GDB inGDB, bool paleonorht) {
 
-	GDB_ outGDB;
+	GDB outGDB;
 	outGDB = inGDB;
 
 	DIPDIR_DIP dtemp;
@@ -1527,9 +1510,9 @@ GDB_ striae_tilt (GDB_ inGDB, bool paleonorht) {
 	return outGDB;
 }
 
-GDB_ S0_TILT (GDB_ inGDB, bool paleonorth) {
+GDB S0_TILT (GDB inGDB, bool paleonorth) {
 
-	GDB_ outGDB;
+	GDB outGDB;
 
 	outGDB.N  = declare_vector (999.99, 999.99, 999.99);
 	outGDB.NC = declare_vector (999.99, 999.99, 999.99);
@@ -1547,9 +1530,9 @@ GDB_ S0_TILT (GDB_ inGDB, bool paleonorth) {
 	return outGDB;
 }
 
-vector <GDB_> cGc_RETILT (vector <GDB_> inGDB, INPSET_ inSET) {
+vector <GDB> cGc_RETILT (vector <GDB> inGDB, INPSET inSET) {
 
-	vector <GDB_> outGDB = inGDB;
+	vector <GDB> outGDB = inGDB;
 	size_t i = 0;
 
 	if (inSET.tilting == "B") {
@@ -1591,9 +1574,9 @@ vector <GDB_> cGc_RETILT (vector <GDB_> inGDB, INPSET_ inSET) {
 	return outGDB;
 }
 
-vector <GDB_> ptn (vector <GDB_> inGDB, INPSET_ inset) {
+vector <GDB> ptn (vector <GDB> inGDB, INPSET inset) {
 
-	vector <GDB_> outGDB;
+	vector <GDB> outGDB;
 	outGDB = inGDB;
 
 	double r = inset.angle / 90.0;
@@ -1642,10 +1625,10 @@ vector <GDB_> ptn (vector <GDB_> inGDB, INPSET_ inset) {
 	return outGDB;
 }
 
-vector <GDB_> clustering_GBD (INPSET_ inset, vector <GDB_> inGDB) {
+vector <GDB> clustering_GBD (INPSET inset, vector <GDB> inGDB) {
 
-	vector <GDB_> processGDB;
-	vector <GDB_> outGDB = inGDB;
+	vector <GDB> processGDB;
+	vector <GDB> outGDB = inGDB;
 	size_t i = 0;
 	size_t j = 0;
 
@@ -1686,13 +1669,13 @@ vector <GDB_> clustering_GBD (INPSET_ inset, vector <GDB_> inGDB) {
 	return outGDB;
 }
 
-void process_rgf (string inputfilename, string XY_filename, INPSET_ inset) {
+void process_rgf (string inputfilename, string XY_filename, INPSET inset) {
 
-	vector <GDB_> geodatabase, tiltgeodatabase;
+	vector <GDB> geodatabase, tiltgeodatabase;
 
 	PFN	projectfoldername = createprojectfoldernames (inputfilename);
 
-	cout << "GEODATABASE PROCESSING FOR '" << capslock(inputfilename)<< ".RGF' DATABASE FILE" << endl << endl;
+	cout << "GEODATABASE PROCESSING FOR '" << capslock(inputfilename)<< ".RGF' DATABASE FILE" << endl;
 
 	if (XY_filename == "") geodatabase = competeRGFcontect(inputfilename, "", inset);
 

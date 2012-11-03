@@ -2,6 +2,7 @@
 #define STRUCTS_HPP_
 
 #include <string>
+#include <stdexcept>
 
 using namespace std;
 
@@ -13,7 +14,7 @@ struct DIPDIR_DIP {
 
 	double DIPDIR, DIP;};
 
-struct INPSET_  {
+struct INPSET  {
 
 	string datarule;
 	string plot;
@@ -36,7 +37,7 @@ struct INPSET_  {
 	string filename;
 };
 
-struct GDB_  {	
+struct GDB  {
 
 	string ID;
 	string GC;
@@ -86,13 +87,11 @@ struct GDB_  {
 	VCTR SHEAR_S, NORMAL_S, UPSILON;
 
 	double ANG, RUP;
-
 };
 
 struct CORRECTSTRIAE {
 
 	double X, Y, Z, MISFIT;
-
 };
 
 
@@ -111,7 +110,7 @@ struct PFN {
 
 struct PAPER {
 
-	int X, Y;
+	double X, Y;
 	double A, B, C, R;
 	double O1X, O1Y, O2X, O2Y, O3X, O3Y, O4X, O4Y, O5X, O5Y, O6X, O6Y, O7X, O7Y, O8X, O8Y;
 	double S1X, S1Y, S2X, S2Y, S3X, S3Y, S4X, S4Y, S5X, S5Y, S6X, S6Y;
@@ -119,7 +118,7 @@ struct PAPER {
 
 struct CENTER {
 
-	int X, Y, radius;
+	double X, Y, radius;
 };
 
 struct LOC_X_Y {

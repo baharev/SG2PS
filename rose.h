@@ -6,16 +6,16 @@
 #include "structs.h"
 #include "common.h"
 
-ROSENUMBER compute_data_number_DIPDIR (vector <GDB_> inGDB, double strike_begin, double strike_end);
-ROSENUMBER compute_data_number_DIP (vector <GDB_> inGDB, double strike_begin, double strike_end);
+ROSENUMBER compute_data_number_DIPDIR (vector <GDB> inGDB, double strike_begin, double strike_end);
+ROSENUMBER compute_data_number_DIP (vector <GDB> inGDB, double strike_begin, double strike_end);
 
-void PS_draw_rose_PLANE (GDB_ inGDB, ofstream& o, INPSET_ inset, CENTER center, ROSENUMBER percent, double begin_angle, bool vertical);
-void PS_draw_rose_LINEATION (GDB_ inGDB, ofstream& o, INPSET_ inset, CENTER center, ROSENUMBER percent, double begin_angle, bool vertical);
-void PS_draw_rose_STRIAE (GDB_ inGDB, ofstream& o, INPSET_ inset, CENTER center, ROSENUMBER percent, double begin_angle, bool vertical);
+void PS_draw_rose_PLANE (GDB inGDB, ofstream& o, INPSET inset, CENTER center, ROSENUMBER percent, double begin_angle, bool vertical);
+void PS_draw_rose_LINEATION (GDB inGDB, ofstream& o, INPSET inset, CENTER center, ROSENUMBER percent, double begin_angle, bool vertical);
+void PS_draw_rose_SC_STRIAE (GDB inGDB, ofstream& o, INPSET inset, CENTER center, ROSENUMBER percent, double begin_angle, bool vertical);
 
-void PS_draw_rose_DIP_DIR (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, CENTER center);
-void PS_draw_rose_DIP (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, CENTER center);
+void PS_draw_rose_DIPDIR (vector <GDB> inGDB, ofstream& o, INPSET inset, CENTER center);
+void PS_draw_rose_DIP (vector <GDB> inGDB, ofstream& o, INPSET inset, CENTER center);
 
-void PS_draw_rose (vector <GDB_> roseGDB, vector <GDB_> tiltroseGDB, ofstream& o, INPSET_ inset, CENTER center, PAPER P);
+void PS_draw_rose (vector <GDB> roseGDB, vector <GDB> tiltroseGDB, ofstream& o, INPSET inset, CENTER center, PAPER P);
 
 #endif

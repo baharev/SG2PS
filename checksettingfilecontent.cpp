@@ -1,3 +1,5 @@
+#include <stdexcept>
+
 #include "checksettingfilecontent.h"
 
 
@@ -18,7 +20,7 @@ void header () {
 	cout << "|                                                                  |" << endl;
 	cout << "|                       version: 0.2.0 beta                        |" << endl;
 	cout << "+------------------------------------------------------------------+" << endl << endl << endl;
-};
+}
 
 bool settingfilecorrect (string settingfilename) {
 
@@ -215,9 +217,9 @@ bool settingfilecorrect (string settingfilename) {
 	return settingfilecorrect;	
 }
 
-INPSET_ loadsettingsfromsettingfile (string settingfilename) {
+INPSET loadsettingsfromsettingfile (string settingfilename) {
 
-	INPSET_ settings;
+	INPSET settings;
 	string b, c;
 
 	ifstream settingfile;
@@ -303,7 +305,7 @@ INPSET_ loadsettingsfromsettingfile (string settingfilename) {
 	return settings;
 }
 
-void printsettingsonscreen (INPSET_ settings) {
+void printsettingsonscreen (INPSET settings) {
 
 	if (settings.datarule=="R")		cout<<"  - Data convention ............................: right-hand rule"					<< endl;
 	if (settings.datarule=="G")		cout<<"  - Data convention.............................: german dipdir-dip"					<< endl;
@@ -365,251 +367,251 @@ void printsettingsonscreen (INPSET_ settings) {
 	if (settings.rosebinning=="A")	cout<<"  - Data bin size on rose plot..................: 2.5 deg"							<< endl;
 	if (settings.rosebinning=="B")	cout<<"  - Data bin size on rose plot..................: 5 deg"								<< endl;
 	if (settings.rosebinning=="C")	cout<<"  - Data bin size on rose plot..................: 10 deg"							<< endl;
-	if (settings.rosebinning=="D")	cout<<"  - Data bin size on rose plot...................: 22.5 deg"							<< endl;
+	if (settings.rosebinning=="D")	cout<<"  - Data bin size on rose plot..................: 22.5 deg"							<< endl;
 
 }
 
 
-INPSET_ inputsettings_manually (string projectname) {
+INPSET inputsettings_manually (string projectname) {
 
 	string c;
-	INPSET_ _inputsettingsonscreen;
+	INPSET inputsettingsonscreen;
 
 	cout << endl << "INPUT USER SETTINGS - to exit: press [X]" << endl;
 
 	do {
 		cout << "  - Data convention:" << endl;
-		cout << "    - german with dip direction............................[G],  " << endl;
-		cout << "    - or right-hand rule with strike.......................[r]?  " << flush;
+		cout << "    - german with dip direction.............................[G],  " << endl;
+		cout << "    - or right-hand rule with strike........................[r]?  " << flush;
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") exit (1);
+		if (c == "X") throw runtime_error ("Exit the program");
 	}
 	while (!((c=="G") || (c=="R")));
-	_inputsettingsonscreen.datarule = c;
+	inputsettingsonscreen.datarule = c;
 
 
 	do {
 		cout << "  - Plot type:" << endl;
-		cout << "    - Angelier plot with planes............................[A],  " << endl;
-		cout << "    - or Hoeppener plot with poles.........................[h]?  " << flush;
+		cout << "    - Angelier plot with planes.............................[A],  " << endl;
+		cout << "    - or Hoeppener plot with poles..........................[h]?  " << flush;
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") exit (1);
+		if (c == "X") throw runtime_error ("Exit the program");
 	}
 	while (!((c=="A") || (c=="H")));
-	_inputsettingsonscreen.plot = c;
+	inputsettingsonscreen.plot = c;
 
 
 
 	do {
 		cout << "  - Net type:" << endl;
-		cout << "    - equal are Schmidt-net................................[S],  " << endl;
-		cout << "    - or equal angle Wulff-net.............................[w]?  " << flush;
+		cout << "    - equal are Schmidt-net.................................[S],  " << endl;
+		cout << "    - or equal angle Wulff-net..............................[w]?  " << flush;
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") exit (1);
+		if (c == "X") throw runtime_error ("Exit the program");
 	}
 	while (!((c=="S") || (c=="W")));
-	_inputsettingsonscreen.plottype = c;
+	inputsettingsonscreen.plottype = c;
 
 
 	do {
 		cout << "  - Hemisphere:" << endl;
-		cout << "    - upper hemisphere.....................................[u],  " << endl;
-		cout << "    - or lower hemisphere..................................[L]?  " << flush;
+		cout << "    - upper hemisphere......................................[u],  " << endl;
+		cout << "    - or lower hemisphere...................................[L]?  " << flush;
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") exit (1);
+		if (c == "X") throw runtime_error ("Exit the program");
 	}
 	while (!((c=="L") || (c=="U")));
-	_inputsettingsonscreen.hemisphere = c;
+	inputsettingsonscreen.hemisphere = c;
 
 
 	do {
 		cout << "  - Correction of measured data with:" << endl;
-		cout << "    - bedding..............................................[b],  " << endl;
-		cout << "    - paleo-north direction................................[p],  " << endl;
-		cout << "    - or bedding and paleo-north direction.................[A]?  " << flush;
+		cout << "    - bedding...............................................[b],  " << endl;
+		cout << "    - paleo-north direction.................................[p],  " << endl;
+		cout << "    - or bedding and paleo-north direction..................[A]?  " << flush;
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") exit (1);
+		if (c == "X") throw runtime_error ("Exit the program");
 	}
 	while (!((c == "B") || (c == "P") || (c == "A")));
-	_inputsettingsonscreen.tilting = c;
+	inputsettingsonscreen.tilting = c;
 
 
 	do {
 		cout << "  - Using group codes:" << endl;
-		cout << "    - use and evaluate groups independently................[Y],  " << endl;
-		cout << "    - or do not use and evaluate groups together...........[n]?  " << flush;
+		cout << "    - use and evaluate groups independently.................[Y],  " << endl;
+		cout << "    - or do not use and evaluate groups together............[n]?  " << flush;
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") exit (1);
+		if (c == "X") throw runtime_error ("Exit the program");
 	}
 	while (!((c == "Y") || (c == "N")));
-	_inputsettingsonscreen.group = c;
+	inputsettingsonscreen.group = c;
 
 
 	do {
 		cout << "  - Clustering:" << endl;
-		cout << "    - no clustering........................................[N],  " << endl;
-		cout << "    - automatic cluster number.............................[a],  " << endl;
-		cout << "    - or 2..9 clusters..................................[2..9]?  " << flush;
+		cout << "    - no clustering.........................................[N],  " << endl;
+		cout << "    - automatic cluster number..............................[a],  " << endl;
+		cout << "    - or 2..9 clusters...................................[2..9]?  " << flush;
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") exit (1);
+		if (c == "X") throw runtime_error ("Exit the program");
 	}
 	while (!((c == "N") || (c == "A") || (c == "2") || (c == "3") || (c == "4") || (c == "5") || (c == "6") || (c == "7") || (c == "8") || (c == "9")));
-	_inputsettingsonscreen.clusternumber = c;
+	inputsettingsonscreen.clusternumber = c;
 
 
 	do {
 		cout << "  - Labeling of stereonet:" << endl;
-		cout << "    - labeling of measured data using data ID..............[y],  " << endl;
-		cout << "    - or none..............................................[N]?  " << flush;
+		cout << "    - labeling of measured data using data ID...............[y],  " << endl;
+		cout << "    - or none...............................................[N]?  " << flush;
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") exit (1);
+		if (c == "X") throw runtime_error ("Exit the program");
 	}
 	while (!((c == "Y") || (c == "N")));
-	_inputsettingsonscreen.labeling = c;
+	inputsettingsonscreen.labeling = c;
 
 
 	do {
 		cout << "  - Inversion of slickenside data:" << endl;
-		cout << "    - pseudo-inversion using Sprang's (1972) NDA method....[D],  " << endl;
-		cout << "    - pseudo-inversion using Turner's (1953) PTN method....[p],  " << endl;
-		cout << "    - regression using Fry's (1999) method.................[f],  " << endl;
-		cout << "    - regression using Shan et al's (2003) method..........[s],  " << endl;
-		cout << "    - regression using Michael's (1984) method.............[m],  " << endl;
-		cout << "    - inversion using Angelier's (1984) method.............[a],  " << endl;
-	    cout << "    - inversion Mostafa's (2005) method....................[o],  " << endl;
-		cout << "    - or none..............................................[n]?  " << flush;
+		cout << "    - pseudo-inversion using Sprang's (1972) NDA method.....[D],  " << endl;
+		cout << "    - pseudo-inversion using Turner's (1953) PTN method.....[p],  " << endl;
+		cout << "    - regression using Fry's (1999) method..................[f],  " << endl;
+		cout << "    - regression using Shan et al's (2003) method...........[s],  " << endl;
+		cout << "    - regression using Michael's (1984) method..............[m],  " << endl;
+		cout << "    - inversion using Angelier's (1984) method..............[a],  " << endl;
+	    cout << "    - inversion Mostafa's (2005) method.....................[o],  " << endl;
+		cout << "    - or none...............................................[n]?  " << flush;
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") exit (1);
+		if (c == "X") throw runtime_error ("Exit the program");
 	}
 	while (!((c == "D") || (c == "A") || (c == "P") || (c == "N") || (c == "M") || (c == "O") || (c == "S") || (c == "F") ));
-	_inputsettingsonscreen.inversion = c;
+	inputsettingsonscreen.inversion = c;
 
 
 	do {
 		cout << "  - Virtual symmetric striae set:" << endl;
-		cout << "    - use virtual symmetric striae set.....................[Y],  " << endl;
-		cout << "    - or do not generate virtual symmetric set.............[n],  " << flush;
+		cout << "    - use virtual symmetric striae set......................[Y],  " << endl;
+		cout << "    - or do not generate virtual symmetric set..............[n)],  " << flush;
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") exit (1);
+		if (c == "X") throw runtime_error ("Exit the program");
 	}
 	while (!((c == "Y") || (c == "N")));
-	_inputsettingsonscreen.virt_striae = c;
+	inputsettingsonscreen.virt_striae = c;
 
 
 	do {
 		cout << "  - Ideal movement display for slickensides:" << endl;
-		cout << "    - display..............................................[Y],  " << endl;
-		cout << "    - or do not display....................................[n],  " << flush;
+		cout << "    - display...............................................[Y],  " << endl;
+		cout << "    - or do not display.....................................[n],  " << flush;
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") exit (1);
+		if (c == "X") throw runtime_error ("Exit the program");
 	}
 	while (!((c == "Y") || (c == "N")));
-	_inputsettingsonscreen.virt_striae = c;
+	inputsettingsonscreen.virt_striae = c;
 
 
 	do {
 		cout << "  - Angle between s1 and fault plane for pseudo-inversion: " << endl;
-		cout << "    - 10 to 80 degrees................................[10..80]?  " << flush;
+		cout << "    - 10 to 80 degrees.................................[10..80]?  " << flush;
 
 		cin >> c;
-		if (c == "X") exit (1);
+		if (c == "X") throw runtime_error ("Exit the program");
 	}
 	while ((atof(c.c_str()) < 10.0) || (atof(c.c_str()) > 80.0));
-	_inputsettingsonscreen.angle = atof(c.c_str());
+	inputsettingsonscreen.angle = atof(c.c_str());
 
 
 	do {
 		cout << "  - Fracture statistics:" << endl;
-		cout << "    - Bingham statistics for weight point computation......[B],  " << endl;
-		cout << "    - or none..............................................[n]?  " << flush;
+		cout << "    - Bingham statistics for weight point computation.......[B],  " << endl;
+		cout << "    - or none...............................................[n]?  " << flush;
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") exit (1);
+		if (c == "X") throw runtime_error ("Exit the program");
 	}
 	while (!((c == "B") || (c == "N")));
-	_inputsettingsonscreen.fracture = c;
+	inputsettingsonscreen.fracture = c;
 
 
 	do {
 		cout << "  - Linewidth in points (1/72 inch):" << endl;
-		cout << "    - 0.1 to 1.0............................[1...9, 0 for 1.0]?  " << flush;
+		cout << "    - 0.1 to 1.0.............................[1...9, 0 for 1.0]?  " << flush;
 
 		cin >> c;
-		if (c == "X") exit (1);
+		if (c == "X") throw runtime_error ("Exit the program");
 	}
 	while (!(
 		  (c == "0") || (c == "1") || (c == "2") || (c == "3")|| (c == "4") ||
 		  (c == "5") || (c == "6") || (c == "7") || (c == "8")|| (c == "9") || (c == "0")
 		  ));
-	_inputsettingsonscreen.linewidth = 0.1;
+	inputsettingsonscreen.linewidth = 0.1;
 
-	if (c == "2") _inputsettingsonscreen.linewidth = 0.2;
-	if (c == "3") _inputsettingsonscreen.linewidth = 0.3;
-	if (c == "4") _inputsettingsonscreen.linewidth = 0.4;
-	if (c == "5") _inputsettingsonscreen.linewidth = 0.5;
-	if (c == "6") _inputsettingsonscreen.linewidth = 0.6;
-	if (c == "7") _inputsettingsonscreen.linewidth = 0.7;
-	if (c == "8") _inputsettingsonscreen.linewidth = 0.8;
-	if (c == "9") _inputsettingsonscreen.linewidth = 0.9;
-	if (c == "0") _inputsettingsonscreen.linewidth = 1.0;
+	if (c == "2") inputsettingsonscreen.linewidth = 0.2;
+	if (c == "3") inputsettingsonscreen.linewidth = 0.3;
+	if (c == "4") inputsettingsonscreen.linewidth = 0.4;
+	if (c == "5") inputsettingsonscreen.linewidth = 0.5;
+	if (c == "6") inputsettingsonscreen.linewidth = 0.6;
+	if (c == "7") inputsettingsonscreen.linewidth = 0.7;
+	if (c == "8") inputsettingsonscreen.linewidth = 0.8;
+	if (c == "9") inputsettingsonscreen.linewidth = 0.9;
+	if (c == "0") inputsettingsonscreen.linewidth = 1.0;
 
 
 	do {
 		cout << "  - Rose plot for data sets:" << endl;
-		cout << "    - symmetrical..........................................[S],  " << endl;
-		cout << "    - or asymmetrical......................................[a]?  " << flush;
+		cout << "    - symmetrical...........................................[S],  " << endl;
+		cout << "    - or asymmetrical.......................................[a]?  " << flush;
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") exit (1);
+		if (c == "X") throw runtime_error ("Exit the program");
 	}
 	while (!((c == "S") || (c == "A")));
-	_inputsettingsonscreen.rosetype = c;
+	inputsettingsonscreen.rosetype = c;
 
 
 	do {
 		cout << "  - Bin size on rose plot:" << endl;
-		cout << "    - 2.5 degrees..........................................[a],  " << endl;
-		cout << "    - 5.0 degrees..........................................[b],  " << endl;
-		cout << "    - 10.0 degrees.........................................[C],  " << endl;
-		cout << "    - or 22.5 degrees......................................[d]?  " << flush;
+		cout << "    - 2.5 degrees...........................................[a],  " << endl;
+		cout << "    - 5.0 degrees...........................................[b],  " << endl;
+		cout << "    - 10.0 degrees..........................................[C],  " << endl;
+		cout << "    - or 22.5 degrees.......................................[d]?  " << flush;
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") exit (1);
+		if (c == "X") throw runtime_error ("Exit the program");
 	}
 	while (!((c == "A") || (c == "B") || (c == "C") || (c == "D")));
-	_inputsettingsonscreen.rosebinning = c;
+	inputsettingsonscreen.rosebinning = c;
 
 	cout << endl << endl;
 	cout << "NEW SETTINGS FOR '" << capslock (projectname) << "' PROJECT"<< endl;
 
-return _inputsettingsonscreen;
+return inputsettingsonscreen;
 
 }
 
-bool outputsettingfile (INPSET_ _outputsettingfile, string projectname) {
+bool outputsettingfile (INPSET outputsettingfile, string projectname) {
 
 	ofstream settingfile;
 	string filename = projectname + ".set";
@@ -618,52 +620,52 @@ bool outputsettingfile (INPSET_ _outputsettingfile, string projectname) {
 	if ((settingfile.is_open())) {
 
 		settingfile << "DATARULE:" << '\t' << flush;
-		settingfile << _outputsettingfile.datarule << endl;
+		settingfile << outputsettingfile.datarule << endl;
 
 		settingfile << "PLOT:" << '\t' << flush;
-		settingfile << _outputsettingfile.plot << endl;
+		settingfile << outputsettingfile.plot << endl;
 
 		settingfile << "PLOTTYPE:" << '\t' << flush;
-		settingfile << _outputsettingfile.plottype << endl;
+		settingfile << outputsettingfile.plottype << endl;
 
 		settingfile << "HEMISPHERE:" << '\t' << flush;
-		settingfile << _outputsettingfile.hemisphere << endl;
+		settingfile << outputsettingfile.hemisphere << endl;
 
 		settingfile << "TILTING:" << '\t' << flush;
-		settingfile << _outputsettingfile.tilting << endl;
+		settingfile << outputsettingfile.tilting << endl;
 
 		settingfile << "GROUP:" << '\t' << flush;
-		settingfile << _outputsettingfile.group << endl;
+		settingfile << outputsettingfile.group << endl;
 
 		settingfile << "CLUSTERNUMBER:" << '\t' << flush;
-		settingfile << _outputsettingfile.clusternumber << endl;
+		settingfile << outputsettingfile.clusternumber << endl;
 
 		settingfile << "LABELING:" << '\t' << flush;
-		settingfile << _outputsettingfile.labeling << endl;
+		settingfile << outputsettingfile.labeling << endl;
 
 		settingfile << "INVERSION:" << '\t' << flush;
-		settingfile << _outputsettingfile.inversion << endl;
+		settingfile << outputsettingfile.inversion << endl;
 
 		settingfile << "VIRTUAL:" << '\t' << flush;
-		settingfile << _outputsettingfile.virt_striae << endl;
+		settingfile << outputsettingfile.virt_striae << endl;
 
 		settingfile << "IDEALMOVEMENT:" << '\t' << flush;
-		settingfile << _outputsettingfile.idealmovement << endl;
+		settingfile << outputsettingfile.idealmovement << endl;
 
 		settingfile << "STRESSANGLE:" << '\t' << flush;
-		settingfile << _outputsettingfile.angle << endl;
+		settingfile << outputsettingfile.angle << endl;
 
 		settingfile << "BINGHAM:" << '\t' << flush;
-		settingfile << _outputsettingfile.fracture << endl;
+		settingfile << outputsettingfile.fracture << endl;
 
 		settingfile << "LINEWIDTH:" << '\t' << flush;
-		settingfile << _outputsettingfile.linewidth << endl;
+		settingfile << outputsettingfile.linewidth << endl;
 
 		settingfile << "ROSETYPE:" << '\t' << flush;
-		settingfile << _outputsettingfile.rosetype << endl;
+		settingfile << outputsettingfile.rosetype << endl;
 
 		settingfile << "ROSEBINNING:" << '\t' << flush;
-		settingfile << _outputsettingfile.rosebinning << endl;
+		settingfile << outputsettingfile.rosebinning << endl;
 		
 		return true;
 	}
@@ -671,9 +673,9 @@ bool outputsettingfile (INPSET_ _outputsettingfile, string projectname) {
 	else return false;
 }
 
-INPSET_ input_hardcoded () {
+INPSET input_hardcoded () {
 
-	INPSET_ input_hardcoded;
+	INPSET input_hardcoded;
 
 	input_hardcoded.datarule		= "G";
 	input_hardcoded.plot			= "A";
@@ -696,10 +698,11 @@ INPSET_ input_hardcoded () {
 	return input_hardcoded;
 }
 
-INPSET_ manage_settings (bool batch, string projectname) {
 
-	INPSET_ currect_settings;
-	string c;
+
+INPSET decide_setting_status (string projectname) {
+
+	INPSET currect_settings;
 
 	cout << endl << endl;
 	cout << "CHECKING OF SETTINGS OF '" << capslock (projectname) << "' PROJECT"<< endl;
@@ -725,29 +728,36 @@ INPSET_ manage_settings (bool batch, string projectname) {
 		}
 	}
 
+	return currect_settings;
+}
 
-	if (batch) {
+INPSET manage_settings_batch (string projectname) {
+
+	INPSET currect_settings = decide_setting_status (projectname);
+
+	printsettingsonscreen (currect_settings);
+
+	return currect_settings;
+}
+
+INPSET manage_settings_nobatch (string projectname) {
+
+	INPSET currect_settings = decide_setting_status (projectname);
+
+	string c;
+
+	do {
 
 		printsettingsonscreen (currect_settings);
-		return currect_settings;
 
-	}
+		c = input_setting_decision ();
 
-	else {
+		if (c == "D") currect_settings = input_hardcoded ();
+		if (c == "N") currect_settings = inputsettings_manually (projectname);
 
-		do {
+	} while (!(c == "S"));
 
-			printsettingsonscreen (currect_settings);
-
-			c = input_setting_decision ();
-
-			if (c == "D") currect_settings = input_hardcoded ();
-			if (c == "N") currect_settings = inputsettings_manually (projectname);
-
-		} while (!(c == "S"));
-
-		outputsettingfile (currect_settings, projectname);
-	}
+	outputsettingfile (currect_settings, projectname);
 
 	return currect_settings;
 }
@@ -759,15 +769,15 @@ string input_setting_decision () {
 	while (!((c == "S") || (c == "D") || (c == "N"))) {
 
 		cout << endl << endl;
-		cout << "Do You want to use and save these settings....[S]," 			<< endl;
-		cout << "use default values............................[D]," 			<< endl;
-		cout << "input new ones................................[N]," 			<< endl;
-		cout << "or exit.......................................[X]........?  " 	<< flush;
+		cout << "Do You want to use and save these settings.....[S]," 			<< endl;
+		cout << "use default values.............................[D]," 			<< endl;
+		cout << "input new ones.................................[N]," 			<< endl;
+		cout << "or exit........................................[X]........?  " << flush;
 
 		cin >> c;
 		c = capslock (c);
 
-		if (c == "X") exit (1);
+		if (c == "X") throw runtime_error ("Exit the program");
 	}
 
 	return c;

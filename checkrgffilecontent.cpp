@@ -1,4 +1,5 @@
 #include <map>
+#include <stdexcept>
 
 #include "checkrgffilecontent.h"
 
@@ -17,7 +18,7 @@ string inputfilename () {
 
 		cin  >> projectname;
 
-		if ((projectname == "X") || (projectname == "x")) exit (1);
+		if ((projectname == "X") || (projectname == "x")) throw runtime_error ("Exit the program");
 
 		filename = projectname + ".rgf";
 
@@ -83,7 +84,7 @@ bool tabcheck (string projectname) {
 		return false;
 	}
 
-	getline (rgffile, temp); //for header
+	getline (rgffile, temp);
 
 	while  (!(rgffile.eof())) {
 
@@ -213,7 +214,7 @@ bool GCcheck (string projectname) {
 		return false;
 	}
 
-	getline (rgffile, temp); //for header
+	getline (rgffile, temp);
 
 	while (!(rgffile.eof())) {
 
@@ -269,7 +270,7 @@ bool LOCcheck (string projectname) {
 		return false;
 	}
 
-	getline (rgffile, temp); //for header
+	getline (rgffile, temp);
 
 	getline (rgffile, temp, '\t');
 	getline (rgffile, temp, '\t');
@@ -311,7 +312,7 @@ bool XYcheck (string projectname) {
 		return false;
 	}
 
-	getline (rgffile, temp); //for header
+	getline (rgffile, temp);
 
 	while (!(rgffile.eof())) {
 
@@ -325,14 +326,14 @@ bool XYcheck (string projectname) {
 		getline (rgffile, coordX, '\t');
 		getline (rgffile, temp);
 
-		if 	(((coordX != "") && (coordX != "0") && (coordX != "0.0") && (coordX != "0.0") && (atof(coordX.c_str()) == 0)) ||
-			 ((coordY != "") && (coordY != "0") && (coordY != "0.0") && (coordY != "0.0") && (atof(coordY.c_str()) == 0))) {
+		if 	(((coordX != "") && (coordX != "0") && (coordX != "0.0") && (coordX != "0.0") && (atof(coordX.c_str()) <= 0.0)) ||
+			 ((coordY != "") && (coordY != "0") && (coordY != "0.0") && (coordY != "0.0") && (atof(coordY.c_str()) <= 0.0))) {
 
 			errorcounter++;
 
 			if (errorcounter == 1) {
 
-				cout <<"    - ERROR: incorrect coordinate(s) in following record(s):  " << ID << flush;
+				cout <<"    - ERROR: incorrect coordinate(s) in the following record(s):  " << ID << flush;
 			}
 
 			if (errorcounter > 1) {
@@ -451,7 +452,7 @@ bool DATATYPEcheck (string projectname) {
 		return false;
 	}
 
-	getline (rgffile, temp); //for header
+	getline (rgffile, temp);
 
 	while (!(rgffile.eof())) {
 
@@ -580,7 +581,7 @@ bool DIPDIRcheck (string projectname) {
 
 			errorcounter++;	
 
-			if (errorcounter == 1) 	cout <<"    - bERROR: incorrect dip direction(s) in following record(s):  " << ID << flush;
+			if (errorcounter == 1) 	cout <<"    - ERROR: incorrect dip direction(s) in following record(s):  " << ID << flush;
 
 			if (errorcounter > 1) 	cout << ", " << ID << flush;
 		}
@@ -588,9 +589,9 @@ bool DIPDIRcheck (string projectname) {
 
 		if (!((DIPDIR == "0") || (DIPDIR == "0.0") || (DIPDIR == "00")|| (DIPDIR == "000") || (DIPDIR == "0.00")  || (DIPDIR == ""))) {
 
-			numDIPDIR=atof(DIPDIR.c_str());
+			numDIPDIR = atof(DIPDIR.c_str());
 
-			if (numDIPDIR == 0) {
+			if (numDIPDIR == 0.0) {
 
 				errorcounter++;
 
@@ -650,7 +651,7 @@ bool DIPcheck (string projectname) {
 		return false;
 	}
 
-	getline (rgffile, temp); //for header
+	getline (rgffile, temp);
 
 	while (!(rgffile.eof())) {
 
@@ -676,7 +677,7 @@ bool DIPcheck (string projectname) {
 
 			errorcounter++;	
 
-				if (errorcounter == 1) 	cout <<"    - aERROR: incorrect dip(s) in following record(s):  " << ID << flush;
+				if (errorcounter == 1) 	cout <<"    - ERROR: incorrect dip(s) in following record(s):  " << ID << flush;
 
 				if (errorcounter > 1) 	cout << ", " << ID;
 		}
@@ -701,13 +702,13 @@ bool DIPcheck (string projectname) {
 
 			numDIP = atof(DIP.c_str());
 
-			if (numDIP == 0) {
+			if (numDIP == 0.0) {
 
 				errorcounter++;
 				
 				if (errorcounter == 1) {
 
-					cout << "    - cERROR: incorrect dip(s) in following record(s):  " << ID << flush;
+					cout << "    - ERROR: incorrect dip(s) in following record(s):  " << ID << flush;
 				}
 
 				if (errorcounter > 1) {
@@ -722,12 +723,12 @@ bool DIPcheck (string projectname) {
 
 				if (errorcounter == 1) {
 
-					cout << "    - dERROR: incorrect dip(s) in following record(s):  " << ID << flush;
+					cout << "    - ERROR: incorrect dip(s) in following record(s):  " << ID << flush;
 				}
 
 				if (errorcounter > 1) {
 
-					cout<<", "<<ID;
+					cout << ", " << ID;
 				}
 			}
 		}
@@ -967,7 +968,7 @@ bool PALEONcheck (string projectname) {
 		return false;
 	}
 
-	getline (rgffile, temp); //for header
+	getline (rgffile, temp);
 
 	while (!(rgffile.eof())) {
 
@@ -994,7 +995,7 @@ bool PALEONcheck (string projectname) {
 
 			numPALEON=atof(PALEON.c_str());
 
-			if (numPALEON == 0) {
+			if (numPALEON == 0.0) {
 
 				errorcounter++;
 				
@@ -1038,15 +1039,17 @@ vector <string> check_rgf_inputs (vector <string> inputfilename_vector, bool bat
 
 	do {
 
-		if (batch)
+		if (batch) {
 
 			if (rgffile_correct(inputfilename_vector.at(j))) cout << "  - Input " << capslock(inputfilename_vector.at(j)) << ".RGF file structure is correct." << endl;
 
 			else {
 
-				cout << "  - Input " << capslock(inputfilename_vector.at(j)) << ".RGF file structure is incorrect, file will be not evaluated." << endl;
 				inputfilename_vector.erase(inputfilename_vector.begin() + j);
 			}
+
+			if (inputfilename_vector.size() < 2) throw runtime_error ("No file to process");
+		}
 
 		else {
 

@@ -17,7 +17,7 @@ bool xyIDcheck (string xyname);
 bool xyCOORDcheck (string xyname);
 vector <LOC_X_Y> competeXYdatabase (string xyname);
 
-GDB_ insertxy (GDB_ inGDB, string xyfilename);
+GDB insertxy (GDB inGDB, string xyfilename);
 
 bool xyfile_correct (string projectname);
 string check_xy_inputs (string inputfilename, bool batch);

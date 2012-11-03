@@ -11,35 +11,35 @@
 
 using namespace std;
 
-vector <vector < double> > michael_parameters (vector <GDB_> inGDB); //OK
-vector <vector < double> > stressvector_parameters (vector <GDB_> inGDB);
+vector <vector < double> > michael_parameters (vector <GDB> inGDB);
+vector <vector < double> > stressvector_parameters (vector <GDB> inGDB);
 
-ANG_PRM angelier_parameters (vector <GDB_> inGDB);
-STRESSTENSOR compute_angelier_stresstensor (ANG_PRM parameters, vector <GDB_> inGDB);
+ANG_PRM angelier_parameters (vector <GDB> inGDB);
+STRESSTENSOR compute_angelier_stresstensor (ANG_PRM parameters, vector <GDB> inGDB);
 
-STRESSTENSOR ptn_P (vector <GDB_> inGDB);
-STRESSTENSOR ptn_T (vector <GDB_> inGDB);
-STRESSTENSOR ptn_N (vector <GDB_> inGDB);
+STRESSTENSOR ptn_P (vector <GDB> inGDB);
+STRESSTENSOR ptn_T (vector <GDB> inGDB);
+STRESSTENSOR ptn_N (vector <GDB> inGDB);
 
-vector <vector <double> > FRY (vector <GDB_> inGDB, INPSET_ inset);
+vector <vector <double> > FRY (vector <GDB> inGDB, INPSET inset);
 
-vector <vector <double> > SHAN (vector <GDB_> inGDB, INPSET_ inset);
+vector <vector <double> > SHAN (vector <GDB> inGDB, INPSET inset);
 
-STRESSTENSOR ANGELIER (vector <GDB_> inGDB, INPSET_ inset);
+STRESSTENSOR ANGELIER (vector <GDB> inGDB, INPSET inset);
 
-STRESSTENSOR MICHAEL (vector <GDB_> inGDB, INPSET_ inset);
-STRESSFIELD MICHAEL_PROCESS (vector <GDB_> inGDB, INPSET_ inset);
+STRESSTENSOR MICHAEL (vector <GDB> inGDB, INPSET inset);
+STRESSFIELD MICHAEL_PROCESS (vector <GDB> inGDB, INPSET inset);
 
-STRESSTENSOR NDA (vector <GDB_> inGDB, INPSET_ inset);
-STRESSFIELD NDA_PROCESS (vector <GDB_> inGDB, INPSET_ inset);
+STRESSTENSOR NDA (vector <GDB> inGDB, INPSET inset);
+STRESSFIELD NDA_PROCESS (vector <GDB> inGDB, INPSET inset);
 
-STRESSTENSOR BINGHAM (vector <GDB_> inGDB);
-STRESSFIELD BINGHAM_PROCESS (vector <GDB_> inGDB);
+STRESSTENSOR BINGHAM (vector <GDB> inGDB);
+STRESSFIELD BINGHAM_PROCESS (vector <GDB> inGDB);
 
-vector <GDB_> return_stressvector_estimators (STRESSTENSOR st, vector <GDB_> inGDB, string method, bool compression_positive);
+vector <GDB> return_stressvector_estimators (STRESSTENSOR st, vector <GDB> inGDB, string method, bool compression_positive);
 
-vector <GDB_> generate_virtual_striae (vector <GDB_> inGDB);
+vector <GDB> generate_virtual_striae (vector <GDB> inGDB);
 
-vector <GDB_> inversion (string method, vector <GDB_> inGDB, ofstream& o, INPSET_ inset, CENTER center, CENTER mohr_center, PAPER P);
+vector <GDB> inversion (string method, vector <GDB> inGDB, ofstream& o, INPSET inset, CENTER center, CENTER mohr_center, PAPER P);
 
 #endif

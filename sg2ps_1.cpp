@@ -24,9 +24,9 @@ using namespace std;
 int main (int argument_number, char *argv[]) {
 
 	string inputrgfname, xy_filename, inputrgfname_only, temp;
-	vector <GDB_> geodatabase, tiltgeodatabase;
-	INPSET_ inset;
-	size_t finishtime, starttime;
+	vector <GDB> geodatabase, tiltgeodatabase;
+	INPSET inset;
+	long finishtime, starttime;
 	size_t j = 1;
 	bool batch = false;
 	bool using_xy_files = false;
@@ -52,19 +52,19 @@ int main (int argument_number, char *argv[]) {
 	if (batch) using_xy_files = true;
 	else using_xy_files = needxyfile ();
 
+	if (!(batch)) manage_settings_nobatch (inputfilename_vector.at(1));
+
 	starttime = clock ();
 
 	do {
 
-		inset = manage_settings (batch, inputfilename_vector[j]);
+		inset = manage_settings_batch (inputfilename_vector.at(j));
 
-		if (using_xy_files) xy_filename = check_xy_inputs (inputfilename_vector[j], batch);
+		if (using_xy_files) xy_filename = check_xy_inputs (inputfilename_vector.at(j), batch);
 
-		process_rgf (inputfilename_vector[j], xy_filename, inset);
+		process_rgf (inputfilename_vector.at(j), xy_filename, inset);
 
-		cout << endl;
-
-		cout << "EVALUATION OF " << capslock(inputfilename_vector[j]) << ".RGF FILE COMPLETED." << endl;
+		cout << "EVALUATION OF " << capslock(inputfilename_vector.at(j)) << ".RGF FILE COMPLETED." << endl;
 
 		j++;
 

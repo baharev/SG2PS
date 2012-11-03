@@ -1,5 +1,6 @@
 #include <map>
 #include <iostream>
+#include <stdexcept>
 
 
 #include "checkxycontent.h"
@@ -16,12 +17,12 @@ bool needxyfile () {
 
 	do {
 
-		cout << "Do You want to use own coordinates in XY data format...[Y]," 			<< endl;
-		cout << "or use coordinate data in RGF file.....................[N]........?  " << flush;
+		cout << "Do You want to use own coordinates in XY data format....at(Y)," 			<< endl;
+		cout << "or use coordinate data in RGF file......................at(N)........?  " << flush;
 
 		cin >> need_xy_file;
 		need_xy_file = capslock(need_xy_file);
-		if (need_xy_file == "X") exit (1);
+		if (need_xy_file == "X") throw runtime_error ("Exit the program");
 	}
 
 	while (!((need_xy_file == "Y") || (need_xy_file == "N")));
@@ -236,8 +237,8 @@ bool xyCOORDcheck (string xyname) {
 		getline (xyfile, coordX, '\t');
 		getline (xyfile, coordY);
 
-		if 	(((coordX != "0") && (coordX != "0.0") && (coordX != "0.0") && (atof(coordX.c_str()) == 0)) ||
-			 ((coordY != "0") && (coordY != "0.0") && (coordY != "0.0") && (atof(coordY.c_str()) == 0))) {
+		if 	(((coordX != "0") && (coordX != "0.0") && (coordX != "0.0") && (atof(coordX.c_str()) == 0.0)) ||
+			 ((coordY != "0") && (coordY != "0.0") && (coordY != "0.0") && (atof(coordY.c_str()) == 0.0))) {
 
 			errorcounter++;
 
@@ -304,9 +305,9 @@ vector <LOC_X_Y> competeXYdatabase (string xyname){
 	return XY_DB;
 }
 
-GDB_ insertxy (GDB_ inGDB, string xyfilename) {
+GDB insertxy (GDB inGDB, string xyfilename) {
 
-	GDB_ outGDB;
+	GDB outGDB;
 
 	outGDB = inGDB;
 

@@ -50,7 +50,7 @@ PFN createprojectfoldernames (string projectname) {
 	return output;
 }
 
-bool createprojectfolders (PFN output, vector <GDB_> inGDB) {
+bool createprojectfolders (PFN output, vector <GDB> inGDB) {
 
 	const string bs = char_to_string ('\\');
 	int returncode = 0;
@@ -274,7 +274,7 @@ bool copyoriginalfile (PFN output) {
 	return true;
 }
 
-void outputrgfheader (ofstream& o, INPSET_ inset) {
+void outputrgfheader (ofstream& o, INPSET inset) {
 
 	o
 	<< "ID" 		<< '\t'
@@ -320,7 +320,7 @@ void outputaverageheader (ofstream& o) {
 	<< "COMMENT" << endl;
 }
 
-void outputrecord (GDB_ i, ofstream& o, INPSET_ inpset) {
+void outputrecord (GDB i, ofstream& o, INPSET inpset) {
 
 	o
 	<< i.ID << '\t'
@@ -364,7 +364,7 @@ void outputrecord (GDB_ i, ofstream& o, INPSET_ inpset) {
 	flush;
 }
 
-void outputveragerecord (GDB_ i, ofstream& o) {
+void outputveragerecord (GDB i, ofstream& o) {
 
 	o
 	<< i.ID << '\t'
@@ -389,7 +389,7 @@ void outputveragerecord (GDB_ i, ofstream& o) {
 	o << i.COMMENT<< '\t' << flush;
 }
 
-void outputresultrgf (PFN output, vector <GDB_> outGDB, bool tilted, INPSET_ inset) {
+void outputresultrgf (PFN output, vector <GDB> outGDB, bool tilted, INPSET inset) {
 
 	ofstream outputfile;
 	string outputfilename;
@@ -420,7 +420,7 @@ void outputresultrgf (PFN output, vector <GDB_> outGDB, bool tilted, INPSET_ ins
 	else 			cout << "  - Completed RGF file exported." <<  endl;
 }
 
-void outputaveragergf (PFN output, vector <GDB_> outGDB) {
+void outputaveragergf (PFN output, vector <GDB> outGDB) {
 
 	ofstream outputfile;
 	string bs = char_to_string ('\\');
@@ -432,7 +432,7 @@ void outputaveragergf (PFN output, vector <GDB_> outGDB) {
 	outputfile.open (outputfilename.c_str());
 	outputaverageheader (outputfile);
 
-	if ((outGDB.size() == 1) && (!((outGDB[0].DATATYPE == "STRIAE") || (outGDB[0].DATATYPE == "SC")))) {
+	if ((outGDB.size() == 1) && (!((outGDB.at(0).DATATYPE == "STRIAE") || (outGDB.at(0).DATATYPE == "SC")))) {
 
 		outputveragerecord (outGDB.at(0), outputfile);
 		outputfile.close();
@@ -451,9 +451,9 @@ void outputaveragergf (PFN output, vector <GDB_> outGDB) {
 
 		independentrecordcounter++;
 
-		if (!((outGDB[i-1].DATATYPE == "STRIAE") || (outGDB[i-1].DATATYPE == "SC"))) {
+		if (!((outGDB.at(i-1).DATATYPE == "STRIAE") || (outGDB.at(i-1).DATATYPE == "SC"))) {
 
-			outputveragerecord (outGDB[i - 1], outputfile);
+			outputveragerecord (outGDB.at(i - 1), outputfile);
 		}
 
 		if (i < outGDB.size()) 	outputfile << endl;
@@ -466,13 +466,13 @@ void outputaveragergf (PFN output, vector <GDB_> outGDB) {
 	cout << "  - Average RGF output completed." <<  endl;
 }
 
-void outputselected_ps_rgf (PFN output, vector <GDB_> outGDB, vector <GDB_> tiltoutGDB, INPSET_ inset) {
+void outputselected_ps_rgf (PFN output, vector <GDB> outGDB, vector <GDB> tiltoutGDB, INPSET inset) {
 
-	vector <GDB_> processGDB, tiltprocessGDB;
+	vector <GDB> processGDB, tiltprocessGDB;
 	size_t i = 0;
 	size_t independentrecordcounter = 0;
 	CENTER center;
-	PAPER P = PS_dimensions (inset);
+	PAPER P = PS_dimensions ();
 
 	center.X = P.O1X;
 	center.Y = P.O1Y;
@@ -486,8 +486,8 @@ void outputselected_ps_rgf (PFN output, vector <GDB_> outGDB, vector <GDB_> tilt
 
 		do {
 
-			processGDB.push_back(outGDB[i]);
-			tiltprocessGDB.push_back(tiltoutGDB[i]);
+			processGDB.push_back(outGDB.at(i));
+			tiltprocessGDB.push_back(tiltoutGDB.at(i));
 
 			i++;
 
@@ -529,7 +529,7 @@ void outputselected_ps_rgf (PFN output, vector <GDB_> outGDB, vector <GDB_> tilt
 	cout << "  - Tilted RGF output completed for " << independentrecordcounter << " file containing " << i << " records." <<  endl;
 }
 
-void output_to_rgf (PFN output, vector <GDB_> processGDB, INPSET_ inset, bool tilted) {
+void output_to_rgf (PFN output, vector <GDB> processGDB, INPSET inset, bool tilted) {
 
 	ofstream output_rgf_file;
 	string output_rgf_filename;
@@ -561,7 +561,7 @@ void output_to_rgf (PFN output, vector <GDB_> processGDB, INPSET_ inset, bool ti
 	output_rgf_file.close();
 }
 
-void output_to_ps (PFN output, vector <GDB_> processGDB, vector <GDB_> tiltprocessGDB, INPSET_ inset, PAPER P, CENTER center) {
+void output_to_ps (PFN output, vector <GDB> processGDB, vector <GDB> tiltprocessGDB, INPSET inset, PAPER P, CENTER center) {
 
 	ofstream output_ps_file, output_rgf_file, output_tiltedrgf_file;
 	string output_rgf_filename,  output_tiltedrgf_filename, output_ps_filename;
@@ -572,7 +572,7 @@ void output_to_ps (PFN output, vector <GDB_> processGDB, vector <GDB_> tiltproce
 	else 					output_ps_filename = output.pssep +  bs + processGDB.at(0).DATATYPE + bs + processGDB.at(0).LOC + "_" + processGDB.at(0).DATATYPE + ".ps";
 
 	output_ps_file.open (output_ps_filename.c_str());
-	PS_header (processGDB.at(0).DATATYPE, processGDB.at(0).LOC, processGDB.at(0).GC, output_ps_file, inset, P);
+	PS_header (processGDB.at(0).DATATYPE, processGDB.at(0).LOC, output_ps_file, P);
 	PS_SYMBOLS(processGDB, output_ps_file, inset, P);
 
 	if (processGDB.at(0).DATATYPE == "STRIAE") PS_stress_scale (output_ps_file, P);
@@ -595,7 +595,7 @@ void output_to_ps (PFN output, vector <GDB_> processGDB, vector <GDB_> tiltproce
 	output_ps_file.close();
 }
 
-void process_group_by_group (vector <GDB_> outGDB, vector <GDB_> tiltoutGDB, ofstream& o, INPSET_ inset, CENTER center, PAPER P) {
+void process_group_by_group (vector <GDB> outGDB, vector <GDB> tiltoutGDB, ofstream& o, INPSET inset, CENTER center, PAPER P) {
 
 	CENTER mohr_center;
 
@@ -808,7 +808,7 @@ void process_group_by_group (vector <GDB_> outGDB, vector <GDB_> tiltoutGDB, ofs
 
 	else {}
 
-	if  (outGDB[0].DATATYPE == "FOLDSURFACE") {
+	if  (outGDB.at(0).DATATYPE == "FOLDSURFACE") {
 
 		cout << "  - For '" << outGDB.at(0).LOC << "' location" << flush;
 		if (inset.group == "Y")	cout << ", '"<< outGDB.at(0).GC << "', " << flush;
@@ -833,7 +833,7 @@ void process_group_by_group (vector <GDB_> outGDB, vector <GDB_> tiltoutGDB, ofs
 
 }
 
-void process_one_by_one (GDB_ processGDB, GDB_ tiltprocessGDB, ofstream& o, INPSET_ inset, CENTER center, PAPER P) {
+void process_one_by_one (GDB processGDB, GDB tiltprocessGDB, ofstream& o, INPSET inset, CENTER center, PAPER P) {
 
 	center.X = P.O1X;
 	center.Y = P.O1Y;

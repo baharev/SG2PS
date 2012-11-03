@@ -12,7 +12,7 @@
 
 using namespace std;
 
-PAPER PS_dimensions (INPSET_ inset) {
+PAPER PS_dimensions () {
 
 	PAPER P;
 
@@ -74,7 +74,7 @@ PAPER PS_dimensions (INPSET_ inset) {
 	return P;
 }
 
-void PS_header (string DATATYPE, string LOC, string GROUP, ofstream& o, INPSET_ inset, PAPER P) {
+void PS_header (string DATATYPE, string LOC, ofstream& o, PAPER P) {
 
 	string filename;
 
@@ -141,13 +141,22 @@ void PS_header (string DATATYPE, string LOC, string GROUP, ofstream& o, INPSET_ 
 		o << "    fill stroke" 											<< endl;
 		o << "} def" 													<< endl << endl;
 
+		o << "/s1_iter_axis {" 												<< endl;
+		o << "  newpath"												<< endl;
+		o << "    1 1 1 setrgbcolor stroke" 							<< endl;
+		o << "    -2.0   0.0 moveto "									<< endl;
+		o << "     4.0   4.0 rlineto" 									<< endl;
+		o << "    -4.0   4.0 rlineto" 									<< endl;
+		o << "    -4.0  -4.0 rlineto closepath" 						<< endl;
+		o << "    1 0 0 setrgbcolor 1 setlinewidth stroke" 			<< endl;
+		o << "} def" 													<< endl << endl;
+
 		o << "/s2_axis {" 												<< endl;
 		o << "  newpath"												<< endl;
 		o << "    -2.0   0.0 moveto "									<< endl;
 		o << "     4.0   4.0 rlineto" 									<< endl;
 		o << "    -4.0   4.0 rlineto" 									<< endl;
 		o << "    -4.0  -4.0 rlineto closepath" 						<< endl;
-
 		o << "    1.0 setlinewidth"										<< endl;
 
 		o << "    1 1 1 setrgbcolor stroke" 							<< endl;
@@ -159,6 +168,17 @@ void PS_header (string DATATYPE, string LOC, string GROUP, ofstream& o, INPSET_ 
 		o << "    0 1 0 setrgbcolor" 									<< endl;
 		o << "    fill stroke" 											<< endl;
 		o << "} def" 													<< endl << endl;
+
+		o << "/s2_iter_axis {" 											<< endl;
+		o << "  newpath"												<< endl;
+		o << "    1 1 1 setrgbcolor stroke" 							<< endl;
+		o << "    -2.0   0.0 moveto "									<< endl;
+		o << "     4.0   4.0 rlineto" 									<< endl;
+		o << "    -4.0   4.0 rlineto" 									<< endl;
+		o << "    -4.0  -4.0 rlineto closepath" 						<< endl;
+		o << "    0 1 0 setrgbcolor 1 setlinewidth stroke" 				<< endl;
+		o << "} def" 													<< endl << endl;
+
 
 		o << "/s3_axis {" 												<< endl;
 		o << "  newpath"												<< endl;
@@ -177,6 +197,20 @@ void PS_header (string DATATYPE, string LOC, string GROUP, ofstream& o, INPSET_ 
 		o << "    0 0 1 setrgbcolor" 									<< endl;
 		o << "    fill stroke" 											<< endl;
 		o << "} def" 													<< endl << endl;
+
+
+		o << "/s3_iter_axis {" 											<< endl;
+		o << "  newpath"												<< endl;
+		o << "    1 1 1 setrgbcolor stroke" 							<< endl;
+		o << "    -2.0   0.0 moveto "									<< endl;
+		o << "     4.0   4.0 rlineto" 									<< endl;
+		o << "    -4.0   4.0 rlineto" 									<< endl;
+		o << "    -4.0  -4.0 rlineto closepath" 						<< endl;
+
+		o << "    0 0 1 setrgbcolor 1 setlinewidth stroke" 				<< endl;
+		o << "} def" 													<< endl << endl;
+
+
 
 		o << "/dextralarrow {" 											<< endl;
 		o << "  newpath  0.0 -1.5 moveto -6.0 -1.5 lineto" 				<< endl;
@@ -271,9 +305,10 @@ void PS_header (string DATATYPE, string LOC, string GROUP, ofstream& o, INPSET_ 
 		o << "    fill stroke" 						<< endl;
 		o << "} def" 								<< endl << endl;
 	}
+
 }
 
-void PS_border (GDB_ inGDB, ofstream& o, INPSET_ inset, PAPER P) {
+void PS_border (GDB inGDB, ofstream& o, INPSET inset, PAPER P) {
 
 	o << "newpath" << endl;
 
@@ -375,7 +410,7 @@ void PS_stress_scale (ofstream& o, PAPER P) {
 	<< " 90 rotate (COMPRESSION) show 270 rotate "<< endl;
 }
 
-void ps_clusteringresult (ofstream& o, INPSET_ inset, PAPER P, int clusternumber, double error) {
+void ps_clusteringresult (ofstream& o, INPSET inset, PAPER P, int clusternumber) {
 
 
 	o << "/ArialNarrow findfont 8 scalefont setfont" << endl;
@@ -403,7 +438,7 @@ void ps_clusteringresult (ofstream& o, INPSET_ inset, PAPER P, int clusternumber
 	<< fixed << setprecision (1) << " % error) show"<< endl;
 }
 
-void PS_net (string DATATYPE, string LOC, ofstream& o, INPSET_ inset, PAPER P) {
+void PS_net (string DATATYPE, string LOC, ofstream& o, INPSET inset, PAPER P) {
 
 	int angle;
 
@@ -675,7 +710,7 @@ void PS_net (string DATATYPE, string LOC, ofstream& o, INPSET_ inset, PAPER P) {
 	  << "  (Plotted by SG2PS software, version 0.2.0 - for reference see www.kadath.hu/sg2ps webpage.) show" << endl << endl;
 }
 
-void PS_stressdata (vector <GDB_> inGDB, INPSET_ i, ofstream& o, CENTER center, PAPER P, STRESSFIELD sf, string method) {
+void PS_stressdata (ofstream& o, CENTER center, PAPER P, STRESSFIELD sf, string method) {
 
 	o
 	<< "/ArialNarrow findfont 8 scalefont setfont" << endl;
@@ -803,7 +838,7 @@ void PS_stressarrows (ofstream& o, CENTER center, PAPER P, STRESSFIELD sf) {
 	}
 }
 
-void PS_mohr_circle (vector <GDB_> inGDB, ofstream& o, CENTER mohr_center, PAPER P, STRESSFIELD sf, STRESSTENSOR st, bool compression_positive) {
+void PS_mohr_circle (vector <GDB> inGDB, ofstream& o, CENTER mohr_center, PAPER P, STRESSFIELD sf, STRESSTENSOR st, bool compression_positive) {
 
 	const double X = 5.0 * P.A;
 	const double fi = sf.stressratio;
@@ -874,19 +909,19 @@ void PS_mohr_circle (vector <GDB_> inGDB, ofstream& o, CENTER mohr_center, PAPER
 
 	do {
 
-		stressvector = return_stressvector (st, inGDB[j], compression_positive);
+		stressvector = return_stressvector (st, inGDB.at(j), compression_positive);
 
 		stress_magnitude =
-				(inGDB[j].N.X * stressvector.X) +
-				(inGDB[j].N.Y * stressvector.Y) +
-				(inGDB[j].N.Z * stressvector.Z);
+				(inGDB.at(j).N.X * stressvector.X) +
+				(inGDB.at(j).N.Y * stressvector.Y) +
+				(inGDB.at(j).N.Z * stressvector.Z);
 
-		if (inGDB[j].DATATYPE == "STRIAE") {
+		if (inGDB.at(j).DATATYPE == "STRIAE") {
 
 			normal_s = sqrt(
-					inGDB[j].NORMAL_S.X * inGDB[j].NORMAL_S.X +
-					inGDB[j].NORMAL_S.Y * inGDB[j].NORMAL_S.Y +
-					inGDB[j].NORMAL_S.Z * inGDB[j].NORMAL_S.Z);
+					inGDB.at(j).NORMAL_S.X * inGDB.at(j).NORMAL_S.X +
+					inGDB.at(j).NORMAL_S.Y * inGDB.at(j).NORMAL_S.Y +
+					inGDB.at(j).NORMAL_S.Z * inGDB.at(j).NORMAL_S.Z);
 
 
 			if ((!(compression_positive)) && (stress_magnitude > 0.0)) normal_s = - normal_s;
@@ -896,9 +931,9 @@ void PS_mohr_circle (vector <GDB_> inGDB, ofstream& o, CENTER mohr_center, PAPER
 			normal_s = ((normal_s - S3) / (S1 - S3));
 
 			shear_s = sqrt(
-					inGDB[j].SHEAR_S.X * inGDB[j].SHEAR_S.X +
-					inGDB[j].SHEAR_S.Y * inGDB[j].SHEAR_S.Y +
-					inGDB[j].SHEAR_S.Z * inGDB[j].SHEAR_S.Z);
+					inGDB.at(j).SHEAR_S.X * inGDB.at(j).SHEAR_S.X +
+					inGDB.at(j).SHEAR_S.Y * inGDB.at(j).SHEAR_S.Y +
+					inGDB.at(j).SHEAR_S.Z * inGDB.at(j).SHEAR_S.Z);
 
 			shear_s = (shear_s / (S1 - S3));
 
@@ -920,7 +955,7 @@ void PS_mohr_circle (vector <GDB_> inGDB, ofstream& o, CENTER mohr_center, PAPER
 	} while (j < inGDB.size());
 }
 
-void PS_RUP_distribution (vector <GDB_>  inGDB, ofstream& o, CENTER center, PAPER P) {
+void PS_RUP_distribution (vector <GDB>  inGDB, ofstream& o, CENTER center, PAPER P) {
 
 	double RUP_max = 0.0;
 
@@ -934,7 +969,7 @@ void PS_RUP_distribution (vector <GDB_>  inGDB, ofstream& o, CENTER center, PAPE
 
 	do {
 
-		if (inGDB[i].RUP > RUP_max) RUP_max = inGDB[i].RUP;
+		if (inGDB.at(i).RUP > RUP_max) RUP_max = inGDB.at(i).RUP;
 
 		i++;
 
@@ -958,7 +993,7 @@ void PS_RUP_distribution (vector <GDB_>  inGDB, ofstream& o, CENTER center, PAPE
 
 		do {
 
-			if ((inGDB[i].RUP > counter) && (inGDB[i].RUP <= counter + step)) data_counter++;
+			if ((inGDB.at(i).RUP > counter) && (inGDB.at(i).RUP <= counter + step)) data_counter++;
 			i++;
 
 		} while (i < inGDB.size());
@@ -1047,13 +1082,13 @@ void PS_RUP_distribution (vector <GDB_>  inGDB, ofstream& o, CENTER center, PAPE
 		o
 		<< "newpath "
 		<< fixed << setprecision (3) << center.X + P.R + 2.0 * P.B << " "
-		<< fixed << setprecision (3) << center.Y - P.R + 2.0 * P.R * (inGDB[i].RUP / RUP_max)
+		<< fixed << setprecision (3) << center.Y - P.R + 2.0 * P.R * (inGDB.at(i).RUP / RUP_max)
 		<< " 0.7 0 360 arc 3 setlinewidth 1 1 1 setrgbcolor stroke" << endl;
 
 		o
 		<< "newpath "
 		<< fixed << setprecision (3) << center.X + P.R + 2.0 * P.B << " "
-		<< fixed << setprecision (3) << center.Y - P.R + 2.0 * P.R * (inGDB[i].RUP / RUP_max)
+		<< fixed << setprecision (3) << center.Y - P.R + 2.0 * P.R * (inGDB.at(i).RUP / RUP_max)
 		<< " 0.7 0 360 arc 2 setlinewidth 0 0 0 setrgbcolor stroke" << endl;
 
 		i++;
@@ -1061,7 +1096,7 @@ void PS_RUP_distribution (vector <GDB_>  inGDB, ofstream& o, CENTER center, PAPE
 		} while (i < inGDB.size());
 }
 
-void PS_ANG_distribution (vector <GDB_>  inGDB, ofstream& o, CENTER center, PAPER P) {
+void PS_ANG_distribution (vector <GDB>  inGDB, ofstream& o, CENTER center, PAPER P) {
 
 	double ANG_max = 0.0;
 
@@ -1074,7 +1109,7 @@ void PS_ANG_distribution (vector <GDB_>  inGDB, ofstream& o, CENTER center, PAPE
 
 	do {
 
-		if (inGDB[i].ANG > ANG_max) ANG_max = inGDB[i].ANG;
+		if (inGDB.at(i).ANG > ANG_max) ANG_max = inGDB.at(i).ANG;
 
 		i++;
 
@@ -1098,7 +1133,7 @@ void PS_ANG_distribution (vector <GDB_>  inGDB, ofstream& o, CENTER center, PAPE
 
 		do {
 
-			if ((inGDB[i].ANG > counter) && (inGDB[i].ANG <= counter + step)) data_counter++;
+			if ((inGDB.at(i).ANG > counter) && (inGDB.at(i).ANG <= counter + step)) data_counter++;
 			i++;
 
 		} while (i < inGDB.size());
@@ -1188,13 +1223,13 @@ void PS_ANG_distribution (vector <GDB_>  inGDB, ofstream& o, CENTER center, PAPE
 		o
 		<< "newpath "
 		<< fixed << setprecision (3) << center.X + P.R + 4.0 * P.B << " "
-		<< fixed << setprecision (3) << center.Y - P.R + 2.0 * P.R * (inGDB[i].ANG / ANG_max)
+		<< fixed << setprecision (3) << center.Y - P.R + 2.0 * P.R * (inGDB.at(i).ANG / ANG_max)
 		<< " 0.7 0 360 arc 3 setlinewidth 1 1 1 setrgbcolor stroke" << endl;
 
 		o
 		<< "newpath "
 		<< fixed << setprecision (3) << center.X + P.R + 4.0 * P.B << " "
-		<< fixed << setprecision (3) << center.Y - P.R + 2.0 * P.R * (inGDB[i].ANG / ANG_max)
+		<< fixed << setprecision (3) << center.Y - P.R + 2.0 * P.R * (inGDB.at(i).ANG / ANG_max)
 		<< " 0.7 0 360 arc 2 setlinewidth 0 0 0 setrgbcolor stroke" << endl;
 
 		i++;
@@ -1215,7 +1250,7 @@ void PS_stress_state (ofstream& o, PAPER P, CENTER center, STRESSFIELD sf) {
 	<< " lineto stroke" << endl;
 }
 
-void PS_folddata (GDB_ in, ofstream& o, CENTER center, PAPER P) {
+void PS_folddata (GDB in, ofstream& o, CENTER center) {
 
 	o << "/ArialNarrow-Bold findfont 8 scalefont setfont" << endl;
 
@@ -1237,16 +1272,17 @@ void PS_folddata (GDB_ in, ofstream& o, CENTER center, PAPER P) {
 	<< " "  << fixed << setprecision (3) << - center.Y + center.radius << " translate" << endl;
 }
 
-void PS_lineation (GDB_ i, ofstream& o, INPSET_ inset, CENTER center, STRESSFIELD sf, bool label, string type) {
+void PS_lineation (GDB i, ofstream& o, INPSET inset, CENTER center, STRESSFIELD sf, bool label, string type) {
 
 	VCTR temp;
 	DIPDIR_DIP dd;
 
-	if (type == "S1") 		temp = sf.EIGENVECTOR1;
+	if		((type == "S1") || (type == "S1_ITER")) temp = sf.EIGENVECTOR1;
 
-	else if (type == "S2") 	temp = sf.EIGENVECTOR2;
+	else if	((type == "S2") || (type == "S2_ITER"))	temp = sf.EIGENVECTOR2;
 
-	else if (type == "S3") 	temp = sf.EIGENVECTOR3;
+	else if	((type == "S3") || (type == "S3_ITER"))	temp = sf.EIGENVECTOR3;
+
 
 	else if (type == "P") {
 
@@ -1304,23 +1340,51 @@ void PS_lineation (GDB_ i, ofstream& o, INPSET_ inset, CENTER center, STRESSFIEL
 		<< "  " << fixed << setprecision (5) << -Y << " translate " << endl;
 	}
 
+	else if (type == "S1_ITER") {
+
+		o << "  " << fixed << setprecision (5) <<  X << " "
+				<< fixed << setprecision (5) <<  Y << " translate " << endl;
+		o << "  newpath s1_iter_axis" << endl;
+		o << "  " << fixed << setprecision (5) << -X << " "
+				<< fixed << setprecision (5) << -Y << " translate " << endl;
+	}
+
 	else if (type == "S2") {
 
 		o << "  " << fixed << setprecision (5) <<  X << " "
-				  << fixed << setprecision (5) <<  Y << " translate " << endl;
+				<< fixed << setprecision (5) <<  Y << " translate " << endl;
 		o << "  newpath s2_axis" << endl;
 		o << "  " << fixed << setprecision (5) << -X << " "
-				  << fixed << setprecision (5) << -Y << " translate " << endl;
+				<< fixed << setprecision (5) << -Y << " translate " << endl;
+	}
+
+	else if (type == "S2_ITER") {
+
+		o << "  " << fixed << setprecision (5) <<  X << " "
+				<< fixed << setprecision (5) <<  Y << " translate " << endl;
+		o << "  newpath s2_iter_axis" << endl;
+		o << "  " << fixed << setprecision (5) << -X << " "
+				<< fixed << setprecision (5) << -Y << " translate " << endl;
 	}
 
 	else if (type == "S3") {
 
 		o << "  " << fixed << setprecision (5) <<  X << " "
-				  << fixed << setprecision (5) <<  Y << " translate " << endl;
+				<< fixed << setprecision (5) <<  Y << " translate " << endl;
 		o << "  newpath s3_axis" << endl;
 		o << "  " << fixed << setprecision (5) << -X << " "
-				  << fixed << setprecision (5) << -Y << " translate " << endl;
+				<< fixed << setprecision (5) << -Y << " translate " << endl;
 	}
+
+	else if (type == "S3_ITER") {
+
+		o << "  " << fixed << setprecision (5) <<  X << " "
+				<< fixed << setprecision (5) <<  Y << " translate " << endl;
+		o << "  newpath s3_iter_axis" << endl;
+		o << "  " << fixed << setprecision (5) << -X << " "
+				<< fixed << setprecision (5) << -Y << " translate " << endl;
+	}
+
 
 	else if (type == "P") {
 
@@ -1328,7 +1392,7 @@ void PS_lineation (GDB_ i, ofstream& o, INPSET_ inset, CENTER center, STRESSFIEL
 				<< fixed << setprecision (5) <<  Y << " translate " << endl;
 		o << "  newpath p_axis" << endl;
 		o << "  " << fixed << setprecision (5) << -X << " "
-				  << fixed << setprecision (5) << -Y << " translate " << endl;
+				<< fixed << setprecision (5) << -Y << " translate " << endl;
 	}
 
 	else if (type == "N") {
@@ -1378,7 +1442,7 @@ void PS_lineation (GDB_ i, ofstream& o, INPSET_ inset, CENTER center, STRESSFIEL
 	}
 }
 
-void PS_plane (GDB_ i, ofstream& o, INPSET_ inset, CENTER center, bool label, string type) {
+void PS_plane (GDB i, ofstream& o, INPSET inset, CENTER center, bool label, string type) {
 
 	int j = 0;
 	int steps = 2;
@@ -1608,7 +1672,7 @@ void PS_plane (GDB_ i, ofstream& o, INPSET_ inset, CENTER center, bool label, st
 	}
 }
 
-void PS_polepoint (GDB_ i, ofstream& o, INPSET_ inset, CENTER center, bool label, string type) {
+void PS_polepoint (GDB i, ofstream& o, INPSET inset, CENTER center, bool label, string type) {
 
 	VCTR temp;
 	VCTR in;
@@ -1709,7 +1773,7 @@ void PS_polepoint (GDB_ i, ofstream& o, INPSET_ inset, CENTER center, bool label
 	}
 }
 
-void PS_sc_arrow (GDB_ i, ofstream& o, INPSET_ inset, CENTER center, VCTR d) {
+void PS_sc_arrow (GDB i, ofstream& o, INPSET inset, CENTER center, VCTR d) {
 
 	DIPDIR_DIP dd = dipdir_dip_from_DXDYDZ (d);
 
@@ -1772,7 +1836,7 @@ void PS_sc_arrow (GDB_ i, ofstream& o, INPSET_ inset, CENTER center, VCTR d) {
 	o  << fixed << setprecision (3) << -X << " "	<< fixed << setprecision (5)<< -Y << " translate " << endl;
 }
 
-void PS_striaearrow (GDB_ i, ofstream& o, INPSET_ inset, CENTER center, bool label, string offset) {
+void PS_striaearrow (GDB i, ofstream& o, INPSET inset, CENTER center, bool label) {
 
 	double DIPDIR = i.corrL.DIPDIR;
 
@@ -1906,7 +1970,7 @@ void PS_striaearrow (GDB_ i, ofstream& o, INPSET_ inset, CENTER center, bool lab
 	o << "0 0 0 setrgbcolor" << endl;
 }
 
-void getstereonet (ofstream& o, INPSET_ inset, CENTER center) {
+void PS_getstereonet (ofstream& o, INPSET inset, CENTER center) {
 
 	o << "newpath " << center.X << " " << center.Y << " " << center.radius << " " << " 0 360 arc stroke" << endl;
 
@@ -1944,7 +2008,7 @@ void getstereonet (ofstream& o, INPSET_ inset, CENTER center) {
 	}
 }
 
-void PS_datanumber_averagebedding (GDB_ i, ofstream& o, INPSET_ inset, PAPER P, CENTER center, size_t datanumber) {
+void PS_datanumber_averagebedding (GDB i, ofstream& o, INPSET inset, PAPER P, CENTER center, size_t datanumber) {
 
 	o << endl;
 
@@ -2082,7 +2146,7 @@ void PS_datanumber_averagebedding (GDB_ i, ofstream& o, INPSET_ inset, PAPER P, 
 	}
 }
 
-void PS_rosesegment (GDB_ i, ofstream& o, INPSET_ inset, CENTER center, double percentage, double degree, bool c_plane) {
+void PS_rosesegment (ofstream& o, INPSET inset, CENTER center, double percentage, double degree, bool c_plane) {
 
 	double step_angle = 2.5;
 
@@ -2117,7 +2181,7 @@ void PS_rosesegment (GDB_ i, ofstream& o, INPSET_ inset, CENTER center, double p
 	  << " "  << fixed << setprecision (2) << -center.Y << " translate" << endl << endl;
 }
 
-void PS_draw_rose_circle_horizontal (ofstream& o, INPSET_ inset, CENTER center, ROSENUMBER percent) {
+void PS_draw_rose_circle_horizontal (ofstream& o, CENTER center, ROSENUMBER percent) {
 
 	double i, step;
 
@@ -2153,7 +2217,7 @@ void PS_draw_rose_circle_horizontal (ofstream& o, INPSET_ inset, CENTER center, 
 	          << fixed << setprecision (3) << - center.Y << " translate" << endl;
 }
 
-void PS_draw_rose_circle_vertical (ofstream& o, INPSET_ inset, CENTER center, ROSENUMBER percent) {
+void PS_draw_rose_circle_vertical (ofstream& o, CENTER center, ROSENUMBER percent) {
 
 	double i, step;
 
@@ -2188,7 +2252,7 @@ void PS_draw_rose_circle_vertical (ofstream& o, INPSET_ inset, CENTER center, RO
 	          << fixed << setprecision (3) << - center.Y << " translate" << endl;
 }
 
-void PS_DRAW_PTN (GDB_ i, ofstream& o, INPSET_ inset, CENTER center) {
+void PS_DRAW_PTN (GDB i, ofstream& o, INPSET inset, CENTER center) {
 
 	STRESSFIELD empty_sf;
 
@@ -2197,7 +2261,7 @@ void PS_DRAW_PTN (GDB_ i, ofstream& o, INPSET_ inset, CENTER center) {
 	PS_lineation (i, o, inset, center, empty_sf, false, "N");
 }
 
-void PS_DRAW_plane (GDB_ i, ofstream& o, INPSET_ inset, CENTER center) {
+void PS_DRAW_plane (GDB i, ofstream& o, INPSET inset, CENTER center) {
 
 	if (inset.plot =="H") {
 
@@ -2212,7 +2276,7 @@ void PS_DRAW_plane (GDB_ i, ofstream& o, INPSET_ inset, CENTER center) {
 	}
 }
 
-void PS_DRAW_lineation (GDB_ i, ofstream& o, INPSET_ inset, CENTER center) {
+void PS_DRAW_lineation (GDB i, ofstream& o, INPSET inset, CENTER center) {
 
 	STRESSFIELD empty_sf;
 
@@ -2220,14 +2284,14 @@ void PS_DRAW_lineation (GDB_ i, ofstream& o, INPSET_ inset, CENTER center) {
 	else 							PS_lineation 	(i, o, inset, center, empty_sf, false, "");
 }
 
-void PS_DRAW_striae (GDB_ i, ofstream& o, INPSET_ inset, CENTER center) {
+void PS_DRAW_striae (GDB i, ofstream& o, INPSET inset, CENTER center) {
 
 	string offset = i.corrOFFSET;
 
 	if (inset.plot =="H") {
 
-		if (inset.labeling == "Y") 	PS_striaearrow	(i, o, inset, center, true, offset);
-		else 						PS_striaearrow (i, o, inset, center, false, offset);
+		if (inset.labeling == "Y") 	PS_striaearrow	(i, o, inset, center, true);
+		else 						PS_striaearrow (i, o, inset, center, false);
 
 	}
 
@@ -2236,18 +2300,18 @@ void PS_DRAW_striae (GDB_ i, ofstream& o, INPSET_ inset, CENTER center) {
 		if (inset.labeling == "Y") {
 
 			PS_plane 		(i, o, inset, center, false, "");
-			PS_striaearrow	(i, o, inset, center, true, offset);
+			PS_striaearrow	(i, o, inset, center, true);
 		}
 
 		else {
 
 			PS_plane 		(i, o, inset, center, false, "");
-			PS_striaearrow	(i, o, inset, center, false, offset);
+			PS_striaearrow	(i, o, inset, center, false);
 		}
 	}
 }
 
-void PS_DRAW_sc (GDB_ i, ofstream& o, INPSET_ inset, CENTER center) {
+void PS_DRAW_sc (GDB i, ofstream& o, INPSET inset, CENTER center) {
 
 	VCTR d;
 
@@ -2279,7 +2343,7 @@ void PS_DRAW_sc (GDB_ i, ofstream& o, INPSET_ inset, CENTER center) {
 }
 
 
-void PS_idealmovement (vector <GDB_ > inGDB, ofstream& o, INPSET_ inset, CENTER center, STRESSTENSOR st) {
+void PS_idealmovement (vector <GDB > inGDB, ofstream& o, INPSET inset, CENTER center) {
 
 	size_t i = 0;
 	VCTR shear_vector;
@@ -2287,22 +2351,20 @@ void PS_idealmovement (vector <GDB_ > inGDB, ofstream& o, INPSET_ inset, CENTER 
 
 	do {
 
-		cout << fixed << setprecision (3) << flush;
+		shear_vector = unitvector (inGDB.at(i).SHEAR_S);
 
-		shear_vector = unitvector (inGDB[i].SHEAR_S);
+		inGDB.at(i).N = flip_N_vector (shear_vector);
 
-		inGDB[i].N = flip_N_vector (shear_vector);
+		inGDB.at(i).PSCOLOR = "0.0 0.0 0.5";
 
-		inGDB[i].PSCOLOR = "0.0 0.0 0.5";
-
-		PS_polepoint (inGDB[i], o, inset, center, false, "");
+		PS_polepoint (inGDB.at(i), o, inset, center, false, "");
 
 		i++;
 
 	} while (i < inGDB.size());
 }
 
-void PS_DRAW_record (GDB_ i, ofstream& o, INPSET_ inset, CENTER center) {
+void PS_DRAW_record (GDB i, ofstream& o, INPSET inset, CENTER center) {
 
 	if (i.DATAGROUP == "LINEATION") PS_DRAW_lineation	(i, o, inset, center);
 	if (i.DATAGROUP == "PLANE") 	PS_DRAW_plane		(i, o, inset, center);
@@ -2310,7 +2372,7 @@ void PS_DRAW_record (GDB_ i, ofstream& o, INPSET_ inset, CENTER center) {
 	if (i.DATAGROUP == "SC") 		PS_DRAW_sc 			(i, o, inset, center);
 }
 
-void PS_SYMBOLS_border (ofstream& o, INPSET_ inset, PAPER P) {
+void PS_SYMBOLS_border (ofstream& o, PAPER P) {
 
 	o << "newpath" << endl;
 
@@ -2396,7 +2458,7 @@ void PS_SYMBOL_draw_plane (double X, double Y, ofstream& o, PAPER P, string type
 
 
 
-void PS_SYMBOLS_STRIAE (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, PAPER P) {
+void PS_SYMBOLS_STRIAE (ofstream& o, PAPER P) {
 
 	double arrow_X, arrow_Y;
 	double step = 0.30;
@@ -2470,7 +2532,7 @@ void PS_SYMBOLS_STRIAE (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, PAPER P
 	o << "  0 0 0 setrgbcolor" << endl;
 }
 
-void PS_SYMBOLS_SC (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, PAPER P) {
+void PS_SYMBOLS_SC (ofstream& o, PAPER P) {
 
 	double arrow_X, arrow_Y;
 
@@ -2499,7 +2561,7 @@ void PS_SYMBOLS_SC (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, PAPER P) {
 	arrow_Y = arrow_Y - (0.4 * P.A);
 }
 
-void PS_SYMBOLS_PLANE (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, PAPER P) {
+void PS_SYMBOLS_PLANE (vector <GDB> inGDB, ofstream& o, PAPER P) {
 
 	double arrow_X = P.S1X + 0.6 * P.A;
 	double arrow_Y = P.S1Y - 3.355 * P.A;
@@ -2542,7 +2604,7 @@ void PS_SYMBOLS_PLANE (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, PAPER P)
 	}
 }
 
-void PS_SYMBOLS_LINEATION (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, PAPER P) {
+void PS_SYMBOLS_LINEATION (vector <GDB> inGDB, ofstream& o, PAPER P) {
 
 	double arrow_X = P.S1X + 0.6 * P.A;
 	double arrow_Y = P.S1Y - 3.355 * P.A;
@@ -2570,7 +2632,7 @@ void PS_SYMBOLS_LINEATION (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, PAPE
 	<< fixed << setprecision (5) << arrow_Y + 2.8 * P.A << " 1.5 0 360 arc 0 fill stroke" << endl;
 }
 
-void PS_SYMBOLS_HOEPPNER (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, PAPER P) {
+void PS_SYMBOLS_HOEPPNER (ofstream& o, PAPER P) {
 
 	double arrow_X = P.S1X + 0.6 * P.A;
 	double arrow_Y = P.S1Y - 3.355 * P.A;
@@ -2603,7 +2665,7 @@ void PS_SYMBOLS_HOEPPNER (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, PAPER
 	arrow_Y = arrow_Y - (0.4 * P.A);
 }
 
-void PS_SYMBOLS_GROUPS (ofstream& o, INPSET_ inset, PAPER P) {
+void PS_SYMBOLS_GROUPS (ofstream& o, PAPER P) {
 
 	double arrow_X = P.S1X + 0.6 * P.A + 6.0 * P.A;;
 	double arrow_Y = P.S1Y - 3.355 * P.A;
@@ -2629,7 +2691,7 @@ void PS_SYMBOLS_GROUPS (ofstream& o, INPSET_ inset, PAPER P) {
 	o  << "  " << arrow_X  + 1.3 * P.A << " " << arrow_Y - (3.1 * P.A) << " moveto (Group 'I') 0 0 0 setrgbcolor show"  << endl;
 }
 
-void PS_SYMBOLS_INVERSION (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, PAPER P) {
+void PS_SYMBOLS_INVERSION (ofstream& o, PAPER P) {
 
 	double arrow_X = P.S1X + (0.6 * P.A) + 2.8 * P.A;
 	double arrow_Y = P.S1Y - (3.355 * P.A) + 2.5 * P.A - 0.4 * P.A;
@@ -2677,7 +2739,7 @@ void PS_SYMBOLS_INVERSION (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, PAPE
 	o  << "  " << arrow_X - P.A << " " << arrow_Y << " moveto (Minimum horizontal stress) 0 0 0 setrgbcolor show"  << endl;
 }
 
-void PS_SYMBOLS_BINGHAM (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, PAPER P) {
+void PS_SYMBOLS_BINGHAM (ofstream& o, PAPER P) {
 
 	double arrow_X = P.S1X + (0.6 * P.A) + 2.8 * P.A;
 	double arrow_Y = P.S1Y - (3.355 * P.A) + 2.5 * P.A - 0.4 * P.A;
@@ -2703,7 +2765,7 @@ void PS_SYMBOLS_BINGHAM (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, PAPER 
 	o  << "  " << arrow_X - 0.8 * P.A << " " << arrow_Y << " moveto (Minimum weight point) 0 0 0 setrgbcolor show"  << endl;
 }
 
-void PS_SYMBOLS_ROSE (vector <GDB_> inGDB, ofstream& o, PAPER P) {
+void PS_SYMBOLS_ROSE (vector <GDB> inGDB, ofstream& o, PAPER P) {
 
 	double angle = 80.0;
 	double radius = 80.0;
@@ -2768,7 +2830,7 @@ void PS_SYMBOLS_ROSE (vector <GDB_> inGDB, ofstream& o, PAPER P) {
 	o  << "  " << arrow_X + 1.5 * P.A << " " << arrow_Y - (2.0 * 0.7 * P.A)<< " moveto (" << outtext2 << ") 0 0 0 setrgbcolor show"  << endl;
 }
 
-void PS_SYMBOLS_LABEL (ofstream& o, INPSET_ inset, PAPER P) {
+void PS_SYMBOLS_LABEL (ofstream& o, INPSET inset, PAPER P) {
 
 	double arrow_X = P.S1X + 0.3 * P.A;
 	double arrow_Y = P.S1Y - 1.55 * P.A;
@@ -2789,8 +2851,8 @@ void PS_SYMBOLS_LABEL (ofstream& o, INPSET_ inset, PAPER P) {
 		<< "  -90 rotate " << fixed << setprecision (3) << - arrow_X
 		<< " "  << fixed << setprecision (3) << - arrow_Y  <<" translate" << endl;
 
-		double arrow_X = P.S1X + 0.6 * P.A;
-		double arrow_Y = P.S1Y - 3.355 * P.A;
+		arrow_X = P.S1X + 0.6 * P.A;
+		arrow_Y = P.S1Y - 3.355 * P.A;
 
 		o  << "  " << arrow_X  + 5.0 << " " << arrow_Y + (2.14 * P.A) << " moveto (with labeling) 0 0 0 setrgbcolor show"  << endl;
 	}
@@ -2798,9 +2860,9 @@ void PS_SYMBOLS_LABEL (ofstream& o, INPSET_ inset, PAPER P) {
 	else return;
 }
 
-void PS_SYMBOLS (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, PAPER P) {
+void PS_SYMBOLS (vector <GDB> inGDB, ofstream& o, INPSET inset, PAPER P) {
 
-	PS_SYMBOLS_border (o, inset, P);
+	PS_SYMBOLS_border (o, P);
 	PS_SYMBOLS_LABEL (o, inset, P);
 
 	o << "/ArialNarrow findfont 8 scalefont setfont" 					<< endl;
@@ -2813,18 +2875,18 @@ void PS_SYMBOLS (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, PAPER P) {
 
 	o << "  " << P.S1X + 7.4 * P.A << " " << P.S1Y - 0.3 * P.A  << " moveto " << endl;
 	o << "  (GROUPS) 0 0 0 setrgbcolor show"  << endl;
-	PS_SYMBOLS_GROUPS (o, inset, P);
+	PS_SYMBOLS_GROUPS (o, P);
 
 	if (inGDB.at(0).DATAGROUP == "PLANE") {
 
 		o << "  " << P.S1X + 0.8 * P.A << " " << P.S1Y - 0.3 * P.A  << " moveto " << endl;
 		o << "  (PLANES) 0 0 0 setrgbcolor show"  << endl;
-		PS_SYMBOLS_PLANE (inGDB, o, inset, P);
+		PS_SYMBOLS_PLANE (inGDB, o, P);
 
 		o << "  " << P.S1X + 2.5 * P.A << " " << P.S1Y - 0.3 * P.A  << " moveto " << endl;
 		o << "  (BINGHAM STATISTICS) 0 0 0 setrgbcolor show"  << endl;
 
-		if ((inset.fracture == "B") && (inGDB.at(0).DATATYPE == "FRACTURE")) PS_SYMBOLS_BINGHAM (inGDB, o, inset, P);
+		if ((inset.fracture == "B") && (inGDB.at(0).DATATYPE == "FRACTURE")) PS_SYMBOLS_BINGHAM (o, P);
 
 		return;
 	}
@@ -2834,12 +2896,12 @@ void PS_SYMBOLS (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, PAPER P) {
 		o << "  " << P.S1X + 0.1 * P.A << " " << P.S1Y - 0.3 * P.A  << " moveto " << endl;
 		o << "  (FAULT AND STRIAE DATA) 0 0 0 setrgbcolor show"  << endl;
 
-		if (inset.plot == "A")	PS_SYMBOLS_STRIAE (inGDB, o, inset, P);
-		else PS_SYMBOLS_HOEPPNER (inGDB, o, inset, P);
+		if (inset.plot == "A")	PS_SYMBOLS_STRIAE (o, P);
+		else PS_SYMBOLS_HOEPPNER (o, P);
 
 		o << "  " << P.S1X + 2.6 * P.A << " " << P.S1Y - 0.3 * P.A  << " moveto " << endl;
 		o << "  (STRESS INVERSION) 0 0 0 setrgbcolor show"  << endl;
-		if (inset.inversion != "N") PS_SYMBOLS_INVERSION (inGDB, o, inset, P);
+		if (inset.inversion != "N") PS_SYMBOLS_INVERSION (o, P);
 
 		return;
 	}
@@ -2848,7 +2910,7 @@ void PS_SYMBOLS (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, PAPER P) {
 
 		o << "  " << P.S1X + 0.1 * P.A << " " << P.S1Y - 0.3 * P.A  << " moveto " << endl;
 		o << "  (SCHISTOSITY, CLEAVEGE) 0 0 0 setrgbcolor show"  << endl;
-		PS_SYMBOLS_SC (inGDB, o, inset, P);
+		PS_SYMBOLS_SC (o, P);
 
 		o << "  " << P.S1X + 2.6 * P.A << " " << P.S1Y - 0.3 * P.A  << " moveto " << endl;
 		o << "  (STRESS INVERSION) 0 0 0 setrgbcolor show"  << endl;
@@ -2860,7 +2922,7 @@ void PS_SYMBOLS (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, PAPER P) {
 
 		o << "  " << P.S1X + 0.6 * P.A << " " << P.S1Y - 0.3 * P.A  << " moveto " << endl;
 		o << "  (LINEATION) 0 0 0 setrgbcolor show"  << endl;
-		PS_SYMBOLS_LINEATION (inGDB, o, inset, P);
+		PS_SYMBOLS_LINEATION (inGDB, o, P);
 
 		return;
 	}

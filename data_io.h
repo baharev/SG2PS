@@ -17,26 +17,26 @@
 using namespace std;
 
 PFN createprojectfoldernames (string projectname);
-bool createprojectfolders (PFN output, vector <GDB_> inGDB);
+bool createprojectfolders (PFN output, vector <GDB> inGDB);
 bool copyoriginalfile (PFN output);
 
-void outputrgfheader (ofstream& o, INPSET_ inset);
+void outputrgfheader (ofstream& o, INPSET inset);
 void outputaverageheader (ofstream& o);
 
-void outputrecord (GDB_ i, ofstream& o, INPSET_ inpset);
-void outputveragerecord (GDB_ i, ofstream& o);
+void outputrecord (GDB i, ofstream& o, INPSET inpset);
+void outputveragerecord (GDB i, ofstream& o);
 
-void outputresultrgf (PFN output, vector <GDB_> outGDB, bool tilted, INPSET_ inset);
+void outputresultrgf (PFN output, vector <GDB> outGDB, bool tilted, INPSET inset);
 
-void outputaveragergf (PFN output, vector <GDB_> outGDB);
+void outputaveragergf (PFN output, vector <GDB> outGDB);
 
-void outputselected_ps_rgf (PFN output, vector <GDB_> outGDB, vector <GDB_> tiltoutGDB, INPSET_ inset);
+void outputselected_ps_rgf (PFN output, vector <GDB> outGDB, vector <GDB> tiltoutGDB, INPSET inset);
 
-void output_to_rgf (PFN output, vector <GDB_> processGDB, INPSET_ inset, bool tilted);
-void output_to_ps (PFN output, vector <GDB_> processGDB, vector <GDB_> tiltprocessGDB, INPSET_ inset, PAPER P, CENTER center);
+void output_to_rgf (PFN output, vector <GDB> processGDB, INPSET inset, bool tilted);
+void output_to_ps (PFN output, vector <GDB> processGDB, vector <GDB> tiltprocessGDB, INPSET inset, PAPER P, CENTER center);
 
-void process_group_by_group (vector <GDB_> outGDB, vector <GDB_> tiltoutGDB, ofstream& o, INPSET_ inset, CENTER center, PAPER P);
-void process_one_by_one (GDB_ processGDB, GDB_ tiltprocessGDB, ofstream& o, INPSET_ inset, CENTER center, PAPER P);
+void process_group_by_group (vector <GDB> outGDB, vector <GDB> tiltoutGDB, ofstream& o, INPSET inset, CENTER center, PAPER P);
+void process_one_by_one (GDB processGDB, GDB tiltprocessGDB, ofstream& o, INPSET inset, CENTER center, PAPER P);
 
 void output_elapsed_time (double elapsed_time);
 

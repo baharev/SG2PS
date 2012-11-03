@@ -7,7 +7,7 @@
 
 using namespace std;
 
-ROSENUMBER compute_data_number_DIPDIR (vector <GDB_> inGDB, double strike_begin, double strike_end) {
+ROSENUMBER compute_data_number_DIPDIR (vector <GDB> inGDB, double strike_begin, double strike_end) {
 
 	ROSENUMBER counter;
 
@@ -53,7 +53,7 @@ ROSENUMBER compute_data_number_DIPDIR (vector <GDB_> inGDB, double strike_begin,
 	return counter;
 }
 
-ROSENUMBER compute_data_number_DIP (vector <GDB_> inGDB, double strike_begin, double strike_end) {
+ROSENUMBER compute_data_number_DIP (vector <GDB> inGDB, double strike_begin, double strike_end) {
 
 	ROSENUMBER counter;
 
@@ -99,61 +99,61 @@ ROSENUMBER compute_data_number_DIP (vector <GDB_> inGDB, double strike_begin, do
 	return counter;
 }
 
-void PS_draw_rose_LINEATION (GDB_ inGDB, ofstream& o, INPSET_ inset, CENTER center, ROSENUMBER percent, double begin_angle, bool vertical) {
+void PS_draw_rose_LINEATION (GDB inGDB, ofstream& o, INPSET inset, CENTER center, ROSENUMBER percent, double begin_angle, bool vertical) {
 
 	if (vertical) {
 
-		PS_rosesegment (inGDB, o, inset, center, percent.LIN_NUM, 90 + begin_angle, false);
+		PS_rosesegment (o, inset, center, percent.LIN_NUM, 90 + begin_angle, false);
 
 		return;
 	}
 
-	if (inset.rosetype == "A") PS_rosesegment (inGDB, o, inset, center, percent.LIN_NUM, begin_angle, false);
+	if (inset.rosetype == "A") PS_rosesegment (o, inset, center, percent.LIN_NUM, begin_angle, false);
 
 	else {
 
-		PS_rosesegment (inGDB, o, inset, center, percent.LIN_NUM, begin_angle,       false);
-		PS_rosesegment (inGDB, o, inset, center, percent.LIN_NUM, begin_angle + 180, false);
+		PS_rosesegment (o, inset, center, percent.LIN_NUM, begin_angle,       false);
+		PS_rosesegment (o, inset, center, percent.LIN_NUM, begin_angle + 180, false);
 	}
 }
 
-void PS_draw_rose_PLANE (GDB_ inGDB, ofstream& o, INPSET_ inset, CENTER center, ROSENUMBER percent, double begin_angle, bool vertical) {
+void PS_draw_rose_PLANE (GDB inGDB, ofstream& o, INPSET inset, CENTER center, ROSENUMBER percent, double begin_angle, bool vertical) {
 
 	if (vertical) {
 
-		PS_rosesegment (inGDB, o, inset, center, percent.PLN_NUM, 90 + begin_angle, false);
+		PS_rosesegment (o, inset, center, percent.PLN_NUM, 90 + begin_angle, false);
 		return;
 	}
 
-	if (inset.rosetype == "A") PS_rosesegment (inGDB, o, inset, center, percent.PLN_NUM, begin_angle, false);
+	if (inset.rosetype == "A") PS_rosesegment (o, inset, center, percent.PLN_NUM, begin_angle, false);
 
 	else {
 
-		PS_rosesegment (inGDB, o, inset, center, percent.PLN_NUM, begin_angle,       false);
-		PS_rosesegment (inGDB, o, inset, center, percent.PLN_NUM, begin_angle + 180, false);
+		PS_rosesegment (o, inset, center, percent.PLN_NUM, begin_angle,       false);
+		PS_rosesegment (o, inset, center, percent.PLN_NUM, begin_angle + 180, false);
 	}
 }
 
-void PS_draw_rose_SC_STRIAE (GDB_ inGDB, ofstream& o, INPSET_ inset, CENTER center, ROSENUMBER percent, double begin_angle, bool vertical) {
+void PS_draw_rose_SC_STRIAE (GDB inGDB, ofstream& o, INPSET inset, CENTER center, ROSENUMBER percent, double begin_angle, bool vertical) {
 
 	if (vertical) {
 
-		PS_rosesegment (inGDB, o, inset, center, percent.LIN_NUM, 90 + begin_angle, true);
+		PS_rosesegment (o, inset, center, percent.LIN_NUM, 90 + begin_angle, true);
 		return;
 	}
 
 	if (inset.rosetype == "A") {
 
-		PS_rosesegment (inGDB, o, inset, center, percent.LIN_NUM, begin_angle, true);
+		PS_rosesegment (o, inset, center, percent.LIN_NUM, begin_angle, true);
 	}
 
 	else {
-		PS_rosesegment (inGDB, o, inset, center, percent.LIN_NUM, begin_angle,       true);
-		PS_rosesegment (inGDB, o, inset, center, percent.LIN_NUM, begin_angle + 180, true);
+		PS_rosesegment (o, inset, center, percent.LIN_NUM, begin_angle,       true);
+		PS_rosesegment (o, inset, center, percent.LIN_NUM, begin_angle + 180, true);
 	}
 }
 
-void PS_draw_rose_DIPDIR (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, CENTER center) {
+void PS_draw_rose_DIPDIR (vector <GDB> inGDB, ofstream& o, INPSET inset, CENTER center) {
 
 	ROSENUMBER datanumber;
 	ROSENUMBER mx;
@@ -252,7 +252,7 @@ void PS_draw_rose_DIPDIR (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, CENTE
 		percent.PLN_NUM = percent.LIN_NUM;
 	}
 
-	PS_draw_rose_circle_horizontal (o, inset, center, percent);
+	PS_draw_rose_circle_horizontal (o, center, percent);
 
 
 	if ((inGDB.at(j).DATAGROUP == "SC") || (inGDB.at(0).DATAGROUP == "STRIAE")) {
@@ -284,7 +284,7 @@ void PS_draw_rose_DIPDIR (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, CENTE
 	}
 }
 
-void PS_draw_rose_DIP (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, CENTER center) {
+void PS_draw_rose_DIP (vector <GDB> inGDB, ofstream& o, INPSET inset, CENTER center) {
 
 	ROSENUMBER datanumber;
 	ROSENUMBER mx;
@@ -352,14 +352,14 @@ void PS_draw_rose_DIP (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, CENTER c
 	begin_angle = 0.0;
 
 	percent.PLN_NUM = mx.PLN_NUM / inGDB.size();
-	percent.LIN_NUM = mx.LIN_NUM / inGDB.size();	//
+	percent.LIN_NUM = mx.LIN_NUM / inGDB.size();
 
-	if (inGDB.at(j).DATAGROUP == "LINEATION") { //
+	if (inGDB.at(j).DATAGROUP == "LINEATION") {
 
 		percent.PLN_NUM = percent.LIN_NUM;
-	}														//
+	}
 
-	PS_draw_rose_circle_vertical (o, inset, center, percent);
+	PS_draw_rose_circle_vertical (o, center, percent);
 
 	if ((inGDB.at(j).DATAGROUP == "SC") || (inGDB.at(0).DATAGROUP == "STRIAE")) {
 
@@ -378,7 +378,7 @@ void PS_draw_rose_DIP (vector <GDB_> inGDB, ofstream& o, INPSET_ inset, CENTER c
 	}
 }
 
-void PS_draw_rose (vector <GDB_> roseGDB, vector <GDB_> tiltroseGDB, ofstream& o, INPSET_ inset, CENTER center, PAPER P) {
+void PS_draw_rose (vector <GDB> roseGDB, vector <GDB> tiltroseGDB, ofstream& o, INPSET inset, CENTER center, PAPER P) {
 
 	center.X = P.O3X;
 	center.Y = P.O3Y;
