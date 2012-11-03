@@ -11,6 +11,7 @@
 #include "rgf.h"
 #include "angelier.h"
 #include "cluster.h"
+#include "platform_dep.hpp"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ PFN createprojectfoldernames (string projectname) {
 
 	time_t current_time;
 	struct tm * TM;
-	const string bs = char_to_string ('\\');
+	const string bs = path_separator;
 
 	time ( &current_time );
 	TM = localtime ( &current_time );
@@ -55,167 +56,167 @@ PFN createprojectfoldernames (string projectname) {
 
 bool createprojectfolders (PFN output, vector <GDB> inGDB) {
 
-	const string bs = char_to_string ('\\');
+	const string bs = path_separator;
 	int returncode = 0;
 
-	returncode = system (("md " + output.projectfolder).c_str());
-	returncode = system (("md " + output.original).c_str());
-	returncode = system (("md " + output.completed).c_str());
-	returncode = system (("md " + output.average).c_str());
-	returncode = system (("md " + output.rgfsep).c_str());
-	returncode = system (("md " + output.pssep).c_str());
+	returncode = system (("mkdir " + output.projectfolder).c_str());
+	returncode = system (("mkdir " + output.original).c_str());
+	returncode = system (("mkdir " + output.completed).c_str());
+	returncode = system (("mkdir " + output.average).c_str());
+	returncode = system (("mkdir " + output.rgfsep).c_str());
+	returncode = system (("mkdir " + output.pssep).c_str());
 
 	if (existence ("BOUDAIN", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "boudain").c_str());
-		returncode = system (("md " + output.pssep + bs + "boudain").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "boudain").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "boudain").c_str());
 	}
 
 	if (existence ("CONTACT", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "contact").c_str());
-		returncode = system (("md " + output.pssep + bs + "contact").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "contact").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "contact").c_str());
 	}
 
 	if (existence ("FOLDAXIS", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "foldaxis").c_str());
-		returncode = system (("md " + output.pssep + bs + "foldaxis").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "foldaxis").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "foldaxis").c_str());
 	}
 
 	if (existence ("FOLDPLANE", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "foldplane").c_str());
-		returncode = system (("md " + output.pssep + bs + "foldplane").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "foldplane").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "foldplane").c_str());
 	}
 
 	if (existence ("KINK", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "kink").c_str());
-		returncode = system (("md " + output.pssep + bs + "kink").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "kink").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "kink").c_str());
 	}
 
 	if (existence ("LINEATION", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "lineation").c_str());
-		returncode = system (("md " + output.pssep + bs + "lineation").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "lineation").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "lineation").c_str());
 	}
 
 	if (existence ("LITHOCLASE", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "lithoclase").c_str());
-		returncode = system (("md " + output.pssep + bs + "lithoclase").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "lithoclase").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "lithoclase").c_str());
 	}
 	if (existence ("SC", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "sc").c_str());
-		returncode = system (("md " + output.pssep + bs + "sc").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "sc").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "sc").c_str());
 	}
 	if (existence ("BEDDING", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "bedding").c_str());
-		returncode = system (("md " + output.pssep + bs + "bedding").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "bedding").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "bedding").c_str());
 	}
 	if (existence ("S1", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "s1").c_str());
-		returncode = system (("md " + output.pssep + bs + "s1").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "s1").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "s1").c_str());
 	}
 
 	if (existence ("S2", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "s2").c_str());
-		returncode = system (("md " + output.pssep + bs + "s2").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "s2").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "s2").c_str());
 	}
 
 	if (existence ("S3", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "s3").c_str());
-		returncode = system (("md " + output.pssep + bs + "s3").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "s3").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "s3").c_str());
 	}
 
 	if (existence ("S4", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "s4").c_str());
-		returncode = system (("md " + output.pssep + bs + "s4").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "s4").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "s4").c_str());
 	}
 
 	if (existence ("S5", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "s5").c_str());
-		returncode = system (("md " + output.pssep + bs + "s5").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "s5").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "s5").c_str());
 	}
 
 	if (existence ("FRACTURE", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "fracture").c_str());
-		returncode = system (("md " + output.pssep + bs + "fracture").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "fracture").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "fracture").c_str());
 	}
 
 	if (existence ("STRIAE", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "striae").c_str());
-		returncode = system (("md " + output.pssep + bs + "striae").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "striae").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "striae").c_str());
 	}
 
 	if (existence ("CROSSBEDDING", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "crossbedding").c_str());
-		returncode = system (("md " + output.pssep + bs + "crossbedding").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "crossbedding").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "crossbedding").c_str());
 	}
 
 	if (existence ("VEIN", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "vein").c_str());
-		returncode = system (("md " + output.pssep + bs + "vein").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "vein").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "vein").c_str());
 	}
 
 	if (existence ("FOLDSURFACE", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "foldsurface").c_str());
-		returncode = system (("md " + output.pssep + bs + "foldsurface").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "foldsurface").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "foldsurface").c_str());
 	}
 
 	if (existence ("USERPLANE4", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "userplane4").c_str());
-		returncode = system (("md " + output.pssep + bs + "userplane4").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "userplane4").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "userplane4").c_str());
 	}
 
 	if (existence ("USERPLANE5", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "userplane5").c_str());
-		returncode = system (("md " + output.pssep + bs + "userplane5").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "userplane5").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "userplane5").c_str());
 	}
 
 	if (existence ("USERLINEATION1", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "userlineation1").c_str());
-		returncode = system (("md " + output.pssep + bs + "userlineation1").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "userlineation1").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "userlineation1").c_str());
 	}
 
 	if (existence ("USERLINEATION2", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "userlineation2").c_str());
-		returncode = system (("md " + output.pssep + bs + "userlineation2").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "userlineation2").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "userlineation2").c_str());
 	}
 
 	if (existence ("USERLINEATION3", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "userlineation3").c_str());
-		returncode = system (("md " + output.pssep + bs + "userlineation3").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "userlineation3").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "userlineation3").c_str());
 	}
 
 	if (existence ("USERLINEATION4", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "userlineation4").c_str());
-		returncode = system (("md " + output.pssep + bs + "userlineation4").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "userlineation4").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "userlineation4").c_str());
 	}
 
 	if (existence ("USERLINEATION5", inGDB)) {
 
-		returncode = system (("md " + output.rgfsep + bs + "userlineation5").c_str());
-		returncode = system (("md " + output.pssep + bs + "userlineation5").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "userlineation5").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "userlineation5").c_str());
 	}
 
 	if (returncode != 0) {
@@ -233,7 +234,7 @@ bool copyoriginalfile (PFN output) {
 	ifstream inrgffile;
 	ofstream outrgffile;
 
-	const string bs = char_to_string ('\\');
+	const string bs = path_separator;
 	string buffer;
 
 	string infilename = (output.projectname + ".rgf").c_str();
@@ -396,7 +397,7 @@ void outputresultrgf (PFN output, vector <GDB> outGDB, bool tilted, INPSET inset
 
 	ofstream outputfile;
 	string outputfilename;
-	string bs = char_to_string ('\\');
+	string bs = path_separator;
 
 	size_t i = 0;
 
@@ -426,7 +427,7 @@ void outputresultrgf (PFN output, vector <GDB> outGDB, bool tilted, INPSET inset
 void outputaveragergf (PFN output, vector <GDB> outGDB) {
 
 	ofstream outputfile;
-	string bs = char_to_string ('\\');
+	string bs = path_separator;
 	string outputfilename = output.average + bs + output.projectname + "_average.rgf";
 
 	size_t i = 0;
@@ -536,7 +537,7 @@ void output_to_rgf (PFN output, vector <GDB> processGDB, INPSET inset, bool tilt
 
 	ofstream output_rgf_file;
 	string output_rgf_filename;
-	string bs = char_to_string ('\\');
+	string bs = path_separator;
 	size_t j = 0;
 
 	if (inset.group == "Y") output_rgf_filename = output.rgfsep + bs + processGDB.at(0).DATATYPE + bs + processGDB.at(0).LOC + "_" + processGDB.at(0).DATATYPE + "_" + processGDB.at(0).GC;
@@ -568,7 +569,7 @@ void output_to_ps (PFN output, vector <GDB> processGDB, vector <GDB> tiltprocess
 
 	ofstream output_ps_file, output_rgf_file, output_tiltedrgf_file;
 	string output_rgf_filename,  output_tiltedrgf_filename, output_ps_filename;
-	string bs = char_to_string ('\\');
+	string bs = path_separator;
 	size_t j = 0;
 
 	if (inset.group == "Y") output_ps_filename = output.pssep +  bs + processGDB.at(0).DATATYPE + bs + processGDB.at(0).LOC + "_" + processGDB.at(0).DATATYPE + "_" + processGDB.at(0).GC + ".ps";
