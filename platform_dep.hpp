@@ -7,10 +7,9 @@
 
 const char path_separator[] =
 #ifdef _WIN32
-		"\"
+		"\\";
 #else
-		"/"
+		"/";
 #endif
-;
 
 #endif
