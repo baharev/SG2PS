@@ -114,8 +114,8 @@ bool createprojectfolders (PFN output, vector <GDB> inGDB) {
 	}
 	if (existence ("BEDDING", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "bedding").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "bedding").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "BEDDING").c_str()); // FIXME Linux is case sensitive
+		returncode = system (("mkdir " + output.pssep + bs + "BEDDING").c_str());
 	}
 	if (existence ("S1", inGDB)) {
 
@@ -149,13 +149,13 @@ bool createprojectfolders (PFN output, vector <GDB> inGDB) {
 
 	if (existence ("FRACTURE", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "fracture").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "fracture").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "FRACTURE").c_str()); // FIXME Linux is case sensitive
+		returncode = system (("mkdir " + output.pssep + bs + "FRACTURE").c_str());
 	}
 
 	if (existence ("STRIAE", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "striae").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "striae").c_str()); // FIXME Upper case?
 		returncode = system (("mkdir " + output.pssep + bs + "striae").c_str());
 	}
 
@@ -567,15 +567,18 @@ void output_to_rgf (PFN output, vector <GDB> processGDB, INPSET inset, bool tilt
 
 void output_to_ps (PFN output, vector <GDB> processGDB, vector <GDB> tiltprocessGDB, INPSET inset, PAPER P, CENTER center) {
 
-	ofstream output_ps_file, output_rgf_file, output_tiltedrgf_file;
-	string output_rgf_filename,  output_tiltedrgf_filename, output_ps_filename;
+	string output_ps_filename;
 	string bs = path_separator;
-	size_t j = 0;
 
 	if (inset.group == "Y") output_ps_filename = output.pssep +  bs + processGDB.at(0).DATATYPE + bs + processGDB.at(0).LOC + "_" + processGDB.at(0).DATATYPE + "_" + processGDB.at(0).GC + ".ps";
 	else 					output_ps_filename = output.pssep +  bs + processGDB.at(0).DATATYPE + bs + processGDB.at(0).LOC + "_" + processGDB.at(0).DATATYPE + ".ps";
 
-	output_ps_file.open (output_ps_filename.c_str());
+	ofstream output_ps_file(output_ps_filename.c_str());
+// FIXME Do you want to give up on failure?
+//	if (!output_ps_file.good()) {
+//		throw runtime_error("failed to create "+output_ps_filename);
+//	}
+
 	PS_header (processGDB.at(0).DATATYPE, processGDB.at(0).LOC, output_ps_file, P);
 	PS_SYMBOLS(processGDB, output_ps_file, inset, P);
 
@@ -583,20 +586,17 @@ void output_to_ps (PFN output, vector <GDB> processGDB, vector <GDB> tiltprocess
 
 	PS_border (processGDB.at(0), output_ps_file, inset, P);
 
-	do {
+	for (size_t j=0; j<processGDB.size(); ++j) {
 
 		process_one_by_one (processGDB.at(j), tiltprocessGDB.at(j), output_ps_file, inset, center, P);
 		if (j < processGDB.size()-1) output_ps_file << endl;
-		j++;
-
-	} while (j < processGDB.size());
+	}
 
 	process_group_by_group (processGDB, tiltprocessGDB, output_ps_file, inset, center, P);
 
 	PS_datanumber_averagebedding (processGDB.at(0), output_ps_file, inset, P, center, processGDB.size());
 
 	PS_net (processGDB.at(0).DATATYPE, processGDB.at(0).LOC, output_ps_file, inset, P);
-	output_ps_file.close();
 }
 
 void process_group_by_group (vector <GDB> outGDB, vector <GDB> tiltoutGDB, ofstream& o, INPSET inset, CENTER center, PAPER P) {
