@@ -1,9 +1,8 @@
 // Copyright (C) 2012, Ágoston Sasvári
 // All rights reserved.
 // This code is published under the GNU Lesser General Public License.
-#include <stdexcept>
-
 #include "checksettingfilecontent.h"
+#include "exceptions.hpp"
 
 
 using namespace std;
@@ -389,7 +388,7 @@ INPSET inputsettings_manually (string projectname) {
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") throw runtime_error ("Exit the program");
+		if (c == "X") throw exit_requested();
 	}
 	while (!((c=="G") || (c=="R")));
 	inputsettingsonscreen.datarule = c;
@@ -402,7 +401,7 @@ INPSET inputsettings_manually (string projectname) {
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") throw runtime_error ("Exit the program");
+		if (c == "X") throw exit_requested();
 	}
 	while (!((c=="A") || (c=="H")));
 	inputsettingsonscreen.plot = c;
@@ -415,7 +414,7 @@ INPSET inputsettings_manually (string projectname) {
 		cout << "    - or equal angle Wulff-net..............................[w]?  " << flush;
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") throw runtime_error ("Exit the program");
+		if (c == "X") throw exit_requested();
 	}
 	while (!((c=="S") || (c=="W")));
 	inputsettingsonscreen.plottype = c;
@@ -428,7 +427,7 @@ INPSET inputsettings_manually (string projectname) {
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") throw runtime_error ("Exit the program");
+		if (c == "X") throw exit_requested();
 	}
 	while (!((c=="L") || (c=="U")));
 	inputsettingsonscreen.hemisphere = c;
@@ -442,7 +441,7 @@ INPSET inputsettings_manually (string projectname) {
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") throw runtime_error ("Exit the program");
+		if (c == "X") throw exit_requested();
 	}
 	while (!((c == "B") || (c == "P") || (c == "A")));
 	inputsettingsonscreen.tilting = c;
@@ -455,7 +454,7 @@ INPSET inputsettings_manually (string projectname) {
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") throw runtime_error ("Exit the program");
+		if (c == "X") throw exit_requested();
 	}
 	while (!((c == "Y") || (c == "N")));
 	inputsettingsonscreen.group = c;
@@ -469,7 +468,7 @@ INPSET inputsettings_manually (string projectname) {
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") throw runtime_error ("Exit the program");
+		if (c == "X") throw exit_requested();
 	}
 	while (!((c == "N") || (c == "A") || (c == "2") || (c == "3") || (c == "4") || (c == "5") || (c == "6") || (c == "7") || (c == "8") || (c == "9")));
 	inputsettingsonscreen.clusternumber = c;
@@ -482,7 +481,7 @@ INPSET inputsettings_manually (string projectname) {
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") throw runtime_error ("Exit the program");
+		if (c == "X") throw exit_requested();
 	}
 	while (!((c == "Y") || (c == "N")));
 	inputsettingsonscreen.labeling = c;
@@ -501,7 +500,7 @@ INPSET inputsettings_manually (string projectname) {
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") throw runtime_error ("Exit the program");
+		if (c == "X") throw exit_requested();
 	}
 	while (!((c == "D") || (c == "A") || (c == "P") || (c == "N") || (c == "M") || (c == "O") || (c == "S") || (c == "F") ));
 	inputsettingsonscreen.inversion = c;
@@ -514,7 +513,7 @@ INPSET inputsettings_manually (string projectname) {
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") throw runtime_error ("Exit the program");
+		if (c == "X") throw exit_requested();
 	}
 	while (!((c == "Y") || (c == "N")));
 	inputsettingsonscreen.virt_striae = c;
@@ -527,7 +526,7 @@ INPSET inputsettings_manually (string projectname) {
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") throw runtime_error ("Exit the program");
+		if (c == "X") throw exit_requested();
 	}
 	while (!((c == "Y") || (c == "N")));
 	inputsettingsonscreen.virt_striae = c;
@@ -538,7 +537,7 @@ INPSET inputsettings_manually (string projectname) {
 		cout << "    - 10 to 80 degrees.................................[10..80]?  " << flush;
 
 		cin >> c;
-		if (c == "X") throw runtime_error ("Exit the program");
+		if (c == "X") throw exit_requested();
 	}
 	while ((atof(c.c_str()) < 10.0) || (atof(c.c_str()) > 80.0));
 	inputsettingsonscreen.angle = atof(c.c_str());
@@ -551,7 +550,7 @@ INPSET inputsettings_manually (string projectname) {
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") throw runtime_error ("Exit the program");
+		if (c == "X") throw exit_requested();
 	}
 	while (!((c == "B") || (c == "N")));
 	inputsettingsonscreen.fracture = c;
@@ -562,7 +561,7 @@ INPSET inputsettings_manually (string projectname) {
 		cout << "    - 0.1 to 1.0.............................[1...9, 0 for 1.0]?  " << flush;
 
 		cin >> c;
-		if (c == "X") throw runtime_error ("Exit the program");
+		if (c == "X") throw exit_requested();
 	}
 	while (!(
 		  (c == "0") || (c == "1") || (c == "2") || (c == "3")|| (c == "4") ||
@@ -588,7 +587,7 @@ INPSET inputsettings_manually (string projectname) {
 
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") throw runtime_error ("Exit the program");
+		if (c == "X") throw exit_requested();
 	}
 	while (!((c == "S") || (c == "A")));
 	inputsettingsonscreen.rosetype = c;
@@ -602,7 +601,7 @@ INPSET inputsettings_manually (string projectname) {
 		cout << "    - or 22.5 degrees.......................................[d]?  " << flush;
 		cin >> c;
 		c = capslock(c);
-		if (c == "X") throw runtime_error ("Exit the program");
+		if (c == "X") throw exit_requested();
 	}
 	while (!((c == "A") || (c == "B") || (c == "C") || (c == "D")));
 	inputsettingsonscreen.rosebinning = c;
@@ -780,7 +779,7 @@ string input_setting_decision () {
 		cin >> c;
 		c = capslock (c);
 
-		if (c == "X") throw runtime_error ("Exit the program");
+		if (c == "X") throw exit_requested();
 	}
 
 	return c;

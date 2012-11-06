@@ -3,10 +3,9 @@
 // This code is published under the GNU Lesser General Public License.
 #include <map>
 #include <iostream>
-#include <stdexcept>
-
 
 #include "checkxycontent.h"
+#include "exceptions.hpp"
 
 using namespace std;
 
@@ -25,7 +24,7 @@ bool needxyfile () {
 
 		cin >> need_xy_file;
 		need_xy_file = capslock(need_xy_file);
-		if (need_xy_file == "X") throw runtime_error ("Exit the program");
+		if (need_xy_file == "X") throw exit_requested();
 	}
 
 	while (!((need_xy_file == "Y") || (need_xy_file == "N")));

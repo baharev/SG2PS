@@ -9,7 +9,6 @@
 #include <string>
 #include <cstdio>
 #include <cstdlib>
-#include <stdexcept>
 
 #include "structs.h"
 #include "common.h"

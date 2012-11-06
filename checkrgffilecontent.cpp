@@ -5,6 +5,7 @@
 #include <stdexcept>
 
 #include "checkrgffilecontent.h"
+#include "exceptions.hpp"
 
 using namespace std;
 
@@ -21,7 +22,7 @@ string inputfilename () {
 
 		cin  >> projectname;
 
-		if ((projectname == "X") || (projectname == "x")) throw runtime_error ("Exit the program");
+		if ((projectname == "X") || (projectname == "x")) throw exit_requested();
 
 		filename = projectname + ".rgf";
 

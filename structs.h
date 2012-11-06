@@ -5,7 +5,6 @@
 #define STRUCTS_HPP_
 
 #include <string>
-#include <stdexcept>
 
 using namespace std;
 

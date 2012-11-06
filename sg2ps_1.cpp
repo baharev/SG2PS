@@ -2,15 +2,9 @@
 // All rights reserved.
 // This code is published under the GNU Lesser General Public License.
 #include <iostream>
-#include <fstream>
 #include <string>
-#include <vector>
-#include <cstdio>
-#include <iomanip>
-#include <cmath>
 #include <ctime>
-#include <algorithm>
-
+#include <stdexcept>
 
 #include "common.h"
 #include "rgf.h"
@@ -19,24 +13,19 @@
 #include "checkrgffilecontent.h"
 #include "checkxycontent.h"
 #include "cluster.h"
-
-
+#include "exceptions.hpp"
 
 using namespace std;
 
-int main (int argument_number, char *argv[]) {
+void real_main(int argument_number, char *argv[]) {
 
 	string inputrgfname, xy_filename, inputrgfname_only, temp;
 	vector <GDB> geodatabase, tiltgeodatabase;
 	INPSET inset;
-	long finishtime, starttime;
 	size_t j = 1;
 	bool batch = false;
 	bool using_xy_files = false;
 	vector <string> inputfilename_vector;
-	vector <bool> xy_file_ok;
-	double elapsed_time;
-
 
 	header ();
 
@@ -55,9 +44,9 @@ int main (int argument_number, char *argv[]) {
 	if (batch) using_xy_files = true;
 	else using_xy_files = needxyfile ();
 
-	if (!(batch)) manage_settings_nobatch (inputfilename_vector.at(1));
+	if (!batch) manage_settings_nobatch (inputfilename_vector.at(1));
 
-	starttime = clock ();
+	clock_t starttime = clock ();
 
 	do {
 
@@ -73,11 +62,33 @@ int main (int argument_number, char *argv[]) {
 
 	} while (j < inputfilename_vector.size());
 
-	finishtime = clock();
+	clock_t finishtime = clock();
 
-	elapsed_time = finishtime - starttime;
+	double elapsed_time = (static_cast<double>(finishtime - starttime))/CLOCKS_PER_SEC;
+
+	elapsed_time *= 1000; // FIXME Assumes it in ms
 
 	output_elapsed_time (elapsed_time);
+}
 
-	return 0;
+int main (int argc, char *argv[]) {
+
+	enum error_codes { SUCCESS, RUNTIME_ERROR };
+
+	try {
+
+		real_main(argc, argv);
+	}
+	catch(exit_requested& ) {
+		// User requested exit
+		// I believe it is the normal behavior so nothing to do
+	}
+	catch(runtime_error& e) {
+
+		cerr << "Runtime error: " << e.what() << endl;
+		return RUNTIME_ERROR;
+	}
+	// TODO In the release build, there will be more to catch
+
+	return SUCCESS;
 }
