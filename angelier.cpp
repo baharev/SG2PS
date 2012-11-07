@@ -1,6 +1,7 @@
 // Copyright (C) 2012, Ágoston Sasvári
 // All rights reserved.
 // This code is published under the GNU Lesser General Public License.
+
 #include <iomanip>
 #include <cmath>
 
@@ -10,7 +11,6 @@
 #include "rgf.h"
 
 using namespace std;
-
 
 vector <vector < double> > michael_parameters (vector <GDB> inGDB) {
 

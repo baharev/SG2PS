@@ -1,6 +1,7 @@
 // Copyright (C) 2012, Ágoston Sasvári
 // All rights reserved.
 // This code is published under the GNU Lesser General Public License.
+
 #include <iomanip>
 #include <iostream>
 #include <algorithm>
@@ -68,155 +69,155 @@ bool createprojectfolders (PFN output, vector <GDB> inGDB) {
 
 	if (existence ("BOUDAIN", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "boudain").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "boudain").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "BOUDAIN").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "BOUDAIN").c_str());
 	}
 
 	if (existence ("CONTACT", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "contact").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "contact").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "CONTACT").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "CONTACT").c_str());
 	}
 
 	if (existence ("FOLDAXIS", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "foldaxis").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "foldaxis").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "FOLDAXIS").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "FOLDAXIS").c_str());
 	}
 
 	if (existence ("FOLDPLANE", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "foldplane").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "foldplane").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "FOLDPLANE").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "FOLDPLANE").c_str());
 	}
 
 	if (existence ("KINK", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "kink").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "kink").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "KINK").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "KINK").c_str());
 	}
 
 	if (existence ("LINEATION", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "lineation").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "lineation").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "LINEATION").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "LINEATION").c_str());
 	}
 
 	if (existence ("LITHOCLASE", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "lithoclase").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "lithoclase").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "LITHOCLASE").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "LITHOCLASE").c_str());
 	}
 	if (existence ("SC", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "sc").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "sc").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "SC").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "SC").c_str());
 	}
 	if (existence ("BEDDING", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "BEDDING").c_str()); // FIXME Linux is case sensitive
+		returncode = system (("mkdir " + output.rgfsep + bs + "BEDDING").c_str());
 		returncode = system (("mkdir " + output.pssep + bs + "BEDDING").c_str());
 	}
 	if (existence ("S1", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "s1").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "s1").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "S1").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "S1").c_str());
 	}
 
 	if (existence ("S2", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "s2").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "s2").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "S2").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "S2").c_str());
 	}
 
 	if (existence ("S3", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "s3").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "s3").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "S3").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "S3").c_str());
 	}
 
 	if (existence ("S4", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "s4").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "s4").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "S4").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "S4").c_str());
 	}
 
 	if (existence ("S5", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "s5").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "s5").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "S5").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "S5").c_str());
 	}
 
 	if (existence ("FRACTURE", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "FRACTURE").c_str()); // FIXME Linux is case sensitive
+		returncode = system (("mkdir " + output.rgfsep + bs + "FRACTURE").c_str());
 		returncode = system (("mkdir " + output.pssep + bs + "FRACTURE").c_str());
 	}
 
 	if (existence ("STRIAE", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "striae").c_str()); // FIXME Upper case?
-		returncode = system (("mkdir " + output.pssep + bs + "striae").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "STRIAE").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "STRIAE").c_str());
 	}
 
 	if (existence ("CROSSBEDDING", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "crossbedding").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "crossbedding").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "LITHOCLASE").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "LITHOCLASE").c_str());
 	}
 
 	if (existence ("VEIN", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "vein").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "vein").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "VEIN").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "VEIN").c_str());
 	}
 
 	if (existence ("FOLDSURFACE", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "foldsurface").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "foldsurface").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "FOLDSURFACE").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "FOLDSURFACE").c_str());
 	}
 
 	if (existence ("USERPLANE4", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "userplane4").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "userplane4").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "USERPLANE4").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "USERPLANE4").c_str());
 	}
 
 	if (existence ("USERPLANE5", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "userplane5").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "userplane5").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "USERPLANE5").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "USERPLANE5").c_str());
 	}
 
 	if (existence ("USERLINEATION1", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "userlineation1").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "userlineation1").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "USERLINEATION1").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "USERLINEATION1").c_str());
 	}
 
 	if (existence ("USERLINEATION2", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "userlineation2").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "userlineation2").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "USERLINEATION2").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "USERLINEATION2").c_str());
 	}
 
 	if (existence ("USERLINEATION3", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "userlineation3").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "userlineation3").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "USERLINEATION3").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "USERLINEATION3").c_str());
 	}
 
 	if (existence ("USERLINEATION4", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "userlineation4").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "userlineation4").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "USERLINEATION4").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "USERLINEATION4").c_str());
 	}
 
 	if (existence ("USERLINEATION5", inGDB)) {
 
-		returncode = system (("mkdir " + output.rgfsep + bs + "userlineation5").c_str());
-		returncode = system (("mkdir " + output.pssep + bs + "userlineation5").c_str());
+		returncode = system (("mkdir " + output.rgfsep + bs + "USERLINEATION5").c_str());
+		returncode = system (("mkdir " + output.pssep + bs + "USERLINEATION5").c_str());
 	}
 
 	if (returncode != 0) {
